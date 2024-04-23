@@ -1,0 +1,105 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Test Suite">
+    <test name="Regression Test">
+        <classes>
+            <!-- Define the test classes and their methods -->
+
+            <class name="QdaaStore.testCases.systemSettingsTest.SystemSettingsTest">
+            </class>
+            <class name="QdaaStore.testCases.systemSettingsTest.ItemsTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReceiptNotifyTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ExaminationTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReceiptStmtTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReceiptMemoTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.SpendingorderRequestTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReturnsDepartmentRequestTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.SpendingOrderTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.CompetitionReqTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReturnsDepartmentTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ReturnSpendingOrderTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ItemsTransfeerTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.InventoryTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.BalanceAdjustmentTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ClosingFinYearTest">
+            </class>
+            <class name="QdaaStore.testCases.mainOperationsTest.ItemForShowTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.PurOrderTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.PurQuoteRequestTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.PurQuoteTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.PurQuoteComparisonTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.ContractTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.ClassifyItemTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.PurOrderSummaryTest">
+            </class>
+            <class name="QdaaStore.testCases.procurementTest.ContractQueryTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.ReceiptStmtMonitoringTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.ReceiptMemoMonitoringTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.SpendingOrderMonitoringTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.InventoryMonitoringTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.TransformTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.InventoryDepartmentTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.SolfaClassificationTest">
+            </class>
+            <class name="QdaaStore.testCases.inventoryMonitorsTest.ItemInfoTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetDepreciationTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetMaintenanceTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetDisposalTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetDaftarTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetsTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetGroupsTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.AppAssetTypesTest">
+            </class>
+            <class name="QdaaStore.testCases.assetsTest.NewAddedAssetsTest">
+            </class>
+            <class name="QdaaStore.testCases.reportsTest.procurementTest.ProcurementReportsTest">
+            </class>
+            <class name="QdaaStore.testCases.reportsTest.inventoryMonitoringTest.inventoryMonitoringReportsTest">
+            </class>
+            <class name="QdaaStore.testCases.reportsTest.assetsTest.assetsReportsTest">
+            </class>
+            <class name="QdaaStore.testCases.reportsTest.mainOperationsReportTest.MainOperationReportTest">
+            </class>
+
+
+
+
+
+            <!-- Add more test classes as needed -->
+        </classes>
+    </test>
+</suite>
