@@ -5,9 +5,11 @@ on:
     branches: ["master"]
   schedule:
     - cron: "0 9 * * 0-4"  # Run at 11:00 AM from Sunday to Thursday
+
 jobs:
   test:
     runs-on: windows-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -37,6 +39,7 @@ jobs:
   send-email:
     needs: test
     runs-on: ubuntu-latest
+
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -44,14 +47,21 @@ jobs:
           name: test-reports
           path: target/surefire-reports
 
-      - name: Check test results
+      - name: Download screenshots
+        uses: actions/download-artifact@v2
+        with:
+          name: test-screenshots
+          path: target/screenshots
+
+      - name: Check test results and find failed method
         id: check-test-results
         run: |
-          failures=$(awk '/Tests run:/ && /Failures: [1-9]+/ {print "Failures found"}' target/surefire-reports/*.txt || true)
-          echo "::set-output name=test-failures::$failures"
+          failures=$(grep -r -l "FAILED" target/surefire-reports/*.txt || true)
+          failed_method=$(basename "${failures}" .txt)
+          echo "::set-output name=failed-method::$failed_method"
 
-      - name: Send email on failure
-        if: ${{ steps.check-test-results.outputs.test-failures != '' }}
+      - name: Send email on failure with screenshot
+        if: ${{ steps.check-test-results.outputs.failed-method != '' }}
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
@@ -64,12 +74,14 @@ jobs:
           body: |
             <p>
             Dear Eng. Ahmed,
-            The Selenium test results indicate a failure. Please review the attached HTML report.
+            The Selenium test results indicate a failure in method '${{ steps.check-test-results.outputs.failed-method }}'. Please review the attached HTML report and screenshot.
             </p>
-          attachments: target/surefire-reports/emailable-report.html
+          attachments: |
+            target/surefire-reports/emailable-report.html
+            target/screenshots/${{ steps.check-test-results.outputs.failed-method }}.png
 
       - name: Send email on success
-        if: ${{ steps.check-test-results.outputs.test-failures == '' }}
+        if: ${{ steps.check-test-results.outputs.failed-method == '' }}
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
