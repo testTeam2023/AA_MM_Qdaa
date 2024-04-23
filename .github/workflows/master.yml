@@ -5,11 +5,9 @@ on:
     branches: ["master"]
   schedule:
     - cron: "0 9 * * 0-4"  # Run at 11:00 AM from Sunday to Thursday
-
 jobs:
   test:
     runs-on: windows-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,7 +24,7 @@ jobs:
 
       - name: Run Selenium Tests and Generate Report
         run: |
-          mvn clean test -Denvironment=ip -Dtest=AppAssetDaftarTest
+          mvn clean test -Denvironment=ip
         continue-on-error: true
 
       - name: Archive artifacts
@@ -36,16 +34,9 @@ jobs:
           name: test-reports
           path: target/surefire-reports/
 
-      - name: Upload screenshots as artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: test-screenshots
-          path: target/screenshots
-
   send-email:
     needs: test
     runs-on: ubuntu-latest
-
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v2
@@ -53,40 +44,32 @@ jobs:
           name: test-reports
           path: target/surefire-reports
 
-      - name: Download screenshots
-        uses: actions/download-artifact@v2
-        with:
-          name: test-screenshots
-          path: target/screenshots
-
       - name: Check test results
         id: check-test-results
         run: |
-             failures=$(awk '/Tests run:/ && /Failures: [1-9]+/ {print "Failures found"}' target/surefire-reports/*.txt || true)
-             echo "::set-output name=test-failures::$failures"
+          failures=$(awk '/Tests run:/ && /Failures: [1-9]+/ {print "Failures found"}' target/surefire-reports/*.txt || true)
+          echo "::set-output name=test-failures::$failures"
 
       - name: Send email on failure
         if: ${{ steps.check-test-results.outputs.test-failures != '' }}
         uses: dawidd6/action-send-mail@v2
         with:
-            server_address: ${{ secrets.EMAIL_SERVER }}
-            server_port: ${{ secrets.EMAIL_PORT }}
-            username: ${{ secrets.EMAIL_USERNAME }}
-            password: ${{ secrets.EMAIL_PASSWORD }}
-            to: "ahmedali@azka.com,aabdelaziz@azka.com"
-            from: "azkatestingteam@gmail.com"
-            subject: "Qdaa Store Test Results - Failure"
-            body: |
-              <p>
-              Dear Eng. Ahmed,
-              The Selenium test results indicate a failure. Please review the attached HTML report.
-              </p>
-            attachments: |
-              target/surefire-reports/emailable-report.html
-              target/screenshots/${{ steps.check-test-results.outputs.failed-method }}.png
+          server_address: ${{ secrets.EMAIL_SERVER }}
+          server_port: ${{ secrets.EMAIL_PORT }}
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          to: "ahmedali@azka.com,aabdelaziz@azka.com"
+          from: "azkatestingteam@gmail.com"
+          subject: "Qdaa Store Test Results - Failure"
+          body: |
+            <p>
+            Dear Eng. Ahmed,
+            The Selenium test results indicate a failure. Please review the attached HTML report.
+            </p>
+          attachments: target/surefire-reports/emailable-report.html
 
       - name: Send email on success
-        if: ${{ steps.check-test-results.outputs.failed-method == '' }}
+        if: ${{ steps.check-test-results.outputs.test-failures == '' }}
         uses: dawidd6/action-send-mail@v2
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
