@@ -36,6 +36,12 @@ jobs:
           name: test-reports
           path: target/surefire-reports/
 
+      - name: Upload screenshots as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-screenshots
+          path: target/screenshots
+
   send-email:
     needs: test
     runs-on: ubuntu-latest
@@ -53,32 +59,31 @@ jobs:
           name: test-screenshots
           path: target/screenshots
 
-      - name: Check test results and find failed method
+      - name: Check test results
         id: check-test-results
         run: |
-          failures=$(grep -r -l "FAILED" target/surefire-reports/*.txt || true)
-          failed_method=$(basename "${failures}" .txt)
-          echo "::set-output name=failed-method::$failed_method"
+             failures=$(awk '/Tests run:/ && /Failures: [1-9]+/ {print "Failures found"}' target/surefire-reports/*.txt || true)
+             echo "::set-output name=test-failures::$failures"
 
-      - name: Send email on failure with screenshot
-        if: ${{ steps.check-test-results.outputs.failed-method != '' }}
+      - name: Send email on failure
+        if: ${{ steps.check-test-results.outputs.test-failures != '' }}
         uses: dawidd6/action-send-mail@v2
         with:
-          server_address: ${{ secrets.EMAIL_SERVER }}
-          server_port: ${{ secrets.EMAIL_PORT }}
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          to: "ahmedali@azka.com,aabdelaziz@azka.com"
-          from: "azkatestingteam@gmail.com"
-          subject: "Qdaa Store Test Results - Failure"
-          body: |
-            <p>
-            Dear Eng. Ahmed,
-            The Selenium test results indicate a failure in method '${{ steps.check-test-results.outputs.failed-method }}'. Please review the attached HTML report and screenshot.
-            </p>
-          attachments: |
-            target/surefire-reports/emailable-report.html
-            target/screenshots/${{ steps.check-test-results.outputs.failed-method }}.png
+            server_address: ${{ secrets.EMAIL_SERVER }}
+            server_port: ${{ secrets.EMAIL_PORT }}
+            username: ${{ secrets.EMAIL_USERNAME }}
+            password: ${{ secrets.EMAIL_PASSWORD }}
+            to: "ahmedali@azka.com,aabdelaziz@azka.com"
+            from: "azkatestingteam@gmail.com"
+            subject: "Qdaa Store Test Results - Failure"
+            body: |
+              <p>
+              Dear Eng. Ahmed,
+              The Selenium test results indicate a failure. Please review the attached HTML report.
+              </p>
+            attachments: |
+              target/surefire-reports/emailable-report.html
+              target/screenshots/${{ steps.check-test-results.outputs.failed-method }}.png
 
       - name: Send email on success
         if: ${{ steps.check-test-results.outputs.failed-method == '' }}
