@@ -276,20 +276,24 @@ public class Items {
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             alert.accept();
-            Thread.sleep(1500);
+            Thread.sleep(2000);
             wait.until(ExpectedConditions.elementToBeClickable(okBtn)).click();
-            Thread.sleep(1500);
-
+            Thread.sleep(2000);
         } catch (Exception e) {
             System.out.println("الصنف مستخدم في احدي العمليات الاساسية لذلك لا يمكن الحذف");
         }
         return this;
     }
-    public boolean getDeleteSuccessMessage(){
-        return  wait.until(ExpectedConditions.visibilityOfElementLocated(deleteSuccessMessage)).isDisplayed();
-
-
-
+    public boolean getDeleteSuccessMessage() {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(deleteSuccessMessage)).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying find delete success message ");
+            }
+        }
+        throw new RuntimeException("failed to find delete success message");
     }
 
 

@@ -161,19 +161,43 @@ public class SpendingOrder {
         WebElement add= waitForClickableElement(addBtn);
         add.click();
         Thread.sleep(1500);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400);");
+
         return this ;
     }
 
     public SpendingOrder clickOnSaveBtn() throws InterruptedException{
-        WebElement saveButton = waitForClickableElement(saveBtn);
-        saveButton.click();
-        Thread.sleep(1500);
 
-        WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
-        Thread.sleep(1500);
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                saveButton.click();
+                Thread.sleep(1500);
 
-        return this;
+                WebElement okButton = waitForClickableElement(okBtn);
+                okButton.click();
+                Thread.sleep(1500);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
 
     public boolean getSuccessMessage() {

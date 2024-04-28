@@ -277,7 +277,7 @@ public class ItemsTransfeer {
 
     }
     public ItemsTransfeer clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
@@ -289,7 +289,7 @@ public class ItemsTransfeer {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(3000);
                 clickOnSearchTab();
             }
         }

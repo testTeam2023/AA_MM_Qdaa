@@ -166,8 +166,7 @@ public class Contract {
 
                 WebElement okButton = waitForClickableElement(okBtn);
                 okButton.click();
-                SoftAssert softAssert=new SoftAssert();
-                softAssert.assertTrue(getSuccessMessage());
+
                 Thread.sleep(1500);
 
                 return this;
@@ -364,8 +363,8 @@ public class Contract {
     }
 
     public Contract scrollToTheEnd(){
-        Actions actions = new Actions(driver);
-        actions.scrollToElement(driver.findElement(editBtn));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600);");
         return this ;
     }
     public Contract scrollDown(){

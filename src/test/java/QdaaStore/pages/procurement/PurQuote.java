@@ -134,8 +134,7 @@ public class PurQuote {
 
                 WebElement okButton = waitForClickableElement(okBtn);
                 okButton.click();
-                SoftAssert softAssert=new SoftAssert();
-                softAssert.assertTrue(getSuccessMessage());
+
                 Thread.sleep(1500);
 
                 return this;

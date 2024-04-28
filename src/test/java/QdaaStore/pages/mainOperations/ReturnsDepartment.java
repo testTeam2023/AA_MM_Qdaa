@@ -191,23 +191,43 @@ public class ReturnsDepartment {
     private final By itemQty = By.xpath("//*[@id=\"ReturnsQuantity\"]");
     private final By addBtn = By.xpath("//*[@id=\"btnAddNewItem\"]");
 
-    public ReturnsDepartment addItem(String itemNumbers ,String itemqtys) throws InterruptedException{
-        WebElement itemNumBtn= waitForClickableElement(itemNumberBtn);
+    public ReturnsDepartment addItem(String itemNumbers ,String itemqtys) throws InterruptedException {
+        WebElement itemNumBtn = waitForClickableElement(itemNumberBtn);
         itemNumBtn.click();
 
-        WebElement itemNumber= waitForClickableElement(itemNum);
-        itemNumber.sendKeys(itemNumbers,Keys.ENTER);
+        WebElement itemNumber = waitForClickableElement(itemNum);
+        itemNumber.sendKeys(itemNumbers, Keys.ENTER);
 
         WebElement qty = waitForClickableElement(itemQty);
         qty.clear();
         qty.sendKeys(itemqtys);
+        try {
+            WebElement add = waitForClickableElement(addBtn);
+            add.click();
+            Thread.sleep(2000);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,350);");
+            return this;
+        } catch (Exception e) {
+            handleUnexpectedAlert();
+            System.out.println("Retrying to use another item");
+            WebElement itemNumsBtn = waitForClickableElement(itemNumberBtn);
+            itemNumsBtn.click();
 
-        WebElement add= waitForClickableElement(addBtn);
-        add.click();
-        Thread.sleep(2000);
-        JavascriptExecutor js = (JavascriptExecutor) driver ;
-        js.executeScript("window.scrollBy(0,350);") ;
-        return this ;
+            WebElement item = waitForClickableElement(itemNum);
+            item.sendKeys("298", Keys.ENTER);
+
+            WebElement qtys = waitForClickableElement(itemQty);
+            qtys.clear();
+            qtys.sendKeys("1");
+
+            WebElement add = waitForClickableElement(addBtn);
+            add.click();
+            Thread.sleep(2000);
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,350);");
+        }
+    throw new RuntimeException("failed to add an item check the data of test ");
     }
 
     private final By addAllEmployeeItems=By.xpath("//*[@id=\"btnAddAllItem\"]");

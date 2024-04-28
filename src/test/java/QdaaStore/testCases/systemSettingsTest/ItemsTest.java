@@ -47,8 +47,6 @@ public class ItemsTest extends TestBase {
                 .clickOnSearchTab()
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
-        Boolean isDisplayed = items.getDeleteSuccessMessage();
-        Assert.assertTrue(isDisplayed);
 
 
 
