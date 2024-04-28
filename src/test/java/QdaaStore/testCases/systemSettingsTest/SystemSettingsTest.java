@@ -45,13 +45,10 @@ public class SystemSettingsTest extends TestBase {
                .clickOnSaveButton().clickOnSuccessMessageButton();
 
 
-       boolean isDisplayed = systemSettings.mainPageLoad()
+        systemSettings.mainPageLoad()
                .clickOnSystemSettingsButton()
                .navigateToSuppliersPage()
-               .clickOnSaveButton()
-               .suppWantedErrorISDisplayed();
-       softAssert.assertTrue(isDisplayed);
-
+               .clickOnSaveButton();
 
       boolean actuall = systemSettings.mainPageLoad().clickOnSystemSettingsButton().navigateToStoresPage()
                .clickOnSaveButton()

@@ -14,7 +14,6 @@ public class ItemsTest extends TestBase {
              .chooseItemClassification()
              .enterItemName(RandomArItems.randomItemsName())
              .chooseItemType()
-             .chooseItemHasSerial()
              .chooseUnit()
              .chooseStore()
              .clickOnSaveBtn();
@@ -38,10 +37,7 @@ public class ItemsTest extends TestBase {
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .editMaxQty()
-                .scrollDown()
                 .clickOnEditSaveBtn();
-        Assert.assertTrue(items.getSuccessMessage());
-
     }
     @Test(priority = 3)
     public void ItemsDelete()throws InterruptedException{

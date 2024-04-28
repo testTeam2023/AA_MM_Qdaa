@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
@@ -208,9 +209,17 @@ public class SystemSettings {
     }
 
     public boolean suppWantedErrorISDisplayed(){
-
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(suppWantedError)).isDisplayed();
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(suppWantedError)).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying assert to suppWantedErrorISDisplayed ");
+            }
+        }
+            throw new RuntimeException("failed to assert to suppWantedErrorISDisplayed ");
     }
+
 
     public boolean classificationsPageIsDisplayed() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(classificationAssertion)).isDisplayed();
@@ -225,12 +234,22 @@ public class SystemSettings {
     }
 
     public SystemSettings clickOnSaveButton () throws InterruptedException {
-        Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(saveButton)).click().build().perform();
-        // wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
-        Thread.sleep(5000);
-        return this ;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                Actions actions = new Actions(driver);
+                actions.moveToElement(driver.findElement(saveButton)).click().build().perform();
+                // wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
+                Thread.sleep(5000);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
     }
+
     public SystemSettings clickOutsideTheModal () {
         Actions actions = new Actions(driver);
         try {

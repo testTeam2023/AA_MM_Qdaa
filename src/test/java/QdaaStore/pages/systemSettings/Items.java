@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
 
@@ -21,6 +22,17 @@ public class Items {
                 .withTimeout(Duration.ofSeconds(60))
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(NoSuchElementException.class);
+    }
+    public WebElement waitForClickableElement(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public WebElement waitForVisibilityElement(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public WebElement waitForPresenceElement(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     private final By chooseItemClassificationBtn = By.xpath("//span[@class=\"input-group-btn\"]//a[contains(text(),\"إختر فئة الصنف\")]");
@@ -82,30 +94,54 @@ public class Items {
     private final By  saveBtn = By.xpath("//input[@value=\"حفظ\"]");
     private final By  okBtn = By.xpath("//button[@id=\"btn-ok-modal\"]");
     private final By successMessage= By.xpath("//div[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحفظ بنجاح\")]");
-    public Items chooseStore(){
-        WebElement parent = wait.until(ExpectedConditions.visibilityOf(driver.findElement(parentCarStore)));
-        List<WebElement>child = parent.findElements(childCarStore);
-        child.get(0).click();
-        return this;
-    }
-    public Items clickOnSaveBtn() throws InterruptedException{
-        int maxAttempt = 3 ;
-        for (int attempt=0; attempt<maxAttempt; attempt++) {
+    public Items chooseStore() {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
-                wait.until(ExpectedConditions.elementToBeClickable(saveBtn)).click();
-                Thread.sleep(2500);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
-
-                SoftAssert softAssert = new SoftAssert();
-                softAssert.assertTrue(getSuccessMessage());
-                Thread.sleep(2000);
-
+                WebElement parent = wait.until(ExpectedConditions.visibilityOf(driver.findElement(parentCarStore)));
+                List<WebElement> child = parent.findElements(childCarStore);
+                child.get(0).click();
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,400);");
                 return this;
             } catch (Exception e) {
-                System.out.println("Retrying click on save btn and assert that success message display");
+                System.out.println("Retrying chooseStore ");
             }
         }
-        throw new RuntimeException("failed to click on save btn and assert that success message display after "+maxAttempt+ " attempt");
+        throw new RuntimeException(" failed to Retrying chooseStore after all attempt");
+    }
+    public Items clickOnSaveBtn() throws InterruptedException{
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                saveButton.click();
+                Thread.sleep(1500);
+
+                WebElement okButton = waitForClickableElement(okBtn);
+                okButton.click();
+                SoftAssert softAssert=new SoftAssert();
+                softAssert.assertTrue(getSuccessMessage());
+                Thread.sleep(1500);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
     public boolean getSuccessMessage(){
 
@@ -197,6 +233,8 @@ public class Items {
     public Items editMaxQty(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(editMaxQty)).clear();
         wait.until(ExpectedConditions.visibilityOfElementLocated(editMaxQty)).sendKeys("900");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400);");
         return this;
     }
     public Items scrollDown(){
@@ -204,19 +242,28 @@ public class Items {
        actions.scrollToElement(driver.findElement(editBtn));
        return this ;
     }
-    public Items clickOnEditSaveBtn(){
-        try {
-            wait.until(ExpectedConditions.elementToBeClickable(editBtn)).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
-        }
-        catch (Exception e){
-            Alert alert = driver.switchTo().alert();
-            chooseUnit();
-            wait.until(ExpectedConditions.elementToBeClickable(editBtn)).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
+    public Items clickOnEditSaveBtn() throws InterruptedException{
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(editBtn)).click();
+                Thread.sleep(1500);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
+                SoftAssert softAssert = new SoftAssert();
+                softAssert.assertTrue(getSuccessMessage());
 
+                return this;
+            } catch (Exception e) {
+                System.out.println("Retrying click on edit save btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2000);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+                clickOnEditBtn();
+                editMaxQty();
+            }
         }
-        return this;
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
 
     }
 
@@ -229,7 +276,9 @@ public class Items {
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             alert.accept();
+            Thread.sleep(1500);
             wait.until(ExpectedConditions.elementToBeClickable(okBtn)).click();
+            Thread.sleep(1500);
 
         } catch (Exception e) {
             System.out.println("الصنف مستخدم في احدي العمليات الاساسية لذلك لا يمكن الحذف");
@@ -237,7 +286,7 @@ public class Items {
         return this;
     }
     public boolean getDeleteSuccessMessage(){
-        return  wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();
+        return  wait.until(ExpectedConditions.visibilityOfElementLocated(deleteSuccessMessage)).isDisplayed();
 
 
 

@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -203,15 +204,11 @@ public class ReturnsDepartment {
 
         WebElement add= waitForClickableElement(addBtn);
         add.click();
-        Thread.sleep(1500);
+        Thread.sleep(2000);
+        JavascriptExecutor js = (JavascriptExecutor) driver ;
+        js.executeScript("window.scrollBy(0,350);") ;
         return this ;
     }
-
-
-
-
-
-
 
     private final By addAllEmployeeItems=By.xpath("//*[@id=\"btnAddAllItem\"]");
 
@@ -232,14 +229,34 @@ public class ReturnsDepartment {
     private final By notFixed = By.xpath("//input[@id=\"btnCancelFixed\"]");
 
     public ReturnsDepartment clickOnSaveBtn() throws InterruptedException{
-        WebElement saveButton = waitForClickableElement(saveBtn);
-        saveButton.click();
-        Thread.sleep(2500);
-        WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
-        Thread.sleep(1500);
-
-        return this;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                saveButton.click();
+                Thread.sleep(1500);
+                WebElement okButton = waitForClickableElement(okBtn);
+                okButton.click();
+                Assert.assertTrue(getSuccessMessage());
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
 
     public boolean getSuccessMessage() {

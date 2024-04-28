@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -149,7 +150,7 @@ public class ReceiptStmt {
     public ReceiptStmt addItems(String itemNum, String qty, String price) throws InterruptedException {
         WebElement itemNoField = waitForClickableElement(itemNo);
         itemNoField.sendKeys(itemNum, Keys.ENTER);
-
+        Thread.sleep(1000);
         WebElement qtyField = waitForClickableElement(itemQty);
         qtyField.clear();
         qtyField.sendKeys(qty);
@@ -160,19 +161,45 @@ public class ReceiptStmt {
 
         WebElement itemAdded = waitForClickableElement(addBtn);
         itemAdded.click();
+        JavascriptExecutor js = (JavascriptExecutor) driver ;
+        js.executeScript("window.scrollBy(0,350);") ;
 
-        Thread.sleep(1200);
+        Thread.sleep(2000);
         return this;
     }
 
     public ReceiptStmt clickOnSaveBtn() throws InterruptedException{
-        WebElement saveButton = waitForClickableElement(saveBtn);
-        saveButton.click();
-        Thread.sleep(1500);
-        WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
-        Thread.sleep(1500);
-        return this;
+
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                saveButton.click();
+                Thread.sleep(1500);
+
+                WebElement okButton = waitForClickableElement(okBtn);
+                okButton.click();
+                Assert.assertTrue(getSuccessMessage());
+                Thread.sleep(1500);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
 
     public boolean getSuccessMessage() {

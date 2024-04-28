@@ -252,24 +252,37 @@ public class SpendingOrder {
 
     }
     public SpendingOrder clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
-        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 // Attempt to click on the search button
                 wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 200);");
                 return this;
+            } catch (NoSuchElementException | StaleElementReferenceException e) {
+                // Handle element not found or stale element exception
+                System.out.println("Element not found or stale. Retrying click on search button...");
+                retryClickOnSearchBtn();
+            } catch (TimeoutException e) {
+                // Handle timeout exception
+                System.out.println("Timeout exception occurred. Retrying click on search button...");
+                retryClickOnSearchBtn();
             } catch (Exception e) {
-                // Refresh the page
-                System.out.println("Page refreshed. Retrying click on search btn...");
-                driver.navigate().refresh();
-                Thread.sleep(2000);
-                clickOnSearchTab();
+                // Handle other exceptions
+                System.out.println("Unexpected exception occurred: " + e.getMessage());
+                retryClickOnSearchBtn();
             }
         }
         // If max attempts reached without success, throw a custom exception
-        throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");
+        throw new RuntimeException("Failed to click on search button after " + maxAttempts + " attempts");
+    }
+    private void retryClickOnSearchBtn() throws InterruptedException {
+        // Refresh the page
+        System.out.println("Page refreshed. Retrying click on search btn...");
+        driver.navigate().refresh();
+        Thread.sleep(2000);
+        clickOnSearchTab();
     }
     public boolean searchResultIsDisplayed() throws InterruptedException{
         int maxRetry = 3;

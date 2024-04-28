@@ -92,17 +92,28 @@ public class PurQuoteComparison {
 
                 WebElement okButton = waitForClickableElement(okBtn);
                 okButton.click();
-
-                SoftAssert softAssert = new SoftAssert();
+                SoftAssert softAssert=new SoftAssert();
                 softAssert.assertTrue(getSuccessMessage());
                 Thread.sleep(1500);
 
                 return this;
-            } catch (Exception e) {
-                System.out.println("Retrying click on Save Btn ");
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
             }
         }
-        throw new RuntimeException("failed to click on btn save after "+maxAttempt+" attempt");
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
 
     public boolean getSuccessMessage() {
