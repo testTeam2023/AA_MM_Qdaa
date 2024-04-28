@@ -120,6 +120,8 @@ public class ReceiptNotify  {
                 Thread.sleep(1000);
                 wait.until(ExpectedConditions.elementToBeClickable(addBtn)).click();
                 Thread.sleep(1200);
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0, 400);");
                 return this;
             } catch (Exception e) {
                 System.out.println("retrying add items");

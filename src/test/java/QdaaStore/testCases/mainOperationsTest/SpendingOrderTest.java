@@ -13,7 +13,7 @@ public class SpendingOrderTest extends TestBase {
 
    public Object[][]data(){
        return new Object[][]{
-               {"الرجيع","رئيس المجلس/الإدارة العامة للخدمات المشتركة","كمال فتح عبد الله فتحى", "سلطان بن محمد سالم بدر","199","1"}
+               {"الاجهزة الالكترونية","رئيس المجلس/الإدارة العامة للخدمات المشتركة","كمال فتح عبد الله فتحى", "سلطان بن محمد سالم بدر","199","1"}
        } ;
    }
     @Test(dataProvider = "data" , priority = 1)
@@ -24,6 +24,7 @@ public class SpendingOrderTest extends TestBase {
        spendingOrder
                .navigateToSpendingOrderPage()
                .selectStore(storeName)
+               .scrollDown()
                .selectDepartment(department)
                .selectDepartmentManager(departmenManager)
                .selectReceiver(receiver)
