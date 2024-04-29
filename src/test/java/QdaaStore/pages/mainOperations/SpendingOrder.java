@@ -314,6 +314,7 @@ public class SpendingOrder {
                 wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 200);");
+                Thread.sleep(2500);
                 return this;
             } catch (NoSuchElementException | StaleElementReferenceException e) {
                 // Handle element not found or stale element exception
@@ -364,19 +365,28 @@ public class SpendingOrder {
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public SpendingOrder clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(0).click();
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        Thread.sleep(2000);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        return this;
+                Thread.sleep(2000);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
     public SpendingOrder scrollToTheEnd(){
-        Actions actions = new Actions(driver);
-        actions.scrollToElement(driver.findElement(notFixed));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, 900);");
         return this ;
     }
 
@@ -392,7 +402,9 @@ public class SpendingOrder {
     }
 
     public SpendingOrder clickOnDeleteBtn() {
-
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
         WebElement parent = waitForVisibilityElement(editBtnParent);
 
         List<WebElement> child = parent.findElements(editBtnChild);
@@ -411,6 +423,12 @@ public class SpendingOrder {
             System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
         }
         return this ;
+    }
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
+
     }
     public boolean getDeleteSuccessMessage() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();

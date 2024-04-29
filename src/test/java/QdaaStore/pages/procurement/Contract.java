@@ -238,7 +238,7 @@ public class Contract {
                 btnAdd.click();
                 Thread.sleep(1500);
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 350);");
+                js.executeScript("window.scrollBy(0, 400);");
 
                 return this;
             }
@@ -283,10 +283,11 @@ public class Contract {
             try {
                 // Attempt to click on the search button
                 wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
-                Thread.sleep(1500);
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 150);");
+                js.executeScript("window.scrollBy(0, 200);");
+                Thread.sleep(2500);
                 return this;
+
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
@@ -323,16 +324,25 @@ public class Contract {
 
 
     public Contract clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(0).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        Thread.sleep(2000);
+                Thread.sleep(2500);
 
-        return this;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
+
 
     public Contract clickOnEditSaveBtn(){
         WebElement edit = waitForClickableElement(editBtn);
@@ -345,24 +355,30 @@ public class Contract {
     }
 
     public Contract clickOnDeleteBtn() {
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                wait.until(ExpectedConditions.alertIsPresent());
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
 
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+                WebElement ok = waitForClickableElement(okBtn);
+                ok.click();
+                SoftAssert softAssert = new SoftAssert();
 
-        WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-        SoftAssert softAssert =new SoftAssert();
+                softAssert.assertTrue(getDeleteSuccessMessage());
 
-        softAssert.assertTrue(getDeleteSuccessMessage());
-
-        return this ;
-
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
     }
 
     public boolean getEditSuccessMessage() {
@@ -374,12 +390,23 @@ public class Contract {
 
     public Contract scrollToTheEnd(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,600);");
+        js.executeScript("window.scrollBy(0,900);");
         return this ;
     }
     public Contract scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,300);");
+        return this ;
+    }
+    public Contract scrollDownForAddItem(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,450);");
+        return this ;
+    }
+
+    public Contract scrollDownAfterContractSubject(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,700);");
         return this ;
     }
 

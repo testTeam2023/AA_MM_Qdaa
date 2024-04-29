@@ -62,7 +62,7 @@ public class ContractTest extends TestBase {
                     .selectPurQuoteNumber()
                     .selectSupplier1()
                     .enterContractSubject()
-                    .scrollDown()
+                    .scrollDownAfterContractSubject()
                     .clickOnSaveBtn();
 
             contract
@@ -95,7 +95,7 @@ public class ContractTest extends TestBase {
                     .selectSupplier2()
                     .selectStore(store)
                     .enterContractSubject()
-                    .scrollDown()
+                    .scrollDownForAddItem()
                     .addItem(itemNum, itemQTYs, prices)
                     .clickOnSaveBtn();
             contract

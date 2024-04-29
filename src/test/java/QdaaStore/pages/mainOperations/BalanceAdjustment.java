@@ -73,6 +73,11 @@ public class BalanceAdjustment {
         js.executeScript("window.scrollBy(0,300);");
         return this ;
     }
+    public BalanceAdjustment scrollDownForAddItem(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,400);");
+        return this ;
+    }
 
     // Add an Items
     private final By itemNumber= By.xpath("//*[@id=\"Dtl_ItemID\"]");
@@ -90,23 +95,40 @@ public class BalanceAdjustment {
     private final By adjustmntQty=By.xpath("//*[contains(@id,\"AdjustmentQuantity_\") and @type=\"number\"]");
 
 
-    public BalanceAdjustment addItem(String itemNumbers ,String adjustmntQty, String adjstmntType) throws InterruptedException{
+    public BalanceAdjustment addItem(String itemNumbers ,String adjustmntQty, String adjstmntType) throws InterruptedException {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement itemNum = waitForClickableElement(itemNumber);
+                itemNum.sendKeys(itemNumbers, Keys.ENTER);
+                Thread.sleep(1500);
 
-        WebElement itemNum= waitForClickableElement(itemNumber);
-        itemNum.sendKeys(itemNumbers, Keys.ENTER);
-        Thread.sleep(1000);
-        WebElement qty = waitForClickableElement(adjustmentQty);
-        qty.clear();
-        qty.sendKeys(adjustmntQty);
+                WebElement qty = waitForClickableElement(adjustmentQty);
+                qty.clear();
+                qty.sendKeys(adjustmntQty);
+                Thread.sleep(1000);
 
-        Select select = new Select(waitForClickableElement(adjustmentType));
-        select.selectByVisibleText(adjstmntType);
 
-        WebElement btnAdd = waitForClickableElement(addBtn);
-        btnAdd.click();
-        Thread.sleep(1500);
-        return this ;
+                Select select = new Select(waitForClickableElement(adjustmentType));
+                select.selectByVisibleText(adjstmntType);
+
+                JavascriptExecutor jss = (JavascriptExecutor) driver;
+                jss.executeScript("window.scrollBy(0,100);");
+
+                WebElement btnAdd = waitForClickableElement(addBtn);
+                btnAdd.click();
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,400);");
+
+                Thread.sleep(1500);
+                return this;
+            } catch (Exception e) {
+                System.out.println("Retry to add itemand click on add item btn");
+            }
+        }
+        throw new RuntimeException("failed to add item and click on item btn after all attempt");
     }
+
 
     public BalanceAdjustment clickOnSaveBtn() throws InterruptedException{
         WebElement saveButton = waitForClickableElement(saveBtn);
@@ -285,8 +307,8 @@ public class BalanceAdjustment {
 
     }
     public BalanceAdjustment scrollToTheEnd(){
-        Actions actions = new Actions(driver);
-        actions.scrollToElement(driver.findElement(notFixed));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0, 800);");
         return this ;
     }
 

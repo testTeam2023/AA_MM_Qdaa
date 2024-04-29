@@ -28,6 +28,7 @@ public class BalanceAdjustmentTest extends TestBase {
         balanceAdjustment
                 .navigateToBalanceAdjustmentrPage()
                 .selectSoreName(storeName)
+                .scrollDownForAddItem()
                 .addItem(itemNumbers,adjustmntQty,adjstmntType)
                 .clickOnSaveBtn()
                 .clickOnFixedBtn() ;
