@@ -51,6 +51,9 @@ public class SpendingOrder {
     // Select Stores, Department, Department manager and receiver name  from a list
     private final By selectStore = By.xpath("//span[@id=\"select2-StoreID_from-container\"]");
     private final By searchField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
+
+    private final By selectStoreKeeper = By.xpath("//*[@id=\"select2-StoreCuratorId-container\"]");
+    private final By searchFieldForStoreKeeper = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
     private final By selectDepartment = By.xpath("//*[@id=\"select2-DepartmentID_to-container\"]");
     private final By searchDepartmentField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
     private final By selectDepartmentManger = By.xpath("//*[@id=\"select2-EmployeeID_to-container\"]");
@@ -73,6 +76,24 @@ public class SpendingOrder {
             }
         }
         throw new RuntimeException("failed selecting Store after " +maxAttempt);
+
+    }
+    public SpendingOrder selectStoreKeeper(String storeKeeper) throws InterruptedException {
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement store = waitForClickableElement(selectStoreKeeper);
+                store.click();
+                Thread.sleep(1500);
+
+                WebElement storeSearch = waitForClickableElement(searchFieldForStoreKeeper);
+                storeSearch.sendKeys(storeKeeper, Keys.ENTER);
+                return this;
+            } catch (Exception e) {
+                System.out.println("Retrying selecting StoreKeeper");
+            }
+        }
+        throw new RuntimeException("failed selecting StoreKeeper after " +maxAttempt);
 
     }
     public SpendingOrder selectDepartment(String DepartmentName) throws InterruptedException {
@@ -131,7 +152,7 @@ public class SpendingOrder {
 
     public SpendingOrder scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,250);");
+        js.executeScript("window.scrollBy(0,400);");
         return this ;
     }
 
@@ -148,24 +169,34 @@ public class SpendingOrder {
     private final By notFixed = By.xpath("//input[@id=\"btnCancelFixed\"]");
 
     public SpendingOrder addItem(String itemNumbers ,String itemqtys) throws InterruptedException{
-        WebElement itemNumBtn= waitForClickableElement(itemNumberBtn);
-        itemNumBtn.click();
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement itemNumBtn = waitForClickableElement(itemNumberBtn);
+                itemNumBtn.click();
 
-        WebElement itemNumber= waitForClickableElement(itemNum);
-        itemNumber.sendKeys(itemNumbers,Keys.ENTER);
+                WebElement itemNumber = waitForClickableElement(itemNum);
+                itemNumber.sendKeys(itemNumbers, Keys.ENTER);
+                Thread.sleep(1000);
 
-        WebElement qty = waitForClickableElement(itemQty);
-        qty.clear();
-        qty.sendKeys(itemqtys);
+                WebElement qty = waitForClickableElement(itemQty);
+                qty.clear();
+                qty.sendKeys(itemqtys);
 
-        WebElement add= waitForClickableElement(addBtn);
-        add.click();
-        Thread.sleep(1500);
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400);");
+                WebElement add = waitForClickableElement(addBtn);
+                add.click();
+                Thread.sleep(1500);
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,350);");
 
-        return this ;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("try add item and click on btn ");
+            }}
+        throw new RuntimeException("failed to add item and btn check the test data");
     }
+
 
     public SpendingOrder clickOnSaveBtn() throws InterruptedException{
 

@@ -95,51 +95,67 @@ public class PurOrder {
         switch (itemTypes) {
 
             case "دليل الاصناف" -> {
-                WebElement itemNumm = waitForClickableElement(itemNumber);
-                itemNumm.sendKeys(itemNum, Keys.ENTER);
-                Thread.sleep(1000);
+                int maxAttempt = 3;
+                for (int attempt = 0; attempt < maxAttempt; attempt++) {
+                    try {
+                        WebElement itemNumm = waitForClickableElement(itemNumber);
+                        itemNumm.sendKeys(itemNum, Keys.ENTER);
+                        Thread.sleep(1000);
 
-                Select select = new Select(waitForClickableElement(selectUnit));
-                select.selectByValue("2");
+                        Select select = new Select(waitForClickableElement(selectUnit));
+                        select.selectByValue("2");
 
-                WebElement qty = waitForClickableElement(itemQty);
-                qty.clear();
-                qty.sendKeys(itemQTYs);
+                        WebElement qty = waitForClickableElement(itemQty);
+                        qty.clear();
+                        qty.sendKeys(itemQTYs);
 
-                WebElement btnAdd = waitForClickableElement(addBtn);
-                btnAdd.click();
-                JavascriptExecutor js = (JavascriptExecutor) driver ;
-                js.executeScript("window.scrollBy(0,350);") ;
-                Thread.sleep(2000);
-                break;
+                        WebElement btnAdd = waitForClickableElement(addBtn);
+                        btnAdd.click();
+                        JavascriptExecutor js = (JavascriptExecutor) driver;
+                        js.executeScript("window.scrollBy(0,350);");
+                        Thread.sleep(2000);
+                        return this;
+                    } catch (Exception e) {
+                        System.out.println("try add item and click on btn ");
+                    }
+                }
+                throw new RuntimeException("failed to add item and btn check the test data");
             }
 
             case "صنف جديد" -> {
+                int maxAttempt = 3;
+                for (int attempt = 0; attempt < maxAttempt; attempt++) {
+                    try {
+                        Select select = new Select(waitForClickableElement(itemType));
+                        select.selectByVisibleText(itemTypes);
 
-                Select select = new Select(waitForClickableElement(itemType));
-                select.selectByVisibleText(itemTypes);
 
-                WebElement itemNames = waitForClickableElement(itemName);
-                itemNames.clear();
-                itemNames.sendKeys("صنف جديد");
+                        WebElement itemNames = waitForClickableElement(itemName);
+                        itemNames.clear();
+                        itemNames.sendKeys("صنف جديد");
 
-                Select select1 = new Select(waitForClickableElement(unit));
-                select1.selectByValue("2");
+                        Select select1 = new Select(waitForClickableElement(unit));
+                        select1.selectByValue("2");
 
-                WebElement qty = waitForClickableElement(itemQty);
-                qty.clear();
-                qty.sendKeys(itemQTYs);
-                WebElement btnAdd = waitForClickableElement(addBtn);
-                btnAdd.click();
-                JavascriptExecutor js = (JavascriptExecutor) driver ;
-                js.executeScript("window.scrollBy(0,350);") ;
-                Thread.sleep(2000);
-                break;
+                        WebElement qty = waitForClickableElement(itemQty);
+                        qty.clear();
+                        qty.sendKeys(itemQTYs);
+                        WebElement btnAdd = waitForClickableElement(addBtn);
+                        btnAdd.click();
+                        JavascriptExecutor js = (JavascriptExecutor) driver;
+                        js.executeScript("window.scrollBy(0,350);");
+                        Thread.sleep(2000);
+                        return this;
+                    } catch (Exception e) {
+                        System.out.println("try add item and click on btn ");
+                    }
+                }
+                throw new RuntimeException("failed to add item and btn check the test data");
             }
-            default -> throw new RuntimeException(" not supported type") ;
+            default -> throw new RuntimeException(" not supported type");
         }
-        return this ;
     }
+
 
 
 

@@ -13,17 +13,18 @@ public class SpendingOrderTest extends TestBase {
 
    public Object[][]data(){
        return new Object[][]{
-               {"الاجهزة الالكترونية","رئيس المجلس/الإدارة العامة للخدمات المشتركة","كمال فتح عبد الله فتحى", "سلطان بن محمد سالم بدر","199","1"}
+               {"الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","رئيس المجلس/الإدارة العامة للخدمات المشتركة","كمال فتح عبد الله فتحى", "سلطان بن محمد سالم بدر","199","1"}
        } ;
    }
     @Test(dataProvider = "data" , priority = 1)
-    public void createSpendingOrderFlow(String storeName, String department , String departmenManager , String receiver , String itemNum , String qty) throws InterruptedException{
+    public void createSpendingOrderFlow(String storeName,String storeKeeper, String department , String departmenManager , String receiver , String itemNum , String qty) throws InterruptedException{
 // عاوز اعمل e2e  من الاصناف لها رقم تسلسلي ومحضر ب رقم تسلسلي ثم عمل امر صرف ثم عمل رجيع للصنف ثم صرف صنف رجيع
        spendingOrder = new SpendingOrder(driver);
        SoftAssert softAssert = new SoftAssert();
        spendingOrder
                .navigateToSpendingOrderPage()
                .selectStore(storeName)
+               .selectStoreKeeper(storeKeeper)
                .scrollDown()
                .selectDepartment(department)
                .selectDepartmentManager(departmenManager)

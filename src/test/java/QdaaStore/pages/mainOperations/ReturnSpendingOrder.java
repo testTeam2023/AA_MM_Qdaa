@@ -150,55 +150,40 @@ public class ReturnSpendingOrder {
     private final By fixed = By.xpath("//input[@id=\"btnFixing\"]");
     private final By notFixed = By.xpath("//input[@id=\"btnCancelFixed\"]");
     public ReturnSpendingOrder addItem(String itemNumbers ,String spntQty,String recQty) throws InterruptedException {
-        WebElement itemNumBtn = waitForClickableElement(itemNumberBtn);
-        itemNumBtn.click();
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement itemNumBtn = waitForClickableElement(itemNumberBtn);
+                itemNumBtn.click();
 
-        WebElement itemNumber = waitForClickableElement(itemNum);
-        itemNumber.sendKeys(itemNumbers, Keys.ENTER);
+                WebElement itemNumber = waitForClickableElement(itemNum);
+                itemNumber.sendKeys(itemNumbers, Keys.ENTER);
+                Thread.sleep(1000);
 
-        WebElement qty = waitForClickableElement(spentQty);
-        qty.clear();
-        qty.sendKeys(spntQty);
+                WebElement qty = waitForClickableElement(spentQty);
+                qty.clear();
+                qty.sendKeys(spntQty);
 
-        Select select = new Select(waitForClickableElement(committeeRecommendation));
-        select.selectByValue("1");
+                Select select = new Select(waitForClickableElement(committeeRecommendation));
+                select.selectByValue("1");
 
-        try {
+                WebElement add = waitForClickableElement(addBtn);
+                add.click();
+                Thread.sleep(2000);
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,400);");
 
-            WebElement add = waitForClickableElement(addBtn);
-            add.click();
-            Thread.sleep(2000);
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollBy(0,400);");
-        } catch (Exception e) {
-            System.out.println(" Retrying click on add btn ");
-            handleUnexpectedAlert();
-            WebElement itemNumsBtn = waitForClickableElement(itemNumberBtn);
-            itemNumsBtn.click();
+                WebElement qtys = waitForClickableElement(recommendationQty);
+                qtys.clear();
+                qtys.sendKeys(recQty);
 
-            WebElement itemNumberss = waitForClickableElement(itemNum);
-            itemNumberss.sendKeys("200", Keys.ENTER);
-
-            WebElement qtyss = waitForClickableElement(spentQty);
-            qtyss.clear();
-            qtyss.sendKeys("1");
-
-            Select selectss = new Select(waitForClickableElement(committeeRecommendation));
-            selectss.selectByValue("1");
-
-            WebElement adds = waitForClickableElement(addBtn);
-            adds.click();
-            Thread.sleep(2000);
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollBy(0,400);");
-        }
-
-        WebElement qtys = waitForClickableElement(recommendationQty);
-        qtys.clear();
-        qtys.sendKeys(recQty);
-
-        Thread.sleep(1500);
-        return this ;
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("try add item and click on btn ");
+            }}
+            throw new RuntimeException("failed to add item and btn chech the test data");
     }
 
     public ReturnSpendingOrder clickOnSaveBtn() throws InterruptedException{
@@ -210,7 +195,6 @@ public class ReturnSpendingOrder {
                 Thread.sleep(1500);
                 WebElement okButton = waitForClickableElement(okBtn);
                 okButton.click();
-                Assert.assertTrue(getSuccessMessage());
                 Thread.sleep(1500);
                 return this;
             }

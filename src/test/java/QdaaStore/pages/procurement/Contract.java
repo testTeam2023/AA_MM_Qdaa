@@ -215,6 +215,9 @@ public class Contract {
     }
 
     public Contract addItem(String itemNum, String itemQTYs , String prices ) throws InterruptedException {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
 
                 WebElement itemNumm = waitForClickableElement(itemNumber);
                 itemNumm.sendKeys(itemNum, Keys.ENTER);
@@ -227,15 +230,22 @@ public class Contract {
                 qty.clear();
                 qty.sendKeys(itemQTYs);
 
-               WebElement price = waitForClickableElement(itemPrice);
-               price.clear();
-               price.sendKeys(prices);
+                WebElement price = waitForClickableElement(itemPrice);
+                price.clear();
+                price.sendKeys(prices);
 
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
                 Thread.sleep(1500);
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0, 350);");
 
-        return this ;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("try add item and click on btn ");
+            }}
+        throw new RuntimeException("failed to add item and btn chech the test data");
     }
 
     // Search Function
