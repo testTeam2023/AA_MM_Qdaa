@@ -296,14 +296,22 @@ public class BalanceAdjustment {
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public BalanceAdjustment clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(0).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        Thread.sleep(2000);
+                Thread.sleep(2000);
 
-        return this;
+                return this;
+            }
+        catch (Exception e){
+                    System.out.println("Re trying to click on edit btn ");
+                }}
+            throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
     public BalanceAdjustment scrollToTheEnd(){
@@ -324,25 +332,33 @@ public class BalanceAdjustment {
     }
 
     public BalanceAdjustment clickOnDeleteBtn() {
+        int maxRetry = 3;
+        for (int retry = 0; retry < maxRetry; retry++) {
+            try {
 
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
 
-        try {
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
+                try {
+                    wait.until(ExpectedConditions.alertIsPresent());
+                    Alert alert = driver.switchTo().alert();
+                    alert.accept();
 
-            WebElement ok = waitForClickableElement(okBtn);
-            ok.click();
-            Assert.assertTrue(getDeleteSuccessMessage());
+                    WebElement ok = waitForClickableElement(okBtn);
+                    ok.click();
+                    Assert.assertTrue(getDeleteSuccessMessage());
 
-        } catch (Exception e) {
-            System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
+                } catch (Exception e) {
+                    System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
+                }
+                return this;
+            } catch (Exception e) {
+                System.out.println("Re trying to click on delete btn ");
+            }
         }
-        return this ;
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
     }
     public boolean getDeleteSuccessMessage() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();

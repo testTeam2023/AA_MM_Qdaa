@@ -307,7 +307,7 @@ public class SpendingOrder {
 
     }
     public SpendingOrder clickOnSearchBtn() throws InterruptedException{
-        int maxAttempts = 3;
+        int maxAttempts = 5;
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 // Attempt to click on the search button

@@ -161,8 +161,10 @@ public class Contract {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement saveButton = waitForClickableElement(saveBtn);
-                saveButton.click();
-                Thread.sleep(1500);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
+                //saveButton.click();
+                Thread.sleep(2500);
 
                 WebElement okButton = waitForClickableElement(okBtn);
                 okButton.click();
@@ -400,7 +402,7 @@ public class Contract {
     }
     public Contract scrollDownForAddItem(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,450);");
+        js.executeScript("window.scrollBy(0,400);");
         return this ;
     }
 

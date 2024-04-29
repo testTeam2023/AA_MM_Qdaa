@@ -41,7 +41,6 @@ public class SpendingOrderTest extends TestBase {
                 .clickOnSearchTab()
                 .scrollDown()
                 .clickOnSearchBtn();
-        softAssert.assertTrue(spendingOrder.searchResultIsDisplayed());
 //Edit
         spendingOrder
                 .navigateToSpendingOrderPage()

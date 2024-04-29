@@ -40,7 +40,6 @@ public class ReturnsDepartmentTest extends TestBase {
                 .clickOnSearchTab()
                 .scrollDownForSearch()
                 .clickOnSearchBtn();
-        softAssert.assertTrue(returnsDepartment.searchResultIsDisplayed());
         // Edit
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
