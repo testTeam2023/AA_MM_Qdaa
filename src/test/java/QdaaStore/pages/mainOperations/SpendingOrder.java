@@ -372,6 +372,7 @@ public class SpendingOrder {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
+                Thread.sleep(1500);
                 child.get(0).click();
 
                 Thread.sleep(2000);
@@ -408,6 +409,7 @@ public class SpendingOrder {
         WebElement parent = waitForVisibilityElement(editBtnParent);
 
         List<WebElement> child = parent.findElements(editBtnChild);
+                Thread.sleep(1500);
         child.get(1).click();
 
         try {

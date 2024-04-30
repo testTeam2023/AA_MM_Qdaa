@@ -44,7 +44,6 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDown()
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .scrollToTheEnd()

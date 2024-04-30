@@ -345,6 +345,8 @@ public class ReturnsDepartment {
                 // Attempt to click on the search button
                 wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
                 Thread.sleep(2500);
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,300);");
                 return this;
             } catch (Exception e) {
                 // Refresh the page
@@ -385,6 +387,7 @@ public class ReturnsDepartment {
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
+                Thread.sleep(1500);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
                 child.get(0).click();
@@ -424,6 +427,7 @@ public class ReturnsDepartment {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
+                Thread.sleep(1500);
                 child.get(1).click();
 
                 try {
