@@ -163,14 +163,11 @@ public class Contract {
                 WebElement saveButton = waitForClickableElement(saveBtn);
                 Actions actions = new Actions(driver);
                 actions.moveToElement(saveButton).click().build().perform();
-                //saveButton.click();
-                Thread.sleep(2500);
-
-                WebElement okButton = waitForClickableElement(okBtn);
-                okButton.click();
-
                 Thread.sleep(1500);
-
+                WebElement okButton = waitForClickableElement(okBtn);
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
+                Thread.sleep(1500);
                 return this;
             }
             catch (Exception e){
@@ -280,23 +277,23 @@ public class Contract {
 
     }
     public Contract clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                WebElement search = wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(search).click().build().perform();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 250);");
+                js.executeScript("window.scrollBy(0,250);");
                 Thread.sleep(2500);
                 return this;
-
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }
@@ -328,15 +325,14 @@ public class Contract {
 
 
     public Contract clickOnEditBtn() throws InterruptedException{
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
-
                 List<WebElement> child = parent.findElements(editBtnChild);
                 child.get(0).click();
 
-                Thread.sleep(2500);
+                Thread.sleep(2000);
 
                 return this;
             }

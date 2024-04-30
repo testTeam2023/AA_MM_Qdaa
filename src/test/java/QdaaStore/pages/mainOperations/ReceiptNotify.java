@@ -22,6 +22,17 @@ public class ReceiptNotify  {
                 .ignoring(NoSuchElementException.class);
 
     }
+    public WebElement waitForClickableElement(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public WebElement waitForVisibilityElement(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public WebElement waitForPresenceElement(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
     public ReceiptNotify navigateToReceiptNotifyPage() throws InterruptedException{
         int maxAttempt = 3 ;
       for (int attempt=0; attempt<maxAttempt; attempt++) {
@@ -131,12 +142,35 @@ public class ReceiptNotify  {
         }
 
     public ReceiptNotify clickOnSaveBtn() throws InterruptedException{
-        wait.until(ExpectedConditions.elementToBeClickable(saveBtn)).click();
-        Thread.sleep(1000);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
-        Thread.sleep(1000);
-
-        return this;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
+                Thread.sleep(1500);
+                WebElement okButton = waitForClickableElement(okBtn);
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
     public boolean getSuccessMessage(){
         return wait.until(ExpectedConditions.presenceOfElementLocated(successMessage)).isDisplayed();
@@ -172,19 +206,23 @@ public class ReceiptNotify  {
 
     }
     public ReceiptNotify clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 200);");
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }
@@ -217,12 +255,26 @@ public class ReceiptNotify  {
     private final By  errorOkBtn = By.xpath("//button[@id=\"btn-error-modal\"]");
 
     public ReceiptNotify clickOnEditBtn() throws InterruptedException{
-        wait.until(ExpectedConditions.visibilityOfElementLocated(editBtnParent));
-        WebElement parent = driver.findElement(editBtnParent);
-        List<WebElement>child = parent.findElements(editBtnChild);
-        child.get(0).click();
-        Thread.sleep(1000);
-        return this;
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
+
+                Thread.sleep(2000);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
+
     }
     public ReceiptNotify scrollDown(){
         JavascriptExecutor js =(JavascriptExecutor) driver ;
@@ -247,22 +299,38 @@ public class ReceiptNotify  {
 
     }
 
-    public ReceiptNotify clickOnDeleteBtn() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(editBtnParent));
-        WebElement parent = driver.findElement(editBtnParent);
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
-        try {
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
-            wait.until(ExpectedConditions.elementToBeClickable(okBtn)).click();
-            return this ;
-        } catch (Exception e) {
+    public ReceiptNotify clickOnDeleteBtn() throws InterruptedException{
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-            System.out.println("الصنف مستخدم في احدي العمليات الاساسية لذلك لا يمكن الحذف");
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
+
+                try {
+                    wait.until(ExpectedConditions.alertIsPresent());
+                    Alert alert = driver.switchTo().alert();
+                    alert.accept();
+
+                    WebElement ok = waitForClickableElement(okBtn);
+                    ok.click();
+                    System.out.println(getDeleteSuccessMessage());
+
+                } catch (Exception e) {
+                    System.out.println("لا يمكن الحذف مستخدم في احد العمليات الاساسية");
+                }
+                return this ;
             }
-        throw new RuntimeException(" error occurred");
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
+
     }
     public boolean getDeleteSuccessMessage() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();

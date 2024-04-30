@@ -2,6 +2,7 @@ package QdaaStore.pages.mainOperations;
 
 import QdaaStore.utils.ConfigUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import java.time.Duration;
@@ -105,14 +106,35 @@ public class Examination {
 
     public Examination clickOnSaveBtn(){
 
-        WebElement save = waitForClickableElement(saveBtn);
-        save.click();
-
-        WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-
-
-        return this;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
+                Thread.sleep(1500);
+                WebElement okButton = waitForClickableElement(okBtn);
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
     public boolean getSuccessMessage(){
         return wait.until(ExpectedConditions.presenceOfElementLocated(successMessage)).isDisplayed();
@@ -151,22 +173,23 @@ public class Examination {
 
     }
     public Examination clickOnSearchBtn()throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                WebElement tab =waitForClickableElement(searchBtn);
-                tab.click();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
 
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 200);");
-
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }
@@ -198,14 +221,25 @@ private final By  editBtnParent = By.xpath("//table[@id=\"tblDataTableClient\"]/
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public Examination clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        List<WebElement>child = parent.findElements(editBtnChild);
-        child.get(0).click();
+                Thread.sleep(2000);
 
-        Thread.sleep(2000);
-
-        return this;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
     public Examination scrollDown(){
@@ -227,25 +261,39 @@ private final By  editBtnParent = By.xpath("//table[@id=\"tblDataTableClient\"]/
 
     }
 
-    public Examination clickOnDeleteBtn() {
+    public Examination clickOnDeleteBtn() throws InterruptedException{
 
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
 
-        try {
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
+                try {
+                    wait.until(ExpectedConditions.alertIsPresent());
+                    Alert alert = driver.switchTo().alert();
+                    alert.accept();
 
-            WebElement ok = waitForClickableElement(okBtn);
-            ok.click();
+                    WebElement ok = waitForClickableElement(okBtn);
+                    ok.click();
+                    System.out.println(getDeleteSuccessMessage());
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return this ;
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                return this ;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
+
     }
     public boolean getDeleteSuccessMessage() {
         int maxAttempt = 3;

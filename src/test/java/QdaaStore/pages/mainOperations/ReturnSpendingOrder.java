@@ -191,10 +191,12 @@ public class ReturnSpendingOrder {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement saveButton = waitForClickableElement(saveBtn);
-                saveButton.click();
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
                 Thread.sleep(1500);
                 WebElement okButton = waitForClickableElement(okBtn);
-                okButton.click();
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
                 Thread.sleep(1500);
                 return this;
             }
@@ -290,13 +292,16 @@ public class ReturnSpendingOrder {
 
     }
     public ReturnSpendingOrder clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 250);");
+                js.executeScript("window.scrollBy(0,250);");
                 Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
@@ -334,11 +339,10 @@ public class ReturnSpendingOrder {
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public ReturnSpendingOrder clickOnEditBtn() throws InterruptedException{
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
-
                 List<WebElement> child = parent.findElements(editBtnChild);
                 child.get(0).click();
 
@@ -348,6 +352,10 @@ public class ReturnSpendingOrder {
             }
             catch (Exception e){
                 System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on edit btn after all attempt");
 
@@ -369,35 +377,40 @@ public class ReturnSpendingOrder {
 
     }
 
-    public ReturnSpendingOrder clickOnDeleteBtn() {
+    public ReturnSpendingOrder clickOnDeleteBtn() throws InterruptedException {
 
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
 
-        try {
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
+                try {
+                    wait.until(ExpectedConditions.alertIsPresent());
+                    Alert alert = driver.switchTo().alert();
+                    alert.accept();
 
-            WebElement ok = waitForClickableElement(okBtn);
-            ok.click();
-            System.out.println(getDeleteSuccessMessage());
+                    WebElement ok = waitForClickableElement(okBtn);
+                    ok.click();
+                    System.out.println(getDeleteSuccessMessage());
 
-        } catch (Exception e) {
-            System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
-        }
-        return this ;
-    }
-    catch (Exception e){
-        System.out.println("Re trying to click on delete btn ");
-    }}
-        throw new RuntimeException("Failed to click on delete btn after all attempt");
+                } catch (Exception e) {
+                    System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
                 }
+                return this ;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
+
+    }
     public boolean getDeleteSuccessMessage() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();
     }

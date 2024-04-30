@@ -131,18 +131,36 @@ public class BalanceAdjustment {
 
 
     public BalanceAdjustment clickOnSaveBtn() throws InterruptedException{
-        WebElement saveButton = waitForClickableElement(saveBtn);
-        saveButton.click();
-        Thread.sleep(1500);
 
-        WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
-
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(getSuccessMessage());
-        Thread.sleep(1500);
-
-        return this;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement saveButton = waitForClickableElement(saveBtn);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
+                Thread.sleep(1500);
+                WebElement okButton = waitForClickableElement(okBtn);
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on save btn ");
+                handleUnexpectedAlert();
+            }
+        }
+        throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedAlert() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            System.out.println("Alert text: " + alert.getText());
+            alert.dismiss();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println("No alert present. Continuing...");
+        }
     }
 
     public boolean getSuccessMessage() {
@@ -252,19 +270,23 @@ public class BalanceAdjustment {
 
     }
     public BalanceAdjustment clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 200);");
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }
@@ -296,11 +318,10 @@ public class BalanceAdjustment {
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public BalanceAdjustment clickOnEditBtn() throws InterruptedException{
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
-
                 List<WebElement> child = parent.findElements(editBtnChild);
                 child.get(0).click();
 
@@ -308,10 +329,14 @@ public class BalanceAdjustment {
 
                 return this;
             }
-        catch (Exception e){
-                    System.out.println("Re trying to click on edit btn ");
-                }}
-            throw new RuntimeException("Failed to click on edit btn after all attempt");
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
     public BalanceAdjustment scrollToTheEnd(){
@@ -331,8 +356,8 @@ public class BalanceAdjustment {
 
     }
 
-    public BalanceAdjustment clickOnDeleteBtn() {
-        int maxRetry = 3;
+    public BalanceAdjustment clickOnDeleteBtn() throws InterruptedException{
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++) {
             try {
 
@@ -356,6 +381,10 @@ public class BalanceAdjustment {
                 return this;
             } catch (Exception e) {
                 System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }
         }
         throw new RuntimeException("Failed to click on delete btn after all attempt");

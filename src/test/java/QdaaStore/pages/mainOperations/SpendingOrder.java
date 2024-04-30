@@ -204,13 +204,13 @@ public class SpendingOrder {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement saveButton = waitForClickableElement(saveBtn);
-                saveButton.click();
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
                 Thread.sleep(1500);
-
                 WebElement okButton = waitForClickableElement(okBtn);
-                okButton.click();
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
                 Thread.sleep(1500);
-
                 return this;
             }
             catch (Exception e){
@@ -368,7 +368,7 @@ public class SpendingOrder {
 
     public SpendingOrder clickOnEditBtn() throws InterruptedException{
 
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
@@ -407,7 +407,7 @@ public class SpendingOrder {
     }
 
     public SpendingOrder clickOnDeleteBtn() throws InterruptedException{
-        int maxRetry = 3;
+        int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
         WebElement parent = waitForVisibilityElement(editBtnParent);

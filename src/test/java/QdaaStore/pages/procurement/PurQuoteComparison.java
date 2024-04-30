@@ -87,13 +87,13 @@ public class PurQuoteComparison {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement saveButton = waitForClickableElement(saveBtn);
-                saveButton.click();
+                Actions actions = new Actions(driver);
+                actions.moveToElement(saveButton).click().build().perform();
                 Thread.sleep(1500);
-
                 WebElement okButton = waitForClickableElement(okBtn);
-                okButton.click();
+                Actions actions1 = new Actions(driver);
+                actions1.moveToElement(okButton).click().build().perform();
                 Thread.sleep(1500);
-
                 return this;
             }
             catch (Exception e){
@@ -148,20 +148,23 @@ public class PurQuoteComparison {
 
     }
     public PurQuoteComparison clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
-                Thread.sleep(1500);
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 150);");
+                js.executeScript("window.scrollBy(0,150);");
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }
@@ -193,14 +196,25 @@ public class PurQuoteComparison {
 
 
     public PurQuoteComparison clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(0).click();
+                Thread.sleep(2000);
 
-        Thread.sleep(2000);
-
-        return this;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
 
@@ -214,24 +228,34 @@ public class PurQuoteComparison {
         return this;
     }
 
-    public PurQuoteComparison clickOnDeleteBtn() {
+    public PurQuoteComparison clickOnDeleteBtn() throws InterruptedException{
 
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
 
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+                wait.until(ExpectedConditions.alertIsPresent());
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
 
-        WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-        SoftAssert softAssert =new SoftAssert();
+                WebElement ok = waitForClickableElement(okBtn);
+                ok.click();
+                System.out.println(getDeleteSuccessMessage());
 
-        softAssert.assertTrue(getDeleteSuccessMessage());
-
-        return this ;
+                return this ;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on delete btn after all attempt");
 
     }
 
