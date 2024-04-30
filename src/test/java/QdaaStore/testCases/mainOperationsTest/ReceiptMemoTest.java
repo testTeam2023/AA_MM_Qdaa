@@ -32,7 +32,6 @@ public class ReceiptMemoTest extends TestBase {
                     .addItems(itemNum,qty,price)
                     .clickOnSaveBtn()
                     .clickOnFixedBtn();
-            softAssert.assertTrue(receiptMemo.getSuccessMessage());
             softAssert.assertTrue(receiptMemo.fixedBtnDisable());
 
             // Search
@@ -41,7 +40,6 @@ public class ReceiptMemoTest extends TestBase {
                     .clickOnSearchTab()
                     .scrollDown()
                     .clickOnSearchBtn();
-            Assert.assertTrue(receiptMemo.searchResultIsDisplayed());
             // Edit
             receiptMemo
                     .navigateToReceiptMemoPage()

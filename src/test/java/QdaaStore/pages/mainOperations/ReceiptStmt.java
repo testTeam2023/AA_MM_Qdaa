@@ -133,6 +133,13 @@ public class ReceiptStmt {
 
         return this;
     }
+    public ReceiptStmt scrollDownTo() {
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,150);");
+
+        return this;
+    }
 
     // Add an Item
     private final By itemNo = By.xpath("//input[@id=\"ItemID\"]");
@@ -282,10 +289,13 @@ public class ReceiptStmt {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search = wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 200);");
-                return this;
+                js.executeScript("window.scrollBy(0, 250);");
+                Thread.sleep(2500);
+                return this ;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");

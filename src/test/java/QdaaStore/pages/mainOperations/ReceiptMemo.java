@@ -280,9 +280,12 @@ public class ReceiptMemo {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search = wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 200);");
+                js.executeScript("window.scrollBy(0, 250);");
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page

@@ -342,6 +342,10 @@ public class Contract {
             }
             catch (Exception e){
                 System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on edit btn after all attempt");
 
@@ -358,7 +362,7 @@ public class Contract {
         return this;
     }
 
-    public Contract clickOnDeleteBtn() {
+    public Contract clickOnDeleteBtn() throws InterruptedException {
         int maxRetry = 3;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
@@ -381,6 +385,10 @@ public class Contract {
             }
             catch (Exception e){
                 System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on delete btn after all attempt");
     }

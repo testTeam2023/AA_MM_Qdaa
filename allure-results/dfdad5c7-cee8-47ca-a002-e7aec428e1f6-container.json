@@ -1,1 +1,0 @@
-{"uuid":"dfdad5c7-cee8-47ca-a002-e7aec428e1f6","name":"QdaaStore.basess.TestBase.setup","children":["ad31efe8-19d1-4f32-9d81-30d750ed9617"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1710852853700,"stop":1710852854992}],"afters":[],"start":1710852853700,"stop":1710852854992}

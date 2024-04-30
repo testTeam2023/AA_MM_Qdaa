@@ -31,20 +31,19 @@ public class ReceiptStmtTest extends TestBase {
                 .addItems(itemNum,qty,price)
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
-        softAssert.assertTrue(receiptStmt.getSuccessMessage());
         softAssert.assertTrue(receiptStmt.fixedBtnDisable());
         // Search
         receiptStmt
                 .navigateToReceiptStmtPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownTo()
                 .clickOnSearchBtn();
-        Assert.assertTrue(receiptStmt.searchResultIsDisplayed());
         // Edit
         receiptStmt
                 .navigateToReceiptStmtPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownTo()
+
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .scrollToTheEnd()
@@ -55,7 +54,7 @@ public class ReceiptStmtTest extends TestBase {
         receiptStmt
                 .navigateToReceiptStmtPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownTo()
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
 

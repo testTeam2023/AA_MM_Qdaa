@@ -247,19 +247,22 @@ public class Transform {
 
     }
     public Transform clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search =wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 200);");
+                js.executeScript("window.scrollBy(0, 150);");
+                Thread.sleep(2000);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 clickOnSearchTab();
             }
         }

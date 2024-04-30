@@ -343,10 +343,12 @@ public class ReturnsDepartment {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
-                Thread.sleep(2500);
+                WebElement search = wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,300);");
+                Thread.sleep(2000);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
@@ -387,7 +389,6 @@ public class ReturnsDepartment {
         for (int retry = 0; retry < maxRetry; retry++){
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
-                Thread.sleep(1500);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
                 child.get(0).click();
@@ -398,6 +399,10 @@ public class ReturnsDepartment {
             }
             catch (Exception e){
                 System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on edit btn after all attempt");
 
@@ -419,7 +424,7 @@ public class ReturnsDepartment {
 
     }
 
-    public ReturnsDepartment clickOnDeleteBtn() {
+    public ReturnsDepartment clickOnDeleteBtn() throws InterruptedException{
         int maxRetry = 3;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
@@ -427,7 +432,6 @@ public class ReturnsDepartment {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
-                Thread.sleep(1500);
                 child.get(1).click();
 
                 try {
@@ -441,11 +445,16 @@ public class ReturnsDepartment {
 
                 } catch (Exception e) {
                     System.out.println("لا يمكن الحذف أو التعديل بعد التثبيت");
+
                 }
                 return this;
             }
             catch (Exception e){
                 System.out.println("Re trying to click on delete btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on delete btn after all attempt");
 
