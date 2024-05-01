@@ -235,10 +235,11 @@ public class SpendingOrder {
         return wait.until(ExpectedConditions.presenceOfElementLocated(successMessage)).isDisplayed();
     }
 
-    public SpendingOrder clickOnFixedBtn() {
+    public SpendingOrder clickOnFixedBtn()throws InterruptedException {
 
         WebElement fixedButton = waitForClickableElement(fixed);
         fixedButton.click();
+        Thread.sleep(1500);
 
         WebElement okButton = waitForClickableElement(okBtn);
         okButton.click();
@@ -249,13 +250,13 @@ public class SpendingOrder {
         try {
 
             WebElement notFixedButton = waitForClickableElement(notFixed);
-            notFixedButton.click();
+            Actions actions = new Actions(driver);
+            actions.moveToElement(notFixedButton).click().build().perform();
+            Thread.sleep(1500);
 
             WebElement okButton = waitForClickableElement(okBtn);
-            okButton.click();
-
-            System.out.println(notFixedMessageSuccess());
-            System.out.println(notFixedBtnDisable());
+            Actions actions1 = new Actions(driver);
+            actions.moveToElement(okButton).click().build().perform();
 
         }
         catch (Exception e){
@@ -391,7 +392,7 @@ public class SpendingOrder {
     }
     public SpendingOrder scrollToTheEnd(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0, 900);");
+        js.executeScript("window.scrollBy(0, 850);");
         return this ;
     }
 

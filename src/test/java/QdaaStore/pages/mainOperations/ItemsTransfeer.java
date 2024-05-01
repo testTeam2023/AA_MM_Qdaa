@@ -206,11 +206,10 @@ public class ItemsTransfeer {
 
         WebElement fixedButton = waitForClickableElement(fixed);
         fixedButton.click();
+        Thread.sleep(1500);
 
-        Thread.sleep(1000);
-
-        WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
+        WebElement okButton = waitForClickableElement(okBtn);
+        okButton.click();
 
         return this ;
     }
@@ -218,12 +217,13 @@ public class ItemsTransfeer {
         try {
 
             WebElement notFixedButton = waitForClickableElement(notFixed);
-            notFixedButton.click();
+            Actions actions = new Actions(driver);
+            actions.moveToElement(notFixedButton).click().build().perform();
+            Thread.sleep(1500);
 
-            Thread.sleep(1000);
-
-            WebElement ok = waitForClickableElement(okBtn);
-            ok.click();
+            WebElement okButton = waitForClickableElement(okBtn);
+            Actions actions1 = new Actions(driver);
+            actions.moveToElement(okButton).click().build().perform();
 
         }
         catch (Exception e){

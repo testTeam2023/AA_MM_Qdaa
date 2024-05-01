@@ -203,13 +203,15 @@ public class ReceiptMemo {
         return wait.until(ExpectedConditions.presenceOfElementLocated(successMessage)).isDisplayed();
     }
 
-    public ReceiptMemo clickOnFixedBtn() {
+    public ReceiptMemo clickOnFixedBtn() throws InterruptedException{
 
         WebElement fixedButton = waitForClickableElement(fixed);
         fixedButton.click();
+        Thread.sleep(1500);
 
         WebElement okButton = waitForClickableElement(okBtn);
         okButton.click();
+
 
         return this ;
     }
@@ -217,13 +219,13 @@ public class ReceiptMemo {
         try {
 
             WebElement notFixedButton = waitForClickableElement(notFixed);
-            notFixedButton.click();
+            Actions actions = new Actions(driver);
+            actions.moveToElement(notFixedButton).click().build().perform();
+            Thread.sleep(1500);
 
             WebElement okButton = waitForClickableElement(okBtn);
-            okButton.click();
-
-            System.out.println(notFixedMessageSuccess());
-            System.out.println(notFixedBtnDisable());
+            Actions actions1 = new Actions(driver);
+            actions.moveToElement(okButton).click().build().perform();
 
         }
         catch (Exception e){
