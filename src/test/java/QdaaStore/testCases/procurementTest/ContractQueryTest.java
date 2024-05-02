@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class ContractQueryTest extends TestBase {
     private ContractQuery contractQuery ;
     @Test
-    public void setCompetitionReqTest(){
+    public void setCompetitionReqTest()throws InterruptedException{
         contractQuery = new ContractQuery(driver);
         contractQuery
                 .navigateToContractQueryPage();

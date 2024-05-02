@@ -348,15 +348,17 @@ public class Contract {
     }
 
 
-    public Contract clickOnEditSaveBtn(){
+    public Contract clickOnEditSaveBtn() throws InterruptedException{
         WebElement edit = waitForClickableElement(editBtn);
-        edit.click();
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
+
+        Thread.sleep(1500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-
-        return this;
-    }
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
+        return this;    }
 
     public Contract clickOnDeleteBtn() throws InterruptedException {
         int maxRetry = 3;

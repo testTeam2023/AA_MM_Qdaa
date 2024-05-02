@@ -50,8 +50,20 @@ public class ReturnsDepartmentRequest {
 
     private final By returnDepartmentRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6/i") ;
 
-    public boolean returnDepartmentRequestIsDisplayed(){
-        return waitForVisibilityElement(returnDepartmentRequest).isDisplayed();
-    }
+    public boolean returnDepartmentRequestIsDisplayed() throws InterruptedException{
+        int maxAttempt=3;
+        for (int attempt=0; attempt<maxAttempt; attempt++) {
+            try {
+                return waitForVisibilityElement(returnDepartmentRequest).isDisplayed();
+
+            } catch (Exception e) {
+                System.out.println("retrying to assert to اعتماد طلبات الرجيع ");
+                driver.navigate().refresh();
+                Thread.sleep(3000);
+            }
+        }
+            throw new RuntimeException("failed to assert to اعتماد طلبات الرجيع");
+            }
+
 
 }

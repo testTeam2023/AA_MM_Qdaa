@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class ClassifyItemTest  extends TestBase {
     private ClassifyItem classifyItem ;
     @Test
-    public void setClassifyItem(){
+    public void setClassifyItem() throws InterruptedException{
         classifyItem = new ClassifyItem(driver);
         classifyItem
                 .navigateToClassifyItemPage();

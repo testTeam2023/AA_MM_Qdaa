@@ -252,11 +252,14 @@ private final By  editBtnParent = By.xpath("//table[@id=\"tblDataTableClient\"]/
 
     public Examination clickOnEditSaveBtn()throws InterruptedException{
         WebElement edit = waitForClickableElement(editBtn);
-        edit.click();
-        Thread.sleep(1000);
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
+
+        Thread.sleep(1500);
+
         WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-        Thread.sleep(1000);
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
         return this;
 
     }

@@ -52,7 +52,18 @@ public class ClassifyItem {
 
     private final By classifyItem = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
-    public boolean classifyItemIsDisplayed(){
-        return waitForVisibilityElement(classifyItem).isDisplayed();
+    public boolean classifyItemIsDisplayed() throws InterruptedException{
+        int maxAttempt=3;
+        for (int attempt=0; attempt<maxAttempt; attempt++) {
+            try {
+                return waitForVisibilityElement(classifyItem).isDisplayed();
+
+            } catch (Exception e) {
+                System.out.println("retrying to assert to تصنيف الاصناف الغير المصنفة ");
+                driver.navigate().refresh();
+                Thread.sleep(3000);
+            }
+        }
+        throw new RuntimeException("failed to assert to تصنيف الاصناف الغير المصنفة");
     }
 }

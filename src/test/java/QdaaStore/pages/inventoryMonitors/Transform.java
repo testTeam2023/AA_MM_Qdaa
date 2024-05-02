@@ -189,17 +189,17 @@ public class Transform {
         try {
 
             WebElement notFixedButton = waitForClickableElement(notFixed);
-            notFixedButton.click();
+            Actions actions = new Actions(driver);
+            actions.moveToElement(notFixedButton).click().build().perform();
+            Thread.sleep(1500);
 
             WebElement okButton = waitForClickableElement(okBtn);
-            okButton.click();
-
-            System.out.println(notFixedMessageSuccess());
-            System.out.println(notFixedBtnDisable());
+            Actions actions1 = new Actions(driver);
+            actions.moveToElement(okButton).click().build().perform();
 
         }
         catch (Exception e){
-            throw  new RuntimeException("زر التثبيت مفعل ");
+            throw new RuntimeException("زر التثبيت مفعل ");
 
         }
         return this ;
@@ -294,14 +294,25 @@ public class Transform {
     private final By deleteSuccessMessage = By.xpath("//*[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحذف بنجاح\")]");
 
     public Transform clickOnEditBtn() throws InterruptedException{
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(0).click();
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(0).click();
+                Thread.sleep(2000);
 
-        Thread.sleep(2000);
-
-        return this;
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
     public Transform scrollToTheEnd(){
@@ -310,13 +321,16 @@ public class Transform {
         return this ;
     }
 
-    public Transform clickOnEditSaveBtn(){
+    public Transform clickOnEditSaveBtn() throws InterruptedException{
         WebElement edit = waitForClickableElement(editBtn);
-        edit.click();
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
+
+        Thread.sleep(1500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
         return this;
 
     }

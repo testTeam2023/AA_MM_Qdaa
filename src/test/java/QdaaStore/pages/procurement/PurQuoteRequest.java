@@ -271,13 +271,16 @@ public class PurQuoteRequest {
 
     }
 
-    public PurQuoteRequest clickOnEditSaveBtn(){
+    public PurQuoteRequest clickOnEditSaveBtn() throws InterruptedException{
         WebElement edit = waitForClickableElement(editBtn);
-        edit.click();
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
+
+        Thread.sleep(1500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
         return this;
 
     }

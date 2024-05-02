@@ -50,8 +50,21 @@ public class ContractQuery {
 
     private final By contractQuery = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/span") ;
 
-    public boolean contractQueryIsDisplayed(){
-        return waitForVisibilityElement(contractQuery).isDisplayed();
+    public boolean contractQueryIsDisplayed() throws InterruptedException{
+
+
+        int maxAttempt=3;
+        for (int attempt=0; attempt<maxAttempt; attempt++) {
+            try {
+                return waitForVisibilityElement(contractQuery).isDisplayed();
+
+            } catch (Exception e) {
+                System.out.println("retrying to assert to ملخص طلب شراء ");
+                driver.navigate().refresh();
+                Thread.sleep(3000);
+            }
+        }
+        throw new RuntimeException("failed to assert to ملخص طلب شراء");
     }
 
 }

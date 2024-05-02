@@ -260,13 +260,17 @@ public class PurQuote {
 
     }
 
-    public PurQuote clickOnEditSaveBtn(){
+    public PurQuote clickOnEditSaveBtn() throws InterruptedException{
+
         WebElement edit = waitForClickableElement(editBtn);
-        edit.click();
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
+
+        Thread.sleep(1500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        ok.click();
-
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
         return this;
     }
 
@@ -309,8 +313,8 @@ public class PurQuote {
     }
 
     public PurQuote scrollToTheEnd(){
-        Actions actions = new Actions(driver);
-        actions.scrollToElement(driver.findElement(editBtn));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,850);");
         return this ;
     }
 

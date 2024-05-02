@@ -289,12 +289,16 @@ public class ReceiptNotify  {
         return this;
     }
 
-    public ReceiptNotify clickOnEditSaveBtn(){
-            wait.until(ExpectedConditions.elementToBeClickable(editBtn)).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(okBtn)).click();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(getSuccessMessage());
+    public ReceiptNotify clickOnEditSaveBtn() throws InterruptedException{
+        WebElement edit = waitForClickableElement(editBtn);
+        Actions actions =new Actions(driver);
+        actions.moveToElement(edit).click().build().perform();
 
+        Thread.sleep(1500);
+
+        WebElement ok = waitForClickableElement(okBtn);
+        Actions actions1 =new Actions(driver);
+        actions.moveToElement(ok).click().build().perform();
         return this;
 
     }
