@@ -185,6 +185,11 @@ public class ReturnsDepartment {
         js.executeScript("window.scrollBy(0,550);");
         return this ;
     }
+    public ReturnsDepartment scrollDownc(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,150);");
+        return this ;
+    }
 
     private final By itemNumberBtn= By.xpath("//*[@id=\"FormAddOrEdit_ReturnsDepartmentDtl\"]/div[1]/div/label[4]");
     private final By itemNum = By.xpath("//*[@id=\"SearchKey\"]");

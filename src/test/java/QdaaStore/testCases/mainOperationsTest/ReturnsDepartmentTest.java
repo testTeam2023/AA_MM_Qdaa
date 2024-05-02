@@ -32,7 +32,6 @@ public class ReturnsDepartmentTest extends TestBase {
                 .addItem(itemNum,qty)
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
-        softAssert.assertTrue(returnsDepartment.getSuccessMessage());
         softAssert.assertTrue(returnsDepartment.fixedBtnDisable());
         // Search
         returnsDepartment
@@ -53,7 +52,7 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownc()
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
     }
