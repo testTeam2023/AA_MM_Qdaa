@@ -24,6 +24,7 @@ public class ItemsTest extends TestBase {
      items
              .navigateToItemsPage()
              .clickOnSearchTab()
+             .scrollDownForSearch()
              .clickOnSearchBtn();
      Assert.assertTrue(items.searchResultIsDisplayed());
     }
@@ -34,6 +35,7 @@ public class ItemsTest extends TestBase {
         items
                 .navigateToItemsPage()
                 .clickOnSearchTab()
+                .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .editMaxQty()
@@ -45,6 +47,7 @@ public class ItemsTest extends TestBase {
         items
                 .navigateToItemsPage()
                 .clickOnSearchTab()
+                .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
 

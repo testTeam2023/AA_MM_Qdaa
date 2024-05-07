@@ -43,6 +43,7 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
+                .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .scrollToTheEnd()
@@ -52,7 +53,7 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDownc()
+                .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
     }

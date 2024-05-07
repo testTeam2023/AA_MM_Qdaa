@@ -42,6 +42,8 @@ public class Contract {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getContractPage());
+                SoftAssert softAssert = new SoftAssert();
+                softAssert.assertTrue(waitForVisibilityElement(pageIsDisplayed).isDisplayed());
                 Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
@@ -52,14 +54,31 @@ public class Contract {
         throw new RuntimeException("page load Times Out after" + maxAttempt);
     }
 
-    public Contract selectTypeOfContract(boolean type){
-        if (!type) {
-          WebElement contractType= waitForClickableElement(contractWithoutPurOrderBtn);
-            Actions actions = new Actions(driver);
-            actions.moveToElement(contractType).click().build().perform();
+    public Contract selectTypeOfContract(boolean type) throws InterruptedException{
+
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                if (!type) {
+                    WebElement contractType = waitForClickableElement(contractWithoutPurOrderBtn);
+                    Actions actions = new Actions(driver);
+                    actions.moveToElement(contractType).click().build().perform();
+                }
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying select type of contract");
+                driver.navigate().refresh();
+                Thread.sleep(3000);
+
+            }
         }
-        return this ;
+        throw new RuntimeException(" failed to select type of contract");
     }
+
+
+    private final By pageIsDisplayed= By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i");
+
     private final By contractWithPurOrderBtn= By.xpath("//*[@id=\"rdwithpurordercontract\"]");
     private final By contractWithoutPurOrderBtn= By.xpath("//*[@id=\"FormAddOrEdit\"]/div[1]/div[1]/div/label[3]");
     private final By selectPurQuoteNumber = By.xpath("//*[@id=\"btnPurQuoteComparisonID\"]");

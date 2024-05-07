@@ -175,9 +175,10 @@ public class ReturnsDepartment {
 
     }
 
-    public ReturnsDepartment scrollDownForSearch(){
+    public ReturnsDepartment scrollDownForSearch()throws InterruptedException{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,250);");
+        js.executeScript("window.scrollBy(0,180);");
+        Thread.sleep(1000);
         return this ;
     }
     public ReturnsDepartment scrollDown(){
@@ -333,7 +334,7 @@ public class ReturnsDepartment {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].scrollIntoView(true);", element);
                 element.click();
-                Thread.sleep(2000);
+                Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
                 System.out.println("Exception occured " + e.getMessage());
@@ -436,9 +437,7 @@ public class ReturnsDepartment {
     }
 
     public ReturnsDepartment clickOnDeleteBtn() throws InterruptedException{
-        int maxRetry = 5;
-        for (int retry = 0; retry < maxRetry; retry++){
-            try {
+
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
@@ -458,16 +457,7 @@ public class ReturnsDepartment {
                 }
                 return this ;
             }
-            catch (Exception e){
-                System.out.println("Re trying to click on delete btn ");
-                driver.navigate().refresh();
-                Thread.sleep(2500);
-                clickOnSearchTab();
-                clickOnSearchBtn();
-            }}
-        throw new RuntimeException("Failed to click on delete btn after all attempt");
 
-    }
     public boolean getDeleteSuccessMessage() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(deleteSuccessMessage)).isDisplayed();
     }

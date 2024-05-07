@@ -39,13 +39,13 @@ public class SpendingOrderTest extends TestBase {
         spendingOrder
                 .navigateToSpendingOrderPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownForSearch()
                 .clickOnSearchBtn();
 //Edit
         spendingOrder
                 .navigateToSpendingOrderPage()
                 .clickOnSearchTab()
-                .scrollDown()
+                .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
                 .scrollToTheEnd()
@@ -55,8 +55,10 @@ public class SpendingOrderTest extends TestBase {
         spendingOrder
                 .navigateToSpendingOrderPage()
                 .clickOnSearchTab()
-                .scrollDown()
-                .clickOnSearchBtn();
+                .scrollDownForSearch()
+                .clickOnSearchBtn()
+                .clickOnDeleteBtn()
+        ;
 
     }
   /*

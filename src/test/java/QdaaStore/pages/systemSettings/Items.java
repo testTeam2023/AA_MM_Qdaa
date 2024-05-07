@@ -183,7 +183,7 @@ public class Items {
                 // Attempt to click on the search button
                 wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 200);");
+                js.executeScript("window.scrollBy(0, 180);");
                 return this;
             } catch (Exception e) {
                 // Refresh the page
@@ -195,6 +195,13 @@ public class Items {
         }
         // If max attempts reached without success, throw a custom exception
         throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");
+    }
+    public Items scrollDownForSearch()throws InterruptedException{
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,300);");
+        Thread.sleep(1000);
+
+        return this;
     }
     public boolean searchResultIsDisplayed(){
         int maxRetry = 3;

@@ -67,8 +67,8 @@ public class ReceiptNotify  {
                 Thread.sleep(2500);
                 wait.until(ExpectedConditions.elementToBeClickable(searchForStore)).sendKeys(storeNAme, Keys.ENTER);
                 return this;
-            } catch (StaleElementReferenceException e) {
-                System.out.println("Retrying");
+            } catch (Exception e) {
+                System.out.println("Retrying add store ");
                 driver.navigate().refresh();
                 Thread.sleep(2000);
             }
