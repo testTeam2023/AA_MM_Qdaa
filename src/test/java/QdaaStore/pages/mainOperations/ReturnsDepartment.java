@@ -177,7 +177,7 @@ public class ReturnsDepartment {
 
     public ReturnsDepartment scrollDownForSearch()throws InterruptedException{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,180);");
+        js.executeScript("window.scrollBy(0,220);");
         Thread.sleep(1000);
         return this ;
     }
@@ -357,14 +357,15 @@ public class ReturnsDepartment {
 
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,180);");
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 clickOnSearchTab();
+                scrollDownForSearch();
             }
         }
         // If max attempts reached without success, throw a custom exception
@@ -379,7 +380,7 @@ public class ReturnsDepartment {
             catch (Exception e){
                 System.out.println("retrying display search results.....");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(3500);
                 clickOnSearchTab().clickOnSearchBtn();
             }
 
@@ -400,9 +401,11 @@ public class ReturnsDepartment {
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
                 List<WebElement> child = parent.findElements(editBtnChild);
-                child.get(0).click();
+                WebElement elemnt = child.get(0);
 
-                Thread.sleep(2000);
+                wait.until(ExpectedConditions.elementToBeClickable(elemnt)).click();
+
+                Thread.sleep(3000);
 
                 return this;
             }

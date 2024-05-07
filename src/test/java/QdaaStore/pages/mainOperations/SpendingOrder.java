@@ -158,7 +158,7 @@ public class SpendingOrder {
     }
     public SpendingOrder scrollDownForSearch()throws InterruptedException{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400);");
+        js.executeScript("window.scrollBy(0,350);");
         return this ;
     }
 
@@ -323,20 +323,21 @@ public class SpendingOrder {
                 actions.moveToElement(search).click().build().perform();
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0, 180);");
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 System.out.println("Element not found or stale. Retrying click on search button...");
-                retryClickOnSearchBtn();
-            }
+                driver.navigate().refresh();
+                Thread.sleep(3500);
+                clickOnSearchTab();
+                scrollDownForSearch();            }
         }
         throw new RuntimeException("Failed to click on search btn after all attempts");
     }
     private void retryClickOnSearchBtn() throws InterruptedException {
         // Refresh the page
-        System.out.println("Page refreshed. Retrying click on search btn...");
         driver.navigate().refresh();
-        Thread.sleep(2000);
+        Thread.sleep(3500);
         clickOnSearchTab();
         scrollDownForSearch();
     }
@@ -371,9 +372,11 @@ public class SpendingOrder {
             try {
                 WebElement parent = waitForVisibilityElement(editBtnParent);
                 List<WebElement> child = parent.findElements(editBtnChild);
-                child.get(0).click();
+                WebElement elemnt = child.get(0);
 
-                Thread.sleep(2000);
+                wait.until(ExpectedConditions.elementToBeClickable(elemnt)).click();
+
+                Thread.sleep(3000);
 
                 return this;
             }
@@ -388,6 +391,8 @@ public class SpendingOrder {
         throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
+
+
     public SpendingOrder scrollToTheEnd(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, 850);");
