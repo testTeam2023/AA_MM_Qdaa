@@ -158,8 +158,7 @@ public class SpendingOrder {
     }
     public SpendingOrder scrollDownForSearch()throws InterruptedException{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,450);");
-        Thread.sleep(1000);
+        js.executeScript("window.scrollBy(0,400);");
         return this ;
     }
 
@@ -327,7 +326,6 @@ public class SpendingOrder {
                 Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
-                // Handle element not found or stale element exception
                 System.out.println("Element not found or stale. Retrying click on search button...");
                 retryClickOnSearchBtn();
             }
@@ -340,6 +338,7 @@ public class SpendingOrder {
         driver.navigate().refresh();
         Thread.sleep(2000);
         clickOnSearchTab();
+        scrollDownForSearch();
     }
     public boolean searchResultIsDisplayed() throws InterruptedException{
         int maxRetry = 3;
@@ -383,6 +382,7 @@ public class SpendingOrder {
                 driver.navigate().refresh();
                 Thread.sleep(2500);
                 clickOnSearchTab();
+                scrollDownForSearch();
                 clickOnSearchBtn();
             }}
         throw new RuntimeException("Failed to click on edit btn after all attempt");
@@ -410,10 +410,18 @@ public class SpendingOrder {
 
     public SpendingOrder clickOnDeleteBtn() throws InterruptedException {
 
-        WebElement parent = waitForVisibilityElement(editBtnParent);
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++) {
+            try {
 
-        List<WebElement> child = parent.findElements(editBtnChild);
-        child.get(1).click();
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+
+                List<WebElement> child = parent.findElements(editBtnChild);
+                child.get(1).click();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         try {
             wait.until(ExpectedConditions.alertIsPresent());

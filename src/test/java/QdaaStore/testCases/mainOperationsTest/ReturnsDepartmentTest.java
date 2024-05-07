@@ -17,9 +17,9 @@ public class ReturnsDepartmentTest extends TestBase {
     }
 
     @Test(dataProvider = "data" , priority = 1)
-    public void createReturnsDepartmentFlow(String returnType, String returnReason , String ReturnStore , String storeKeeper , String employeeName , String DepartmentMangerName , String itemNum, String qty) throws InterruptedException{
-        returnsDepartment = new ReturnsDepartment(driver) ;
-        SoftAssert softAssert= new SoftAssert();
+    public void createReturnsDepartmentFlow(String returnType, String returnReason , String ReturnStore , String storeKeeper , String employeeName , String DepartmentMangerName , String itemNum, String qty) throws InterruptedException {
+        returnsDepartment = new ReturnsDepartment(driver);
+        SoftAssert softAssert = new SoftAssert();
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .selectReturnType(returnType)
@@ -29,7 +29,7 @@ public class ReturnsDepartmentTest extends TestBase {
                 .selectEmployee(employeeName)
                 .selectDepartmentManger(DepartmentMangerName)
                 .scrollDown()
-                .addItem(itemNum,qty)
+                .addItem(itemNum, qty)
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
         softAssert.assertTrue(returnsDepartment.fixedBtnDisable());
@@ -57,6 +57,7 @@ public class ReturnsDepartmentTest extends TestBase {
                 .clickOnSearchBtn()
                 .clickOnDeleteBtn();
     }
+
 /*
     @Test(priority = 2)
     public void returnsDepartmentSearch() throws InterruptedException{

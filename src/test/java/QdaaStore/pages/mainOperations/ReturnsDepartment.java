@@ -356,7 +356,7 @@ public class ReturnsDepartment {
                 actions.moveToElement(search).click().build().perform();
 
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,300);");
+                js.executeScript("window.scrollBy(0,180);");
                 Thread.sleep(2500);
                 return this;
             } catch (Exception e) {
@@ -437,12 +437,20 @@ public class ReturnsDepartment {
     }
 
     public ReturnsDepartment clickOnDeleteBtn() throws InterruptedException{
+             int maxAttempt= 3;
+             for (int attempt=0; attempt<maxAttempt; attempt++){
+                 try {
 
-                WebElement parent = waitForVisibilityElement(editBtnParent);
+                     WebElement parent = waitForVisibilityElement(editBtnParent);
 
-                List<WebElement> child = parent.findElements(editBtnChild);
-                child.get(1).click();
-
+                     List<WebElement> child = parent.findElements(editBtnChild);
+                     child.get(1).click();
+                 }
+                 catch (Exception e)
+                 {
+                     System.out.println(e.getMessage());
+                 }
+             }
                 try {
                     wait.until(ExpectedConditions.alertIsPresent());
                     Alert alert = driver.switchTo().alert();
