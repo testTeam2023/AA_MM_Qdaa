@@ -180,17 +180,25 @@ public class Items {
         int maxAttempt = 3;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
-                // Attempt to click on the search button
-                wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                // Actions actions = new Actions(driver);
+                // actions.moveToElement(search).click().build().perform();
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", search);
+                search.click();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 180);");
+                js.executeScript("window.scrollBy(0,180);");
+                Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
-                Thread.sleep(2000);
+                Thread.sleep(3500);
                 clickOnSearchTab();
+                scrollDownForSearch();
+
             }
         }
         // If max attempts reached without success, throw a custom exception
@@ -198,7 +206,7 @@ public class Items {
     }
     public Items scrollDownForSearch()throws InterruptedException{
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,300);");
+        js.executeScript("window.scrollBy(0,250);");
         Thread.sleep(1000);
 
         return this;
@@ -226,14 +234,30 @@ public class Items {
 
 
 
-    public Items clickOnEditBtn(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(editBtnParent));
-        WebElement parent = driver.findElement(editBtnParent);
-        List<WebElement>child = parent.findElements(editBtnChild);
-        child.get(0).click();
-        JavascriptExecutor js = (JavascriptExecutor) driver ;
-        js.executeScript("window.scrollBy(0, 250);");
-        return this;
+    public Items clickOnEditBtn() throws InterruptedException{
+        int maxRetry = 5;
+        for (int retry = 0; retry < maxRetry; retry++){
+            try {
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+                List<WebElement> child = parent.findElements(editBtnChild);
+                WebElement elemnt = child.get(0);
+
+                wait.until(ExpectedConditions.elementToBeClickable(elemnt)).click();
+
+                Thread.sleep(3000);
+
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Re trying to click on edit btn ");
+                driver.navigate().refresh();
+                Thread.sleep(2500);
+                clickOnSearchTab();
+                clickOnSearchBtn();
+                scrollDownForSearch();
+            }}
+        throw new RuntimeException("Failed to click on edit btn after all attempt");
+
     }
 
 
