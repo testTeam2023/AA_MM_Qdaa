@@ -317,12 +317,16 @@ public class SpendingOrder {
         int maxAttempts = 5;
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
-                // Attempt to click on the search button
-                WebElement search = wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
-                Actions actions = new Actions(driver);
-                actions.moveToElement(search).click().build().perform();
+                WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                // Actions actions = new Actions(driver);
+                // actions.moveToElement(search).click().build().perform();
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", search);
+                search.click();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 180);");
+                js.executeScript("window.scrollBy(0,180);");
+
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {

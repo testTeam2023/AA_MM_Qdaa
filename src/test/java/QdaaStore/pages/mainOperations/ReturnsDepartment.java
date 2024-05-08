@@ -350,25 +350,24 @@ public class ReturnsDepartment {
         int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
-                // Attempt to click on the search button
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
-                Actions actions = new Actions(driver);
-                actions.moveToElement(search).click().build().perform();
+               // Actions actions = new Actions(driver);
+               // actions.moveToElement(search).click().build().perform();
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", search);
+                search.click();
 
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,180);");
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
-                // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
                 driver.navigate().refresh();
                 Thread.sleep(3500);
                 clickOnSearchTab();
-                scrollDownForSearch();
             }
         }
-        // If max attempts reached without success, throw a custom exception
         throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");
     }
     public boolean searchResultIsDisplayed() throws InterruptedException{
