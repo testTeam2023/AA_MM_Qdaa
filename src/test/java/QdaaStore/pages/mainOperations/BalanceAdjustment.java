@@ -101,31 +101,32 @@ public class BalanceAdjustment {
             try {
                 WebElement itemNum = waitForClickableElement(itemNumber);
                 itemNum.sendKeys(itemNumbers, Keys.ENTER);
-                Thread.sleep(1500);
+                Thread.sleep(2000);
 
                 WebElement qty = waitForClickableElement(adjustmentQty);
                 qty.clear();
                 qty.sendKeys(adjustmntQty);
-                Thread.sleep(1000);
+                Thread.sleep(2000);
 
 
                 Select select = new Select(waitForClickableElement(adjustmentType));
                 select.selectByValue(adjstmntType);
-
                 JavascriptExecutor jss = (JavascriptExecutor) driver;
                 jss.executeScript("window.scrollBy(0,100);");
 
+                Thread.sleep(2000);
 
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
 
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,400);");
+                js.executeScript("window.scrollBy(0,250);");
 
-                Thread.sleep(1500);
+                Thread.sleep(3000);
                 return this;
             } catch (Exception e) {
                 System.out.println("Retry to add itemand click on add item btn");
+                System.out.println(e.getMessage());
                 navigateToBalanceAdjustmentrPage();
                 selectSoreName("الاجهزة الالكترونية");
                 scrollDownForAddItem();
@@ -143,15 +144,16 @@ public class BalanceAdjustment {
                 WebElement saveButton = waitForClickableElement(saveBtn);
                 Actions actions = new Actions(driver);
                 actions.moveToElement(saveButton).click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(2500);
                 WebElement okButton = waitForClickableElement(okBtn);
                 Actions actions1 = new Actions(driver);
                 actions1.moveToElement(okButton).click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(2500);
                 return this;
             }
             catch (Exception e){
                 System.out.println("Retrying click on save btn ");
+                System.out.println(e.getMessage());
                 handleUnexpectedAlert();
             }
         }
