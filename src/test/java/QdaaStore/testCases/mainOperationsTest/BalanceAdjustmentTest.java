@@ -12,8 +12,8 @@ public class BalanceAdjustmentTest extends TestBase {
     @DataProvider
     public Object[][] data (){
         return new Object[][]{
-                {"الاجهزة الالكترونية","199","1","إضافة" },
-                {"الاجهزة الالكترونية","199","1","خصم" }
+                {"الاجهزة الالكترونية","199","1","1" },
+                {"الاجهزة الالكترونية","199","1","2" }
 
         };
 

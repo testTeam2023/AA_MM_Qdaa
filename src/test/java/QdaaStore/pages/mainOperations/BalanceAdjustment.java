@@ -110,13 +110,15 @@ public class BalanceAdjustment {
 
 
                 Select select = new Select(waitForClickableElement(adjustmentType));
-                select.selectByVisibleText(adjstmntType);
+                select.selectByValue(adjstmntType);
 
                 JavascriptExecutor jss = (JavascriptExecutor) driver;
                 jss.executeScript("window.scrollBy(0,100);");
 
+
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,400);");
 
@@ -124,6 +126,9 @@ public class BalanceAdjustment {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retry to add itemand click on add item btn");
+                navigateToBalanceAdjustmentrPage();
+                selectSoreName("الاجهزة الالكترونية");
+                scrollDownForAddItem();
             }
         }
         throw new RuntimeException("failed to add item and click on item btn after all attempt");
