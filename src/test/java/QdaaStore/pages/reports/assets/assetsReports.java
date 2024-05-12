@@ -90,15 +90,62 @@ public class assetsReports {
     private final By report104 = By.xpath("//*[@id=\"lbl_ReportTitle\"]/i") ;
 
 
-    public boolean report101IsDisplayed(){return waitForVisibilityElement(report101).isDisplayed();}
+    public boolean report101IsDisplayed(){
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+        return waitForVisibilityElement(report101).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport101Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report101 page check the page manually ");
+    }
     public boolean report102IsDisplayed(){
-        return waitForVisibilityElement(report102).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report102).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport102Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report102 page check the page manually ");
     }
     public boolean report103IsDisplayed(){
-        return waitForVisibilityElement(report103).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report103).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport103Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report103 page check the page manually ");
     }
     public boolean report104IsDisplayed(){
-        return waitForVisibilityElement(report104).isDisplayed();
+
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report104).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport104Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report104 page check the page manually ");
     }
 
 

@@ -39,7 +39,7 @@ public class SpendingorderRequest {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getSpendingorderRequestPage());
-                Thread.sleep(2500);
+                Thread.sleep(3000);
                 return this;
             } catch (Exception e) {
                 driver.navigate().refresh();
@@ -52,8 +52,17 @@ public class SpendingorderRequest {
     private final By spendingorderRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6/span") ;
 
     public boolean spendingorderRequestIsDisplayed(){
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
         return waitForVisibilityElement(spendingorderRequest).isDisplayed();
+        } catch (Exception e) {
+            System.out.println("retrying open the page ");
+        }
     }
+        throw new RuntimeException("failed to open the spendingorderRequest page check the page manually ");
+}
 
 
 }

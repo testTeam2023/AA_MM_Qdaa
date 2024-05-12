@@ -13,25 +13,27 @@ import java.util.NoSuchElementException;
 
 public class AppAssetDaftar {
 
-    private final WebDriver driver ;
+    private final WebDriver driver;
     private final FluentWait<WebDriver> wait;
 
-    public AppAssetDaftar (WebDriver driver){
-        this.driver=driver;
-        this.wait=new FluentWait<>(driver)
+    public AppAssetDaftar(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(60))
                 .pollingEvery(Duration.ofSeconds(2))
                 .ignoring(NoSuchElementException.class);
     }
+
     public WebElement waitForVisibilityElement(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
     public AppAssetDaftar navigateToAppAssetDaftarPage() {
         int maxAttempt = 3;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getAppAssetDaftarPage());
-                Thread.sleep(2500);
+                Thread.sleep(3000);
                 return this;
             } catch (Exception e) {
                 driver.navigate().refresh();
@@ -41,9 +43,18 @@ public class AppAssetDaftar {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By appAssetDaftar = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
+    private final By appAssetDaftar = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i");
 
-    public boolean appAssetDaftarIsDisplayed(){
-        return waitForVisibilityElement(appAssetDaftar).isDisplayed();
+    public boolean appAssetDaftarIsDisplayed() {
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetDaftar).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+            }
+        }
+        throw new RuntimeException("failed to open the AssetDaftar page check the page manually ");
     }
 }

@@ -227,43 +227,187 @@ public class inventoryMonitoringReports {
 
 
     public boolean report20IsDisplayed(){
-        return waitForVisibilityElement(report20).isDisplayed();
+
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report20).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport20Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report20 page check the page manually ");
     }
     public boolean report21IsDisplayed(){
-        return waitForVisibilityElement(report21).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report21).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport21Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report21 page check the page manually ");
     }
-    public boolean report22IsDisplayed(){
-        return waitForVisibilityElement(report22).isDisplayed();
+    public boolean report22IsDisplayed()
+    {
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report22).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport22Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report22 page check the page manually ");
     }
     public boolean report23IsDisplayed(){
-        return waitForVisibilityElement(report23).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report23).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport23Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report23 page check the page manually ");
     }
     public boolean report24IsDisplayed(){
-        return waitForVisibilityElement(report24).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report24).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport24Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report24 page check the page manually ");
     }
     public boolean report30IsDisplayed(){
-        return waitForVisibilityElement(report30).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report30).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport30Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report30 page check the page manually ");
     }
     public boolean report31IsDisplayed(){
-        return waitForVisibilityElement(report31).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report31).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport31Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report31 page check the page manually ");
     }
     public boolean report42IsDisplayed(){
-        return waitForVisibilityElement(report42).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report42).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport42Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report42 page check the page manually ");
     }
     public boolean report43IsDisplayed(){
-        return waitForVisibilityElement(report43).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report43).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport43Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report43 page check the page manually ");
     }
     public boolean report65IsDisplayed(){
-        return waitForVisibilityElement(report65).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report65).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport65Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report65 page check the page manually ");
     }
     public boolean report66IsDisplayed(){
-        return waitForVisibilityElement(report66).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report66).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport66Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report66 page check the page manually ");
     }
     public boolean report67IsDisplayed(){
-        return waitForVisibilityElement(report67).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report67).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport67Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report 67 page check the page manually ");
     }
     public boolean report74IsDisplayed(){
-        return waitForVisibilityElement(report74).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(report74).isDisplayed();
+            }
+            catch (Exception e) {
+                System.out.println("retrying open the report ");
+                navigateToReport74Page();
+            }
+        }
+        throw new RuntimeException("failed to open the report 74 page check the page manually ");
     }
 
 

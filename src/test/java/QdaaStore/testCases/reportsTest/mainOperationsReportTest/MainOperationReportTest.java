@@ -10,7 +10,7 @@ public class MainOperationReportTest extends TestBase {
     private MainOperationsReports mainOperationsReports;
 
     @Test
-    public void setAssetsReports(){
+    public void setMainOperationsReports(){
 
         mainOperationsReports=new MainOperationsReports(driver);
         mainOperationsReports.navigateToReport1Page()
