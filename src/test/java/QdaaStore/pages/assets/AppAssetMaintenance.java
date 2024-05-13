@@ -43,6 +43,16 @@ public class AppAssetMaintenance {
     private final By appAssetMaintenance = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean appAssetMaintenanceIsDisplayed(){
-        return waitForVisibilityElement(appAssetMaintenance).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetMaintenance).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToAppAssetMaintenancePage();
+            }
+        }
+        throw new RuntimeException("failed to open the appAssetMaintenance page check the page manually ");
     }
 }

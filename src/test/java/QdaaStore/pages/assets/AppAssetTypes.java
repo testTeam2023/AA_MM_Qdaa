@@ -43,7 +43,17 @@ public class AppAssetTypes {
     private final By appAssetTypes = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean appAssetTypesIsDisplayed(){
-        return waitForVisibilityElement(appAssetTypes).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetTypes).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToAppAssetTypesPage();
+            }
+        }
+        throw new RuntimeException("failed to open the appAssetTypes page check the page manually ");
     }
 
 

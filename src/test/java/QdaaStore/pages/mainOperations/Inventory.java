@@ -51,6 +51,16 @@ public class Inventory {
     private final By inventory = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean inventoryIsDisplayed(){
-        return waitForVisibilityElement(inventory).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(inventory).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToInventoryPage();
+            }
+        }
+        throw new RuntimeException("failed to open the inventory page check the page manually ");
     }
 }

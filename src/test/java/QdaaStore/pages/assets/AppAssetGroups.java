@@ -43,6 +43,16 @@ public class AppAssetGroups {
     private final By appAssetGroups = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean appAssetGroupsIsDisplayed(){
-        return waitForVisibilityElement(appAssetGroups).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetGroups).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToAppAssetGroupsPage();
+            }
+        }
+        throw new RuntimeException("failed to open the appAssetGroups page check the page manually ");
     }
 }

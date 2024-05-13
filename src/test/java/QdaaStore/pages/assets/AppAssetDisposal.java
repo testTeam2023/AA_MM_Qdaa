@@ -43,6 +43,16 @@ public class AppAssetDisposal {
     private final By appAssetDisposal = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean appAssetDisposalIsDisplayed(){
-        return waitForVisibilityElement(appAssetDisposal).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetDisposal).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToAppAssetDisposalPage();
+            }
+        }
+        throw new RuntimeException("failed to open the appAssetDisposal page check the page manually ");
     }
 }

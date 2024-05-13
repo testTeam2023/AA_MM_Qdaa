@@ -42,7 +42,16 @@ public class SpendingOrderMonitoring {
     private final By spendingOrderMonitoring = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
 
     public boolean spendingOrderMonitoringIsDisplayed(){
-        return waitForVisibilityElement(spendingOrderMonitoring).isDisplayed();
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(spendingOrderMonitoring).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToSpendingOrderMonitoringPage();
+            }
+        }
+        throw new RuntimeException("failed to open the spendingOrderMonitoring page check the page manually ");
     }
 
 

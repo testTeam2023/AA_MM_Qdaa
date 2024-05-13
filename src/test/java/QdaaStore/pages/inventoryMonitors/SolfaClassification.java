@@ -43,7 +43,16 @@ public class SolfaClassification {
     private final By solfaClassification = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
 
     public boolean solfaClassificationIsDisplayed(){
-        return waitForVisibilityElement(solfaClassification).isDisplayed();
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(solfaClassification).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToSolfaClassificationPage();
+            }
+        }
+        throw new RuntimeException("failed to open the solfaClassification page check the page manually ");
     }
 
 

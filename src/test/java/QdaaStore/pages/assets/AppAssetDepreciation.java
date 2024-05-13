@@ -43,6 +43,16 @@ public class AppAssetDepreciation {
     private final By appAssetDepreciation = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean appAssetDepreciationIsDisplayed(){
-        return waitForVisibilityElement(appAssetDepreciation).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(appAssetDepreciation).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToAppAssetDepreciationPage();
+            }
+        }
+        throw new RuntimeException("failed to open the appAssetDepreciation page check the page manually ");
     }
 }

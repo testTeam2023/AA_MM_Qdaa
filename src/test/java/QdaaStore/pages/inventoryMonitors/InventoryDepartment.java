@@ -42,7 +42,17 @@ public class InventoryDepartment {
     private final By inventoryDepartment = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/span") ;
 
     public boolean inventoryDepartmentIsDisplayed(){
-        return waitForVisibilityElement(inventoryDepartment).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(inventoryDepartment).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToInventoryDepartmentPage();
+            }
+        }
+        throw new RuntimeException("failed to open the inventoryDepartment page check the page manually ");
     }
 
 

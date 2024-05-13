@@ -43,7 +43,17 @@ public class ReceiptMemoMonitoring {
     private final By receiptMemoMonitoring = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
 
     public boolean receiptMemoMonitoringIsDisplayed(){
-        return waitForVisibilityElement(receiptMemoMonitoring).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(receiptMemoMonitoring).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToReceiptMemoMonitoringPage();
+            }
+        }
+        throw new RuntimeException("failed to open the receiptMemoMonitoring page check the page manually ");
     }
 
 

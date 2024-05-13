@@ -52,6 +52,16 @@ public class CompetitionReq {
     private final By competitionReq = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
 
     public boolean competitionReqIsDisplayed(){
-        return waitForVisibilityElement(competitionReq).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(competitionReq).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToCompetitionReqPage();
+            }
+        }
+        throw new RuntimeException("failed to open the competitionReq page check the page manually ");
     }
 }

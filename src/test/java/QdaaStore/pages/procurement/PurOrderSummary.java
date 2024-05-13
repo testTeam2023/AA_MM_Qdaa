@@ -53,7 +53,17 @@ public class PurOrderSummary {
     private final By purOrderSummary = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
 
     public boolean purOrderSummaryIsDisplayed(){
-        return waitForVisibilityElement(purOrderSummary).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(purOrderSummary).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToPurOrderSummaryPage();
+            }
+        }
+        throw new RuntimeException("failed to open the purOrderSummary page check the page manually ");
     }
 
 }

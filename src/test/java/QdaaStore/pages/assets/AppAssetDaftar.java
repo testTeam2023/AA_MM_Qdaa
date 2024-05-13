@@ -53,6 +53,7 @@ public class AppAssetDaftar {
                 return waitForVisibilityElement(appAssetDaftar).isDisplayed();
             } catch (Exception e) {
                 System.out.println("retrying open the page ");
+                navigateToAppAssetDaftarPage();
             }
         }
         throw new RuntimeException("failed to open the AssetDaftar page check the page manually ");

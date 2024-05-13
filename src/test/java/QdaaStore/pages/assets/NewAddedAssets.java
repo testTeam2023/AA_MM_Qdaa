@@ -43,7 +43,17 @@ public class NewAddedAssets {
     private final By newAddedAssets = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
 
     public boolean newAddedAssetsIsDisplayed(){
-        return waitForVisibilityElement(newAddedAssets).isDisplayed();
+
+        int maxAttempts = 3;
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            try {
+                return waitForVisibilityElement(newAddedAssets).isDisplayed();
+            } catch (Exception e) {
+                System.out.println("retrying open the page ");
+                navigateToNewAddedAssetsPage();
+            }
+        }
+        throw new RuntimeException("failed to open the newAddedAssets page check the page manually ");
     }
 
 }
