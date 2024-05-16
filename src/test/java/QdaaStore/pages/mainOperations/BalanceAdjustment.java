@@ -75,7 +75,12 @@ public class BalanceAdjustment {
     }
     public BalanceAdjustment scrollDownForAddItem(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400);");
+        js.executeScript("window.scrollBy(0,650);");
+        return this ;
+    }
+    public BalanceAdjustment scrollDownForsaveBtn(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,50);");
         return this ;
     }
 
@@ -111,17 +116,10 @@ public class BalanceAdjustment {
 
                 Select select = new Select(waitForClickableElement(adjustmentType));
                 select.selectByValue(adjstmntType);
-                JavascriptExecutor jss = (JavascriptExecutor) driver;
-                jss.executeScript("window.scrollBy(0,100);");
-
                 Thread.sleep(2000);
 
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
-
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,250);");
-
                 Thread.sleep(3000);
                 return this;
             } catch (Exception e) {

@@ -30,6 +30,7 @@ public class BalanceAdjustmentTest extends TestBase {
                 .selectSoreName(storeName)
                 .scrollDownForAddItem()
                 .addItem(itemNumbers,adjustmntQty,adjstmntType)
+                .scrollDownForsaveBtn()
                 .clickOnSaveBtn()
                 .clickOnFixedBtn() ;
         softAssert.assertTrue(balanceAdjustment.fixedBtnDisable());
