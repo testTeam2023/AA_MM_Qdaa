@@ -58,6 +58,7 @@ public class BalanceAdjustment {
             try {
                 Select select = new Select(waitForClickableElement(selectStoreName));
                 select.selectByVisibleText(storeName);
+                Thread.sleep(2000);
                 return this;
             }
             catch(Exception e){
@@ -75,7 +76,7 @@ public class BalanceAdjustment {
     }
     public BalanceAdjustment scrollDownForAddItem(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,650);");
+        js.executeScript("window.scrollBy(0,550);");
         return this ;
     }
     public BalanceAdjustment scrollDownForsaveBtn(){
@@ -121,6 +122,13 @@ public class BalanceAdjustment {
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
                 Thread.sleep(3000);
+
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,180);");
+
+                Thread.sleep(1500);
+
+
                 return this;
             } catch (Exception e) {
                 System.out.println("Retry to add itemand click on add item btn");
@@ -139,9 +147,10 @@ public class BalanceAdjustment {
         int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
-                WebElement saveButton = waitForClickableElement(saveBtn);
-                Actions actions = new Actions(driver);
-                actions.moveToElement(saveButton).click().build().perform();
+                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(saveBtn));
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", element);
+                element.click();
                 Thread.sleep(2500);
                 WebElement okButton = waitForClickableElement(okBtn);
                 Actions actions1 = new Actions(driver);

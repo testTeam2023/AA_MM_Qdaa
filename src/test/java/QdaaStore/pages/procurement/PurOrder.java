@@ -298,16 +298,25 @@ public class PurOrder {
     }
 
     public PurOrder clickOnEditSaveBtn()throws InterruptedException{
-        WebElement edit = waitForClickableElement(editBtn);
-        Actions actions =new Actions(driver);
-        actions.moveToElement(edit).click().build().perform();
 
-        Thread.sleep(1500);
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement edit = waitForClickableElement(editBtn);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(edit).click().build().perform();
 
-        WebElement ok = waitForClickableElement(okBtn);
-        Actions actions1 =new Actions(driver);
-        actions.moveToElement(ok).click().build().perform();
-        return this;
+                Thread.sleep(2500);
+
+                WebElement ok = waitForClickableElement(okBtn);
+                Actions actions1 = new Actions(driver);
+                actions.moveToElement(ok).click().build().perform();
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying click on edit save btn ");
+            }}
+        throw new RuntimeException("failed to click on edit save btn after all attempt ");
 
     }
 
