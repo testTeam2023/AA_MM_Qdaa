@@ -81,7 +81,7 @@ public class BalanceAdjustment {
     }
     public BalanceAdjustment scrollDownForsaveBtn(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,50);");
+        js.executeScript("window.scrollBy(0,250);");
         return this ;
     }
 
@@ -101,46 +101,73 @@ public class BalanceAdjustment {
     private final By adjustmntQty=By.xpath("//*[contains(@id,\"AdjustmentQuantity_\") and @type=\"number\"]");
 
 
-    public BalanceAdjustment addItem(String itemNumbers ,String adjustmntQty, String adjstmntType) throws InterruptedException {
+    public BalanceAdjustment enterItemNum(String itemNumbers ) throws InterruptedException {
         int maxAttempt = 3;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement itemNum = waitForClickableElement(itemNumber);
                 itemNum.sendKeys(itemNumbers, Keys.ENTER);
                 Thread.sleep(2000);
-
-                WebElement qty = waitForClickableElement(adjustmentQty);
-                qty.clear();
-                qty.sendKeys(adjustmntQty);
-                Thread.sleep(2000);
-
-
-                Select select = new Select(waitForClickableElement(adjustmentType));
-                select.selectByValue(adjstmntType);
-                Thread.sleep(2000);
-
-                WebElement btnAdd = waitForClickableElement(addBtn);
-                btnAdd.click();
-                Thread.sleep(3000);
-
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,180);");
-
-                Thread.sleep(1500);
-
-
                 return this;
             } catch (Exception e) {
-                System.out.println("Retry to add itemand click on add item btn");
-                System.out.println(e.getMessage());
-                navigateToBalanceAdjustmentrPage();
-                selectSoreName("الاجهزة الالكترونية");
-                scrollDownForAddItem();
+                System.out.println("Retrying enter ItemNum");
             }
         }
-        throw new RuntimeException("failed to add item and click on item btn after all attempt");
+        throw new RuntimeException("failed to enter ItemNum ");
     }
 
+    public BalanceAdjustment enterAdjustmentQty( String adjustmntQty)throws InterruptedException {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try{
+            WebElement qty = waitForClickableElement(adjustmentQty);
+            qty.clear();
+            qty.sendKeys(adjustmntQty);
+             Thread.sleep(2000);
+             return this;
+            } catch (Exception e) {
+                System.out.println("Retrying enter AdjustmentQty");
+            }
+        }
+        throw new RuntimeException("failed to  enter AdjustmentQty ");
+    }
+
+        public BalanceAdjustment enterAdjustmentType(String adjstmntType) throws InterruptedException{
+            int maxAttempt = 3;
+            for (int attempt = 0; attempt < maxAttempt; attempt++) {
+                try {
+                    Select select = new Select(waitForClickableElement(adjustmentType));
+                    select.selectByValue(adjstmntType);
+                    Thread.sleep(2000);
+                    return this;
+                }
+                catch (Exception e) {
+                    System.out.println("Retrying  enter adjustmentType");
+                }
+            }
+            throw new RuntimeException("failed to enter adjustmentType ");
+     }
+    public BalanceAdjustment clickOnAddBtn() throws InterruptedException{
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+        WebElement btnAdd = waitForClickableElement(addBtn);
+        btnAdd.click();
+        Thread.sleep(3000);
+        return this;
+
+            }
+            catch (Exception e) {
+                System.out.println("Retrying click on AddBtn");
+            }
+        }
+        throw new RuntimeException("failed to click on OnAddBtn ");
+    }
+
+    public BalanceAdjustment thread()throws InterruptedException{
+        Thread.sleep(2500);
+        return this;
+    }
 
     public BalanceAdjustment clickOnSaveBtn() throws InterruptedException{
 
@@ -159,8 +186,7 @@ public class BalanceAdjustment {
                 return this;
             }
             catch (Exception e){
-                System.out.println("Retrying click on save btn ");
-                System.out.println(e.getMessage());
+                System.out.println("Retrying click on save btn " + e.getMessage());
                 handleUnexpectedAlert();
             }
         }
