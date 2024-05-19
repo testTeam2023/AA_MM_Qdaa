@@ -363,9 +363,7 @@ public class ReturnsDepartment {
                 return this;
             } catch (Exception e) {
                 System.out.println("Page refreshed. Retrying click on search btn...");
-                driver.navigate().refresh();
-                Thread.sleep(3500);
-                clickOnSearchTab();
+                navigateToReturnsDepartmentPage().clickOnSearchTab().scrollDownForSearch();
             }
         }
         throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");

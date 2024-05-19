@@ -34,7 +34,6 @@ public class BalanceAdjustmentTest extends TestBase {
                 .enterAdjustmentType(adjstmntType)
                 .clickOnAddBtn()
                 .scrollDownForsaveBtn()
-                .thread()
                 .clickOnSaveBtn()
                 .clickOnFixedBtn() ;
         softAssert.assertTrue(balanceAdjustment.fixedBtnDisable());

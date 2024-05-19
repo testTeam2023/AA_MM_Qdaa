@@ -63,7 +63,7 @@ public class BalanceAdjustment {
             }
             catch(Exception e){
                 System.out.println("Retrying  selecting Store name");
-                driver.navigate().refresh();
+                navigateToBalanceAdjustmentrPage();
             }
         }
         throw new RuntimeException("failed selecting Store name after " +maxAttempt);
@@ -71,7 +71,7 @@ public class BalanceAdjustment {
 
     public BalanceAdjustment scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,300);");
+        js.executeScript("window.scrollBy(0,250);");
         return this ;
     }
     public BalanceAdjustment scrollDownForAddItem(){
@@ -99,6 +99,9 @@ public class BalanceAdjustment {
     private final By currentBalance=By.xpath("//*[contains(@id,\"QuantityBookBalance_\") and @class=\"form-control text-box single-line ng-pristine ng-untouched ng-valid ng-not-empty\"]");
     private final By actualBAlance=By.xpath("//*[contains(@id,\"QuantityActualbalance_\") and @type=\"text\"]");
     private final By adjustmntQty=By.xpath("//*[contains(@id,\"AdjustmentQuantity_\") and @type=\"number\"]");
+    private final By adjustmntItemWanted=By.xpath("//*[@id=\"FormAddOrEdit_BalanceAdjustmentDtl\"]/div[1]/div[1]/span");
+    private final By adjustmntItemQtyWanted=By.xpath("//*[@id=\"Dtl_AdjustmentQuantity_Error\"]");
+    private final By adjustmnttypeWanted=By.xpath("//*[@id=\"FormAddOrEdit_BalanceAdjustmentDtl\"]/div[3]/div[3]/span");
 
 
     public BalanceAdjustment enterItemNum(String itemNumbers ) throws InterruptedException {
@@ -106,6 +109,7 @@ public class BalanceAdjustment {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement itemNum = waitForClickableElement(itemNumber);
+                itemNum.clear();
                 itemNum.sendKeys(itemNumbers, Keys.ENTER);
                 Thread.sleep(2000);
                 return this;
@@ -151,22 +155,36 @@ public class BalanceAdjustment {
         int maxAttempt = 3;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
-        WebElement btnAdd = waitForClickableElement(addBtn);
-        btnAdd.click();
-        Thread.sleep(3000);
-        return this;
+                WebElement btnAdd = waitForClickableElement(addBtn);
+                btnAdd.click();
+                Thread.sleep(2500);
 
-            }
-            catch (Exception e) {
-                System.out.println("Retrying click on AddBtn");
+                // Check if the necessary elements are displayed and interact if they are
+                if (isElementPresent(adjustmntItemWanted) || isElementPresent(adjustmntItemQtyWanted) || isElementPresent(adjustmnttypeWanted)) {
+                    enterItemNum("199")
+                            .enterAdjustmentQty("1")
+                            .enterAdjustmentType("1");
+                    continue; // Retry the click after re-entering the details
+                }
+
+                return this; // Exit if the button click is successful and the elements are not displayed
+            } catch (Exception e) {
+                System.out.println("Retrying click on AddBtn: " + e.getMessage());
+                // Optionally re-enter the details before retrying the click
+                enterItemNum("199")
+                        .enterAdjustmentQty("1")
+                        .enterAdjustmentType("1");
             }
         }
-        throw new RuntimeException("failed to click on OnAddBtn ");
+        throw new RuntimeException("Failed to click on AddBtn after " + maxAttempt + " attempts");
     }
 
-    public BalanceAdjustment thread()throws InterruptedException{
-        Thread.sleep(2500);
-        return this;
+    private boolean isElementPresent(By locator) {
+        try {
+            return driver.findElement(locator).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public BalanceAdjustment clickOnSaveBtn() throws InterruptedException{
@@ -187,7 +205,6 @@ public class BalanceAdjustment {
             }
             catch (Exception e){
                 System.out.println("Retrying click on save btn " + e.getMessage());
-                handleUnexpectedAlert();
             }
         }
         throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");

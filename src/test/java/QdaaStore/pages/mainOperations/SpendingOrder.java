@@ -331,8 +331,7 @@ public class SpendingOrder {
                 return this;
             } catch (Exception e) {
                 System.out.println("Element not found or stale. Retrying click on search button...");
-                driver.navigate().refresh();
-                Thread.sleep(3500);
+                navigateToSpendingOrderPage();
                 clickOnSearchTab();
                 scrollDownForSearch();            }
         }
