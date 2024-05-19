@@ -362,7 +362,7 @@ public class ReturnsDepartment {
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
-                System.out.println("Page refreshed. Retrying click on search btn...");
+                System.out.println("Page refreshed. Retrying click on search btn..."+ e.getMessage());
                 navigateToReturnsDepartmentPage().clickOnSearchTab().scrollDownForSearch();
             }
         }
@@ -407,12 +407,10 @@ public class ReturnsDepartment {
                 return this;
             }
             catch (Exception e){
-                System.out.println("Re trying to click on edit btn ");
-                driver.navigate().refresh();
-                Thread.sleep(2500);
-                clickOnSearchTab();
-                clickOnSearchBtn();
-            }}
+                System.out.println("Re trying to click on edit btn "+ e.getMessage());
+                navigateToReturnsDepartmentPage().clickOnSearchTab().scrollDownForSearch().clickOnSearchBtn();
+            }
+        }
         throw new RuntimeException("Failed to click on edit btn after all attempt");
 
     }
