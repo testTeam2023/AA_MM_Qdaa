@@ -170,6 +170,7 @@ public class ReturnSpendingOrder {
                 WebElement add = waitForClickableElement(addBtn);
                 add.click();
                 Thread.sleep(2000);
+
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,400);");
 
@@ -193,11 +194,11 @@ public class ReturnSpendingOrder {
                 WebElement saveButton = waitForClickableElement(saveBtn);
                 Actions actions = new Actions(driver);
                 actions.moveToElement(saveButton).click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(2500);
                 WebElement okButton = waitForClickableElement(okBtn);
                 Actions actions1 = new Actions(driver);
                 actions1.moveToElement(okButton).click().build().perform();
-                Thread.sleep(1500);
+                Thread.sleep(2500);
                 return this;
             }
             catch (Exception e){
@@ -223,13 +224,20 @@ public class ReturnSpendingOrder {
     }
 
     public ReturnSpendingOrder clickOnFixedBtn()throws InterruptedException {
-
-        WebElement fixedButton = waitForClickableElement(fixed);
-        fixedButton.click();
-        Thread.sleep(1000);
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
-        return this ;
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement fixedButton = waitForClickableElement(fixed);
+                fixedButton.click();
+                Thread.sleep(2000);
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
+                return this;
+            }
+            catch (Exception e){
+                System.out.println("Retrying " + e.getMessage());
+            }}
+        throw new RuntimeException("failed to click on fxed brn");
     }
     public ReturnSpendingOrder clickOnNotFixedBtn() {
         try {
