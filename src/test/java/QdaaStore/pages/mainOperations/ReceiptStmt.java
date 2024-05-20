@@ -41,7 +41,7 @@ public class ReceiptStmt {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getReceiptStmtPage());
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 driver.navigate().refresh();
@@ -72,6 +72,7 @@ public class ReceiptStmt {
                 return this;
             } catch (Exception e) {
                 System.out.println("retrying to select supplier");
+                navigateToReceiptStmtPage();
             }
         }
             throw new RuntimeException("failed selecting supplier after "+maxAttempt) ;
