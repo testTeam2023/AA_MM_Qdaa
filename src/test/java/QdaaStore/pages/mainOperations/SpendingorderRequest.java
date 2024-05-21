@@ -61,7 +61,7 @@ public class SpendingorderRequest {
             System.out.println("retrying open the page ");
         }
     }
-        throw new RuntimeException("failed to open the spendingorderRequest page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
 }
 
 

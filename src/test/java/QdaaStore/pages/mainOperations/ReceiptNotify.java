@@ -40,7 +40,12 @@ public class ReceiptNotify  {
               driver.get(ConfigUtils.getInstance().getReceiptNotifyPage());
               driver.navigate().refresh();
               Thread.sleep(3000);
-              return this;
+              if(isElementDisplay(pageAssert)) {
+                  return this;
+              }
+              else {
+                  throw new RuntimeException("The specified element is not displayed");
+              }
           } catch (Exception e) {
               driver.navigate().refresh();
               System.out.println("Page refreshed. Retrying navigate to receipt notify page url ...");
@@ -48,6 +53,15 @@ public class ReceiptNotify  {
       }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
 
     private final By storeName = By.xpath("//span[@id=\"select2-StoreID-container\"]");
     private final By searchForStore = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -66,15 +80,15 @@ public class ReceiptNotify  {
                 wait.until(ExpectedConditions.elementToBeClickable(storeName)).click();
                 Thread.sleep(2500);
                 wait.until(ExpectedConditions.elementToBeClickable(searchForStore)).sendKeys(storeNAme, Keys.ENTER);
-                return this;
+                    return this;
             } catch (Exception e) {
-                System.out.println("Retrying add store ");
-                driver.navigate().refresh();
-                Thread.sleep(2000);
+                System.out.println("Retrying add store " + e.getMessage());
+                navigateToReceiptNotifyPage();
             }
         }
         throw new RuntimeException("failed to find elemnt after "+maxAttempt);
     }
+
     public ReceiptNotify addSupplierName(){
         int maxAttempt = 5;
         int attempt = 0;

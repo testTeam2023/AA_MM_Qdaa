@@ -42,7 +42,12 @@ public class ItemsTransfeer {
             try {
                 driver.get(ConfigUtils.getInstance().getItemsTransferPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to Items transfer page url ...");
@@ -50,6 +55,16 @@ public class ItemsTransfeer {
         }
         throw new RuntimeException("page load Times Out after" + maxAttempt);
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/span");
+
     private final By SelectTransferType = By.xpath("//*[@id=\"TransfeerType\"]");
     private final By selectFromStore = By.xpath("//*[@id=\"select2-StoreIDFrom-container\"]");
     private final By fromStoreSearch = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -69,7 +84,7 @@ public class ItemsTransfeer {
             }
             catch(Exception e){
                 System.out.println("Retrying  selecting Transfer Type");
-                driver.navigate().refresh();
+                navigateToItemsTransferPage();
             }
         }
         throw new RuntimeException("failed selecting Transfer Type after " +maxAttempt);

@@ -62,7 +62,7 @@ public class ClosingFinYear {
                 navigateToClosingFinYearPage();
             }
         }
-        throw new RuntimeException("failed to open the closingFinYear page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 
 

@@ -61,6 +61,6 @@ public class Inventory {
                 navigateToInventoryPage();
             }
         }
-        throw new RuntimeException("failed to open the inventory page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 }

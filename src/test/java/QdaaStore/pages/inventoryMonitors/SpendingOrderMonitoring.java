@@ -51,7 +51,7 @@ public class SpendingOrderMonitoring {
                 navigateToSpendingOrderMonitoringPage();
             }
         }
-        throw new RuntimeException("failed to open the spendingOrderMonitoring page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 
 

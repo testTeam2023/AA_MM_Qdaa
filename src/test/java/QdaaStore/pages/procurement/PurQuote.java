@@ -42,7 +42,12 @@ public class PurQuote {
             try {
                 driver.get(ConfigUtils.getInstance().getPurQuotePage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to PurQuote page url ...");
@@ -50,6 +55,16 @@ public class PurQuote {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
+
 
     private final By selectPurQuoteNumber = By.xpath("//*[@id=\"FormAddOrEdit\"]/div[3]/div[1]/div/span[1]/span[1]/span");
 
@@ -78,8 +93,7 @@ public class PurQuote {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting PurQuoteNumber");
-                driver.navigate().refresh();
-                Thread.sleep(2500);
+                navigateToPurQuotePage();
             }
         }
         throw new RuntimeException("failed selecting PurQuoteNumber after " +maxAttempt);

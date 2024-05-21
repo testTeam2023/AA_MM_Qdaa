@@ -53,7 +53,7 @@ public class NewAddedAssets {
                 navigateToNewAddedAssetsPage();
             }
         }
-        throw new RuntimeException("failed to open the newAddedAssets page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 
 }

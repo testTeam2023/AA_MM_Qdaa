@@ -42,7 +42,12 @@ public class PurOrder {
             try {
                 driver.get(ConfigUtils.getInstance().getPurOrderPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to PurOrder page url ...");
@@ -50,6 +55,15 @@ public class PurOrder {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
 
     private final By selectDepartment = By.xpath("//*[@id=\"select2-DepartmentID-container\"]");
     private final By searchDepartmentField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -67,6 +81,7 @@ public class PurOrder {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting Department");
+                navigateToPurOrderPage();
             }
         }
         throw new RuntimeException("failed selecting Department after " +maxAttempt);

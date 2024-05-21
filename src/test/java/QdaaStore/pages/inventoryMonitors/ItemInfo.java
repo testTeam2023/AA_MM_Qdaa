@@ -40,7 +40,12 @@ public class ItemInfo {
             try {
                 driver.get(ConfigUtils.getInstance().getItemInfoPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to ItemInfo page url ...");
@@ -48,6 +53,15 @@ public class ItemInfo {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
 
     private final By itemNumber= By.xpath("//*[@id=\"item_id\"]");
     private final By dataDisplayBtn = By.xpath("//*[@id=\"btnSave\"]");

@@ -36,12 +36,17 @@ public class ReturnsDepartment {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
     public ReturnsDepartment navigateToReturnsDepartmentPage() {
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getReturnsDepartmentPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to return department page url ...");
@@ -49,6 +54,15 @@ public class ReturnsDepartment {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/span");
 
     private final By selectReturnType = By.xpath("//*[@id=\"select2-ReturnTypeID-container\"]");
     private final By returnTypeSearch = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -79,6 +93,7 @@ public class ReturnsDepartment {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting return Type");
+                navigateToReturnsDepartmentPage();
             }
         }
         throw new RuntimeException("failed selecting return Type after " +maxAttempt);
@@ -338,7 +353,7 @@ public class ReturnsDepartment {
                 return this;
             } catch (Exception e) {
                 System.out.println("Exception occured " + e.getMessage());
-                driver.navigate().refresh();
+                navigateToReturnsDepartmentPage();
                 System.out.println("Page refreshed. Retrying click...");
 
             }
@@ -347,7 +362,7 @@ public class ReturnsDepartment {
 
     }
     public ReturnsDepartment clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 5;
+        int maxAttempt = 10;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -356,14 +371,13 @@ public class ReturnsDepartment {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].scrollIntoView(true);", search);
                 search.click();
-
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,180);");
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 System.out.println("Page refreshed. Retrying click on search btn..."+ e.getMessage());
-                navigateToReturnsDepartmentPage().clickOnSearchTab().scrollDownForSearch();
+                navigateToReturnsDepartmentPage();
+                clickOnSearchTab();
+                scrollDownForSearch();
             }
         }
         throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");
@@ -418,6 +432,11 @@ public class ReturnsDepartment {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,900);");
         return this ;
+    }
+    public ReturnsDepartment scrollAfterSearchBtn() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,180);");
+        return this;
     }
 
     public ReturnsDepartment clickOnEditSaveBtn() throws InterruptedException{

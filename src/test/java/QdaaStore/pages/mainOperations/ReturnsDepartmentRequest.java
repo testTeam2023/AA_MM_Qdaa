@@ -62,7 +62,7 @@ public class ReturnsDepartmentRequest {
                 Thread.sleep(3000);
             }
         }
-            throw new RuntimeException("failed to assert to اعتماد طلبات الرجيع");
+            throw new RuntimeException("page load Times Out or Publish Issues");
             }
 
 

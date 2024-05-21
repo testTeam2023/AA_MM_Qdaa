@@ -37,7 +37,12 @@ public class Examination {
             try {
                 driver.get(ConfigUtils.getInstance().getExaminationPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to examination page url ...");
@@ -45,6 +50,15 @@ public class Examination {
         }
         throw new RuntimeException("page load Times Out after" +maxAttempt);
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
 
     // Define locators for web elements
 

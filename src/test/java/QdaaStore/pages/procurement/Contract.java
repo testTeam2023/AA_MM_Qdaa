@@ -42,10 +42,13 @@ public class Contract {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getContractPage());
-                SoftAssert softAssert = new SoftAssert();
-                softAssert.assertTrue(waitForVisibilityElement(pageIsDisplayed).isDisplayed());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to Contract page url ...");
@@ -53,6 +56,16 @@ public class Contract {
         }
         throw new RuntimeException("page load Times Out after" + maxAttempt);
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
+
 
     public Contract selectTypeOfContract(boolean type) throws InterruptedException{
 

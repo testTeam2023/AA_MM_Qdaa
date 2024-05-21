@@ -61,7 +61,7 @@ public class ItemForShow {
                 navigateToItemForShowPage();
             }
         }
-        throw new RuntimeException("failed to open the itemForShow page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 
 

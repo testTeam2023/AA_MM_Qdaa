@@ -40,7 +40,12 @@ public class SpendingOrder {
             try {
                 driver.get(ConfigUtils.getInstance().getSpendingOrderPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to spending order url ...");
@@ -48,6 +53,15 @@ public class SpendingOrder {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
 
     // Select Stores, Department, Department manager and receiver name  from a list
     private final By selectStore = By.xpath("//span[@id=\"select2-StoreID_from-container\"]");
@@ -74,6 +88,7 @@ public class SpendingOrder {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting Store");
+                navigateToSpendingOrderPage();
             }
         }
         throw new RuntimeException("failed selecting Store after " +maxAttempt);

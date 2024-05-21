@@ -54,7 +54,7 @@ public class InventoryMonitoring {
                 navigateToInventoryMonitoringPage();
             }
         }
-        throw new RuntimeException("failed to open the inventoryMonitoring page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 
 

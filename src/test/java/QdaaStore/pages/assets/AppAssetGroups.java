@@ -53,6 +53,6 @@ public class AppAssetGroups {
                 navigateToAppAssetGroupsPage();
             }
         }
-        throw new RuntimeException("failed to open the appAssetGroups page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 }

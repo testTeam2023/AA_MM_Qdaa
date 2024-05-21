@@ -53,6 +53,6 @@ public class AppAssetMaintenance {
                 navigateToAppAssetMaintenancePage();
             }
         }
-        throw new RuntimeException("failed to open the appAssetMaintenance page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 }

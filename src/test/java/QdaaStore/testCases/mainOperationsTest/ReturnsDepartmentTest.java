@@ -45,6 +45,7 @@ public class ReturnsDepartmentTest extends TestBase {
                 .clickOnSearchTab()
                 .scrollDownForSearch()
                 .clickOnSearchBtn()
+                .scrollAfterSearchBtn()
                 .clickOnEditBtn()
                 .scrollToTheEnd()
                 .clickOnNotFixedBtn();
@@ -55,6 +56,7 @@ public class ReturnsDepartmentTest extends TestBase {
                 .clickOnSearchTab()
                 .scrollDownForSearch()
                 .clickOnSearchBtn()
+                .scrollAfterSearchBtn()
                 .clickOnDeleteBtn();
     }
 

@@ -42,7 +42,12 @@ public class ReceiptStmt {
             try {
                 driver.get(ConfigUtils.getInstance().getReceiptStmtPage());
                 Thread.sleep(3500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to receipt stmt page url ...");
@@ -50,6 +55,15 @@ public class ReceiptStmt {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
 
     // Select supplier from a list
     private final By selectSuppliers = By.xpath("//span[@id=\"select2-SuppID-container\"]");

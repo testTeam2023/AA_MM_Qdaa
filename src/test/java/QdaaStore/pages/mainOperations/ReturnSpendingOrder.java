@@ -41,14 +41,28 @@ public class ReturnSpendingOrder {
             try {
                 driver.get(ConfigUtils.getInstance().getReturnSpendingOrderPage());
                 Thread.sleep(2500);
-                return this;
-            } catch (Exception e) {
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }            } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to return spending order page url ...");
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
+
 
     // ----------
 
@@ -69,7 +83,7 @@ public class ReturnSpendingOrder {
             }
          catch(Exception e){
             System.out.println("Retrying  selecting store name");
-            driver.navigate().refresh();
+            navigateToReturnSpendingOrderPage();
         }
     }
         throw new RuntimeException("failed selecting store keeper name after " +maxAttempt);

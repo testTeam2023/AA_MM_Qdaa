@@ -64,7 +64,7 @@ public class ContractQuery {
                 Thread.sleep(3000);
             }
         }
-        throw new RuntimeException("failed to assert to ملخص طلب شراء");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 
 }

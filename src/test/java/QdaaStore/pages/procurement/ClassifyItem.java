@@ -64,6 +64,6 @@ public class ClassifyItem {
                 Thread.sleep(3000);
             }
         }
-        throw new RuntimeException("failed to assert to تصنيف الاصناف الغير المصنفة");
+        throw new RuntimeException("page load Times Out or Publish Issues after" + maxAttempt + " attempts");
     }
 }

@@ -53,6 +53,6 @@ public class AppAssetDisposal {
                 navigateToAppAssetDisposalPage();
             }
         }
-        throw new RuntimeException("failed to open the appAssetDisposal page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 }

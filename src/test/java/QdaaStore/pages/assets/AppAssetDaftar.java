@@ -56,6 +56,6 @@ public class AppAssetDaftar {
                 navigateToAppAssetDaftarPage();
             }
         }
-        throw new RuntimeException("failed to open the AssetDaftar page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 }

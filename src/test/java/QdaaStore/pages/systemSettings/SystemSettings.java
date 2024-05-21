@@ -23,6 +23,10 @@ public class SystemSettings {
                 .ignoring(NoSuchElementException.class);
     }
 
+    private WebElement waitForVisibilityElement(By locator){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
 
     private By systemSettingButton  = By.xpath("/html/body/nav[1]/div/ul/li[2]/a");
     private By saveButton  = By.xpath("//*[@id=\"btnSave\"]");
@@ -77,7 +81,12 @@ public class SystemSettings {
                 driver.navigate().refresh();
                 Thread.sleep(3000);
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-                return this ;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             }
             catch (Exception e) {
                 attempt++;
@@ -86,6 +95,15 @@ public class SystemSettings {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
 
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div/div/div[1]/span");
     public SystemSettings clickOnSystemSettingsButton() throws InterruptedException{
         wait.until(ExpectedConditions.elementToBeClickable(systemSettingButton)).click();
         Thread.sleep(2000);

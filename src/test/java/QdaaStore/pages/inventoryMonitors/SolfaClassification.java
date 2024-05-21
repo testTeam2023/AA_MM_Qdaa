@@ -52,7 +52,7 @@ public class SolfaClassification {
                 navigateToSolfaClassificationPage();
             }
         }
-        throw new RuntimeException("failed to open the solfaClassification page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 
 

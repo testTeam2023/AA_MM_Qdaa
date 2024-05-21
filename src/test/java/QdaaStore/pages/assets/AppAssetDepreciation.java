@@ -53,6 +53,6 @@ public class AppAssetDepreciation {
                 navigateToAppAssetDepreciationPage();
             }
         }
-        throw new RuntimeException("failed to open the appAssetDepreciation page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 }

@@ -40,16 +40,32 @@ public class Transform {
             try {
                 driver.get(ConfigUtils.getInstance().getTransformPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                        throw new RuntimeException("The specified element is not displayed");
+                    }
             } catch (Exception e) {
                 driver.navigate().refresh();
-                System.out.println("Page refreshed. Retrying navigate to Transform page url ...");
+                System.out.println("Page refreshed. Retrying navigate to Transform page url ..." + e.getMessage());
+
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-   private final By departmentFrom = By.xpath("//*[@id=\"select2-DepartmentIDFrom-container\"]");
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id='content']/div[1]/div/div/h6/span");
+
+    private final By departmentFrom = By.xpath("//*[@id=\"select2-DepartmentIDFrom-container\"]");
     private final By departmentFromSearchField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
     private final By departmentTo= By.xpath("//*[@id=\"select2-DepartmentIDTo-container\"]");
     private final By departmentToSearchField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -63,6 +79,7 @@ public class Transform {
     private final By successMessageOfNotFixed = By.xpath("//div[@id=\"div-success-modal\"]//div[contains(text(),\"تم تثبيت الإلغاء\")]");
     private final By fixed = By.xpath("//input[@id=\"btnFixing\"]");
     private final By notFixed = By.xpath("//input[@id=\"btnCancelFixed\"]");
+
 
     public Transform selectDepartmentFrom(String departmentFromName) throws InterruptedException {
         int maxAttempt = 5;

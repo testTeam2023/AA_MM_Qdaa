@@ -46,7 +46,12 @@ public class Items {
             try {
                 driver.get(ConfigUtils.getInstance().getItemsPage());
                 Thread.sleep(2500);
-                return this;
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }
             } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to Items page url ...");
@@ -54,6 +59,15 @@ public class Items {
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
 
     public Items chooseItemClassification(){
         wait.until(ExpectedConditions.elementToBeClickable(chooseItemClassificationBtn)).click();

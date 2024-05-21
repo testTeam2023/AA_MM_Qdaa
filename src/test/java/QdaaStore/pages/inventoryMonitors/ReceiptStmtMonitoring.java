@@ -51,7 +51,7 @@ public class ReceiptStmtMonitoring {
                 navigateToReceiptStmtMonitoringPage();
             }
         }
-        throw new RuntimeException("failed to open the receiptStmtMonitoring page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 
 }

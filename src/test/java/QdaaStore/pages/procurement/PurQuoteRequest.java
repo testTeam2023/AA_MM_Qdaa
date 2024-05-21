@@ -41,14 +41,27 @@ public class PurQuoteRequest {
             try {
                 driver.get(ConfigUtils.getInstance().getPurQuoteRequestPage());
                 Thread.sleep(2500);
-                return this;
-            } catch (Exception e) {
+                if(isElementDisplay(pageAssert)) {
+                    return this;
+                }
+                else {
+                    throw new RuntimeException("The specified element is not displayed");
+                }            } catch (Exception e) {
                 driver.navigate().refresh();
                 System.out.println("Page refreshed. Retrying navigate to PurQuoteRequest page url ...");
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
+    private boolean isElementDisplay(By locator){
+        try {
+            return waitForVisibilityElement(locator).isDisplayed();
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
 
     private final By selectPurQuoteNumber = By.xpath("//*[@id=\"select2-PurOrderID-container\"]");
 
@@ -92,6 +105,7 @@ public class PurQuoteRequest {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting PurQuoteNumber");
+                navigateToPurQuoteRequestPage();
             }
         }
         throw new RuntimeException("failed selecting PurQuoteNumber after " +maxAttempt);

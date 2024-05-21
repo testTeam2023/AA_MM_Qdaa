@@ -53,7 +53,7 @@ public class AppAssetTypes {
                 navigateToAppAssetTypesPage();
             }
         }
-        throw new RuntimeException("failed to open the appAssetTypes page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues ");
     }
 
 

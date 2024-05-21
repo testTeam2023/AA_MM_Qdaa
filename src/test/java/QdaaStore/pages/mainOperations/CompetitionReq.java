@@ -62,6 +62,6 @@ public class CompetitionReq {
                 navigateToCompetitionReqPage();
             }
         }
-        throw new RuntimeException("failed to open the competitionReq page check the page manually ");
+        throw new RuntimeException("page load Times Out or Publish Issues");
     }
 }
