@@ -39,7 +39,7 @@ public class Transform {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getTransformPage());
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 if(isElementDisplay(pageAssert)) {
                     return this;
                 }
@@ -63,7 +63,7 @@ public class Transform {
             return false;
         }
     }
-    private final By pageAssert = By.xpath("//*[@id='content']/div[1]/div/div/h6/span");
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
 
     private final By departmentFrom = By.xpath("//*[@id=\"select2-DepartmentIDFrom-container\"]");
     private final By departmentFromSearchField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
@@ -94,7 +94,7 @@ public class Transform {
                 return this;
             } catch (Exception e) {
                 System.out.println("Retrying  selecting department From");
-                driver.navigate().refresh();
+                navigateToTransformPage();
             }
         }
         throw new RuntimeException("failed selecting department From after " +maxAttempt + "Attempts");

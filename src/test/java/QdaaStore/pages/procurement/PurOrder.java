@@ -36,12 +36,12 @@ public class PurOrder {
     public WebElement waitForPresenceElement(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
-    public PurOrder navigateToPurOrderPage() {
+    public PurOrder navigateToPurOrderPage() throws InterruptedException{
         int maxAttempt = 3;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getPurOrderPage());
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 if(isElementDisplay(pageAssert)) {
                     return this;
                 }
@@ -50,6 +50,7 @@ public class PurOrder {
                 }
             } catch (Exception e) {
                 driver.navigate().refresh();
+                Thread.sleep(2500);
                 System.out.println("Page refreshed. Retrying navigate to PurOrder page url ...");
             }
         }
@@ -63,7 +64,7 @@ public class PurOrder {
             return false;
         }
     }
-    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1");
+    private final By pageAssert = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6");
 
     private final By selectDepartment = By.xpath("//*[@id=\"select2-DepartmentID-container\"]");
     private final By searchDepartmentField = By.xpath("//*[@class=\"select2-search select2-search--dropdown\"]//input");
