@@ -239,7 +239,7 @@ public class inventoryMonitoringReports {
                 navigateToReport20Page();
             }
         }
-        throw new RuntimeException("failed to open the report20 page check the page manually ");
+        throw new RuntimeException("failed to open the report20 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report21IsDisplayed(){
 
@@ -253,7 +253,7 @@ public class inventoryMonitoringReports {
                 navigateToReport21Page();
             }
         }
-        throw new RuntimeException("failed to open the report21 page check the page manually ");
+        throw new RuntimeException("failed to open the report21 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report22IsDisplayed()
     {
@@ -267,7 +267,7 @@ public class inventoryMonitoringReports {
                 navigateToReport22Page();
             }
         }
-        throw new RuntimeException("failed to open the report22 page check the page manually ");
+        throw new RuntimeException("failed to open the report22 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report23IsDisplayed(){
 
@@ -281,7 +281,7 @@ public class inventoryMonitoringReports {
                 navigateToReport23Page();
             }
         }
-        throw new RuntimeException("failed to open the report23 page check the page manually ");
+        throw new RuntimeException("failed to open the report23 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report24IsDisplayed(){
 
@@ -295,7 +295,7 @@ public class inventoryMonitoringReports {
                 navigateToReport24Page();
             }
         }
-        throw new RuntimeException("failed to open the report24 page check the page manually ");
+        throw new RuntimeException("failed to open the report24 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report30IsDisplayed(){
 
@@ -309,7 +309,7 @@ public class inventoryMonitoringReports {
                 navigateToReport30Page();
             }
         }
-        throw new RuntimeException("failed to open the report30 page check the page manually ");
+        throw new RuntimeException("failed to open the report30 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report31IsDisplayed(){
 
@@ -323,7 +323,7 @@ public class inventoryMonitoringReports {
                 navigateToReport31Page();
             }
         }
-        throw new RuntimeException("failed to open the report31 page check the page manually ");
+        throw new RuntimeException("failed to open the report31 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report42IsDisplayed(){
 
@@ -337,7 +337,7 @@ public class inventoryMonitoringReports {
                 navigateToReport42Page();
             }
         }
-        throw new RuntimeException("failed to open the report42 page check the page manually ");
+        throw new RuntimeException("failed to open the report42 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report43IsDisplayed(){
 
@@ -351,7 +351,7 @@ public class inventoryMonitoringReports {
                 navigateToReport43Page();
             }
         }
-        throw new RuntimeException("failed to open the report43 page check the page manually ");
+        throw new RuntimeException("failed to open the report43 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report65IsDisplayed(){
 
@@ -365,7 +365,7 @@ public class inventoryMonitoringReports {
                 navigateToReport65Page();
             }
         }
-        throw new RuntimeException("failed to open the report65 page check the page manually ");
+        throw new RuntimeException("failed to open the report65 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report66IsDisplayed(){
 
@@ -379,7 +379,7 @@ public class inventoryMonitoringReports {
                 navigateToReport66Page();
             }
         }
-        throw new RuntimeException("failed to open the report66 page check the page manually ");
+        throw new RuntimeException("failed to open the report66 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report67IsDisplayed(){
 
@@ -393,7 +393,7 @@ public class inventoryMonitoringReports {
                 navigateToReport67Page();
             }
         }
-        throw new RuntimeException("failed to open the report 67 page check the page manually ");
+        throw new RuntimeException("failed to open the report 67 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report74IsDisplayed(){
 
@@ -407,7 +407,7 @@ public class inventoryMonitoringReports {
                 navigateToReport74Page();
             }
         }
-        throw new RuntimeException("failed to open the report 74 page check the page manually ");
+        throw new RuntimeException("failed to open the report 74 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
 
 

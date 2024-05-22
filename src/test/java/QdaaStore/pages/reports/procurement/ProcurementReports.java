@@ -117,7 +117,7 @@ public class ProcurementReports {
                 navigateToReport25Page();
             }
         }
-        throw new RuntimeException("failed to open the report25 page check the page manually ");
+        throw new RuntimeException("failed to open the report25 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report26IsDisplayed(){
         int maxAttempts = 3;
@@ -130,7 +130,7 @@ public class ProcurementReports {
                 navigateToReport26Page();
             }
         }
-        throw new RuntimeException("failed to open the report26 page check the page manually ");
+        throw new RuntimeException("failed to open the report26 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report27IsDisplayed(){
         int maxAttempts = 3;
@@ -143,7 +143,7 @@ public class ProcurementReports {
                 navigateToReport27Page();
             }
         }
-        throw new RuntimeException("failed to open the report27 page check the page manually ");
+        throw new RuntimeException("failed to open the report27 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report28IsDisplayed(){
         int maxAttempts = 3;
@@ -156,7 +156,7 @@ public class ProcurementReports {
                 navigateToReport28Page();
             }
         }
-        throw new RuntimeException("failed to open the report28 page check the page manually ");
+        throw new RuntimeException("failed to open the report28 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report29IsDisplayed(){
         int maxAttempts = 3;
@@ -169,7 +169,7 @@ public class ProcurementReports {
                 navigateToReport29Page();
             }
         }
-        throw new RuntimeException("failed to open the report29 page check the page manually ");
+        throw new RuntimeException("failed to open the report29 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
 
 

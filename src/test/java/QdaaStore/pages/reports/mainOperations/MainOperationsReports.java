@@ -407,7 +407,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report1 page check the page manually ");
+        throw new RuntimeException("failed to open the report1 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report2IsDisplayed(){
 
@@ -423,7 +423,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report2 page check the page manually ");
+        throw new RuntimeException("failed to open the report2 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report3IsDisplayed(){
 
@@ -438,7 +438,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report3 page check the page manually ");
+        throw new RuntimeException("failed to open the report3 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report4IsDisplayed(){
 
@@ -453,7 +453,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 4 page check the page manually ");
+        throw new RuntimeException("failed to open the report 4 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report5IsDisplayed(){
         int maxAttempts = 3;
@@ -467,7 +467,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report5 page check the page manually ");
+        throw new RuntimeException("failed to open the report5 page check the page manually \n may bepage load Times Out or Publish Issues ");
     }
     public boolean report6IsDisplayed(){
 
@@ -482,7 +482,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report6 page check the page manually ");
+        throw new RuntimeException("failed to open the report6 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report7IsDisplayed(){
 
@@ -497,7 +497,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report7 page check the page manually ");
+        throw new RuntimeException("failed to open the report7 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report8IsDisplayed(){
         int maxAttempts = 3;
@@ -511,7 +511,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 8 page check the page manually ");
+        throw new RuntimeException("failed to open the report 8 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
 
     public boolean report9IsDisplayed(){
@@ -526,7 +526,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 9 page check the page manually ");
+        throw new RuntimeException("failed to open the report 9 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report10IsDisplayed(){
 
@@ -541,7 +541,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 10 page check the page manually ");
+        throw new RuntimeException("failed to open the report 10 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report11IsDisplayed(){
 
@@ -556,7 +556,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 11 page check the page manually ");
+        throw new RuntimeException("failed to open the report 11 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report12IsDisplayed(){
         int maxAttempts = 3;
@@ -570,7 +570,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 12 page check the page manually ");
+        throw new RuntimeException("failed to open the report 12 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report13IsDisplayed(){
         int maxAttempts = 3;
@@ -584,7 +584,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 13 page check the page manually ");
+        throw new RuntimeException("failed to open the report 13 page check the page manually \n may bepage load Times Out or Publish Issues ");
     }
     public boolean report14IsDisplayed(){
 
@@ -599,7 +599,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 14 page check the page manually ");
+        throw new RuntimeException("failed to open the report 14 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report15IsDisplayed()
     {
@@ -614,7 +614,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 15 page check the page manually ");
+        throw new RuntimeException("failed to open the report 15 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report16IsDisplayed(){
         int maxAttempts = 3;
@@ -628,7 +628,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 16 page check the page manually ");
+        throw new RuntimeException("failed to open the report 16 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report17IsDisplayed(){
         int maxAttempts = 3;
@@ -642,7 +642,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 17 page check the page manually ");
+        throw new RuntimeException("failed to open the report 17 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report18IsDisplayed(){
 
@@ -657,7 +657,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 18 page check the page manually ");
+        throw new RuntimeException("failed to open the report 18 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report19IsDisplayed()
     {
@@ -672,7 +672,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 19 page check the page manually ");
+        throw new RuntimeException("failed to open the report 19 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report51IsDisplayed()
     {
@@ -687,7 +687,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 51 page check the page manually ");
+        throw new RuntimeException("failed to open the report 51 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report39IsDisplayed()
     {
@@ -702,7 +702,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 39 page check the page manually ");
+        throw new RuntimeException("failed to open the report 39 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report47IsDisplayed(){
         int maxAttempts = 3;
@@ -716,7 +716,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 47 page check the page manually ");
+        throw new RuntimeException("failed to open the report 47 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report49IsDisplayed(){
         int maxAttempts = 3;
@@ -730,7 +730,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 49 page check the page manually ");
+        throw new RuntimeException("failed to open the report 49 page check the page manually \n may bepage load Times Out or Publish Issues ");
     }
     public boolean report50IsDisplayed(){
         int maxAttempts = 3;
@@ -744,7 +744,7 @@ public class MainOperationsReports {
 
             }
         }
-        throw new RuntimeException("failed to open the report 50 page check the page manually ");
+        throw new RuntimeException("failed to open the report 50 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
 
 
