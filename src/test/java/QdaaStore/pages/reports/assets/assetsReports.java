@@ -102,7 +102,7 @@ public class assetsReports {
                 navigateToReport101Page();
             }
         }
-        throw new RuntimeException("failed to open the report101 page check the page manually ");
+        throw new RuntimeException("failed to open the report101 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report102IsDisplayed(){
 
@@ -116,7 +116,7 @@ public class assetsReports {
                 navigateToReport102Page();
             }
         }
-        throw new RuntimeException("failed to open the report102 page check the page manually ");
+        throw new RuntimeException("failed to open the report102 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report103IsDisplayed(){
 
@@ -130,7 +130,7 @@ public class assetsReports {
                 navigateToReport103Page();
             }
         }
-        throw new RuntimeException("failed to open the report103 page check the page manually ");
+        throw new RuntimeException("failed to open the report103 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
     public boolean report104IsDisplayed(){
 
@@ -145,7 +145,7 @@ public class assetsReports {
                 navigateToReport104Page();
             }
         }
-        throw new RuntimeException("failed to open the report104 page check the page manually ");
+        throw new RuntimeException("failed to open the report104 page check the page manually \n may bepage load Times Out or Publish Issues");
     }
 
 

@@ -50,7 +50,7 @@ public class PurOrderSummary {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By purOrderSummary = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
+    private final By purOrderSummary = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;
 
     public boolean purOrderSummaryIsDisplayed(){
 

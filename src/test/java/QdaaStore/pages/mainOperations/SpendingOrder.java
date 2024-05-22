@@ -400,8 +400,7 @@ public class SpendingOrder {
             }
             catch (Exception e){
                 System.out.println("Re trying to click on edit btn ");
-                driver.navigate().refresh();
-                Thread.sleep(2500);
+                navigateToSpendingOrderPage();
                 clickOnSearchTab();
                 scrollDownForSearch();
                 clickOnSearchBtn();

@@ -49,7 +49,7 @@ public class ClosingFinYear {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By closingFinYear = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
+    private final By closingFinYear = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;
 
     public boolean closingFinYearIsDisplayed(){
 

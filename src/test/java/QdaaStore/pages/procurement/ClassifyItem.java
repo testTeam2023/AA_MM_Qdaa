@@ -50,7 +50,7 @@ public class ClassifyItem {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By classifyItem = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
+    private final By classifyItem = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1") ;
 
     public boolean classifyItemIsDisplayed() throws InterruptedException{
         int maxAttempt=3;
@@ -60,8 +60,7 @@ public class ClassifyItem {
 
             } catch (Exception e) {
                 System.out.println("retrying to assert to تصنيف الاصناف الغير المصنفة ");
-                driver.navigate().refresh();
-                Thread.sleep(3000);
+                navigateToClassifyItemPage();
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues after" + maxAttempt + " attempts");

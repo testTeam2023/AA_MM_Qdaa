@@ -49,7 +49,7 @@ public class SpendingorderRequest {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By spendingorderRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6/span") ;
+    private final By spendingorderRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6") ;
 
     public boolean spendingorderRequestIsDisplayed(){
 
@@ -59,6 +59,7 @@ public class SpendingorderRequest {
         return waitForVisibilityElement(spendingorderRequest).isDisplayed();
         } catch (Exception e) {
             System.out.println("retrying open the page ");
+            navigateToSpendingorderRequestPage();
         }
     }
         throw new RuntimeException("page load Times Out or Publish Issues");

@@ -49,7 +49,7 @@ public class CompetitionReq {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By competitionReq = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
+        private final By competitionReq = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;
 
     public boolean competitionReqIsDisplayed(){
 

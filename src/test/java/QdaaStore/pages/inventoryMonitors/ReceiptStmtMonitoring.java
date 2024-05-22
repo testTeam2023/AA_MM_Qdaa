@@ -29,7 +29,7 @@ public class ReceiptStmtMonitoring {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getReceiptStmtMonitoringPage());
-                Thread.sleep(2500);
+                Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
                 driver.navigate().refresh();
@@ -39,7 +39,7 @@ public class ReceiptStmtMonitoring {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By receiptStmtMonitoring = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6/i") ;
+    private final By receiptStmtMonitoring = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;
 
     public boolean receiptStmtMonitoringIsDisplayed(){
         int maxAttempts = 3;

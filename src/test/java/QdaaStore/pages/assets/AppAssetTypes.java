@@ -40,7 +40,7 @@ public class AppAssetTypes {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By appAssetTypes = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/i") ;
+    private final By appAssetTypes = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1") ;
 
     public boolean appAssetTypesIsDisplayed(){
 

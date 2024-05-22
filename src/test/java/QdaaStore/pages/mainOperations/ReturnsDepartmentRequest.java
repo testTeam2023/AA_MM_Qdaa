@@ -48,7 +48,7 @@ public class ReturnsDepartmentRequest {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By returnDepartmentRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6/i") ;
+    private final By returnDepartmentRequest = By.xpath("//*[@id=\"content\"]/div[1]/div/div[1]/h6") ;
 
     public boolean returnDepartmentRequestIsDisplayed() throws InterruptedException{
         int maxAttempt=3;
@@ -58,8 +58,7 @@ public class ReturnsDepartmentRequest {
 
             } catch (Exception e) {
                 System.out.println("retrying to assert to اعتماد طلبات الرجيع ");
-                driver.navigate().refresh();
-                Thread.sleep(3000);
+                navigateToReturnsDepartmentRequestPage();
             }
         }
             throw new RuntimeException("page load Times Out or Publish Issues");

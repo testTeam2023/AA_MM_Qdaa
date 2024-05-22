@@ -10,7 +10,7 @@ public class ReceiptStmtMonitoringTest extends TestBase {
 
     private ReceiptStmtMonitoring receiptStmtMonitoring ;
     @Test
-    public void setClosingFinYear(){
+    public void setReceiptStmtMonitoring(){
         receiptStmtMonitoring = new ReceiptStmtMonitoring(driver);
         receiptStmtMonitoring
                 .navigateToReceiptStmtMonitoringPage();

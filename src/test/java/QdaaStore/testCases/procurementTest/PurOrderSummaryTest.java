@@ -10,7 +10,7 @@ public class PurOrderSummaryTest extends TestBase {
 
     private PurOrderSummary purOrderSummary ;
     @Test
-    public void setCompetitionReqTest(){
+    public void setPurOrderSummary(){
         purOrderSummary = new PurOrderSummary(driver);
         purOrderSummary
                 .navigateToPurOrderSummaryPage();

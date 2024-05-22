@@ -48,7 +48,7 @@ public class ContractQuery {
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
     }
 
-    private final By contractQuery = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1/span") ;
+    private final By contractQuery = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h1") ;
 
     public boolean contractQueryIsDisplayed() throws InterruptedException{
 
@@ -60,8 +60,7 @@ public class ContractQuery {
 
             } catch (Exception e) {
                 System.out.println("retrying to assert to ملخص طلب شراء ");
-                driver.navigate().refresh();
-                Thread.sleep(3000);
+               navigateToContractQueryPage();
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues");
