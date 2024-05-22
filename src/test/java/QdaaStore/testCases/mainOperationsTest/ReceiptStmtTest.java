@@ -25,10 +25,12 @@ public class ReceiptStmtTest extends TestBase {
 
         receiptStmt
                 .navigateToReceiptStmtPage()
+                .scrollDownc()
                 .selectSupplier()
                 .selectStore(storeName)
                 .scrollDown()
                 .addItems(itemNum,qty,price)
+                .scrollToSaveBtb()
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
         softAssert.assertTrue(receiptStmt.fixedBtnDisable());

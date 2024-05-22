@@ -144,7 +144,13 @@ public class ReceiptStmt {
     public ReceiptStmt scrollDown() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,350);");
+        js.executeScript("window.scrollBy(0,500);");
+
+        return this;
+    }
+    public ReceiptStmt scrollDownc() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,180);");
 
         return this;
     }
@@ -183,10 +189,13 @@ public class ReceiptStmt {
 
         WebElement itemAdded = waitForClickableElement(addBtn);
         itemAdded.click();
-        JavascriptExecutor js = (JavascriptExecutor) driver ;
-        js.executeScript("window.scrollBy(0,350);") ;
 
         Thread.sleep(2000);
+        return this;
+    }
+    public ReceiptStmt scrollToSaveBtb(){
+        JavascriptExecutor js = (JavascriptExecutor) driver ;
+        js.executeScript("window.scrollBy(0,350);") ;
         return this;
     }
 
