@@ -195,7 +195,7 @@ public class ReceiptStmt {
     }
     public ReceiptStmt scrollToSaveBtb(){
         JavascriptExecutor js = (JavascriptExecutor) driver ;
-        js.executeScript("window.scrollBy(0,350);") ;
+        js.executeScript("window.scrollBy(0,420);") ;
         return this;
     }
 
@@ -214,11 +214,26 @@ public class ReceiptStmt {
                 return this;
             }
             catch (Exception e){
-                System.out.println("Retrying click on save btn ");
+                System.out.println("Retrying click on save btn " + e.getMessage());
                 handleUnexpectedAlert();
+
             }
         }
         throw new RuntimeException(" failed to click on save btn after "+maxAttempt+ " attempt");
+    }
+    private void handleUnexpectedProblem() {
+        try {
+            navigateToReceiptStmtPage()
+                    .scrollDownc()
+                    .selectSupplier()
+                    .selectStore("الاجهزة الالكترونية")
+                    .scrollDown()
+                    .addItems("199","1","10")
+                    .scrollToSaveBtb();
+        } catch (Exception e) {
+            // If no alert is present, continue
+            System.out.println(e.getMessage());
+        }
     }
     private void handleUnexpectedAlert() {
         try {

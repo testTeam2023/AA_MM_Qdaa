@@ -41,7 +41,7 @@ public class PurOrder {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getPurOrderPage());
-                Thread.sleep(3500);
+                Thread.sleep(4000);
                 if(isElementDisplay(pageAssert)) {
                     return this;
                 }
@@ -50,8 +50,7 @@ public class PurOrder {
                 }
             } catch (Exception e) {
                 driver.navigate().refresh();
-                Thread.sleep(2500);
-                System.out.println("Page refreshed. Retrying navigate to PurOrder page url ...");
+                System.out.println("Page refreshed. Retrying navigate to PurOrder page url ..." + e.getMessage());
             }
         }
         throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
