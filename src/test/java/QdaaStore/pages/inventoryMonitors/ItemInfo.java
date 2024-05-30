@@ -65,7 +65,7 @@ public class ItemInfo {
 
     private final By itemNumber= By.xpath("//*[@id=\"item_id\"]");
     private final By dataDisplayBtn = By.xpath("//*[@id=\"btnSave\"]");
-    private final By results= By.xpath("//div[@id=\"viewTransInfoInfo\"]//table/tbody");
+    private final By results= By.xpath("//*[@id=\"tblDataTableClient\"]/tbody/tr");
 
     public ItemInfo addNumberAndDisplayResults( String item_Number) throws InterruptedException {
         int maxRetry = 3;
@@ -81,7 +81,7 @@ public class ItemInfo {
                 return this;
             } catch (Exception e) {
                 System.out.println(" retrying add number and display results ");
-                driver.navigate().refresh();
+                navigateToItemInfoPage();
             }
         }
             throw new RuntimeException(" fail to add number and display results after " + maxRetry + "Attempts") ;
