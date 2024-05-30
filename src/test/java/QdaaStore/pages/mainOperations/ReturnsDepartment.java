@@ -410,9 +410,11 @@ public class ReturnsDepartment {
         int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
-                WebElement parent = waitForPresenceElement(editBtnParent);
-                WebElement child = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(0);
-                child.click();
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+
+                List<WebElement> child = parent.findElements(editBtnChild);
+                WebElement elemnt =  wait.until(ExpectedConditions.elementToBeClickable(child.get(0)));
+                elemnt.click();
 
 
                 Thread.sleep(3000);
@@ -457,9 +459,11 @@ public class ReturnsDepartment {
              for (int attempt=0; attempt<maxAttempt; attempt++){
                  try {
 
-                     WebElement parent = waitForPresenceElement(editBtnParent);
-                     WebElement child = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(1);
-                     child.click();
+                     WebElement parent = waitForVisibilityElement(editBtnParent);
+
+                     List<WebElement> child = parent.findElements(editBtnChild);
+                     WebElement elemnt =  wait.until(ExpectedConditions.elementToBeClickable(child.get(1)));
+                     elemnt.click();
                  }
                  catch (Exception e)
                  {

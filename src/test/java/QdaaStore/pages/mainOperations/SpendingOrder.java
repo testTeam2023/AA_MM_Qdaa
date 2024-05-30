@@ -338,10 +338,6 @@ public class SpendingOrder {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].scrollIntoView(true);", search);
                 search.click();
-
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,180);");
-
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
@@ -388,9 +384,10 @@ public class SpendingOrder {
         int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
-               WebElement parent = waitForPresenceElement(editBtnParent);
-               // List<WebElement> child = driver.findElements(editBtnChild);
-                WebElement elemnt = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(0);
+                WebElement parent = waitForVisibilityElement(editBtnParent);
+
+                List<WebElement> child = parent.findElements(editBtnChild);
+                WebElement elemnt =  wait.until(ExpectedConditions.elementToBeClickable(child.get(0)));
                 elemnt.click();
 
                 Thread.sleep(3000);
@@ -437,9 +434,9 @@ public class SpendingOrder {
 
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
-               // List<WebElement> child = parent.findElements(editBtnChild);
-                WebElement child = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(1);
-                child.click();
+                List<WebElement> child = parent.findElements(editBtnChild);
+               WebElement elemnt =  wait.until(ExpectedConditions.elementToBeClickable(child.get(1)));
+               elemnt.click();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
