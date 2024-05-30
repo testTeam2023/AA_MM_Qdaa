@@ -388,18 +388,17 @@ public class SpendingOrder {
         int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
-                WebElement parent = waitForVisibilityElement(editBtnParent);
-                List<WebElement> child = parent.findElements(editBtnChild);
-                WebElement elemnt = child.get(0);
-
-                wait.until(ExpectedConditions.elementToBeClickable(elemnt)).click();
+               WebElement parent = waitForPresenceElement(editBtnParent);
+               // List<WebElement> child = driver.findElements(editBtnChild);
+                WebElement elemnt = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(0);
+                elemnt.click();
 
                 Thread.sleep(3000);
 
                 return this;
             }
             catch (Exception e){
-                System.out.println("Re trying to click on edit btn ");
+                System.out.println("Re trying to click on edit btn " + e.getMessage());
                 navigateToSpendingOrderPage();
                 clickOnSearchTab();
                 scrollDownForSearch();
@@ -438,8 +437,9 @@ public class SpendingOrder {
 
                 WebElement parent = waitForVisibilityElement(editBtnParent);
 
-                List<WebElement> child = parent.findElements(editBtnChild);
-                child.get(1).click();
+               // List<WebElement> child = parent.findElements(editBtnChild);
+                WebElement child = wait.until(ExpectedConditions.visibilityOfNestedElementsLocatedBy(parent,editBtnChild)).get(1);
+                child.click();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
