@@ -333,6 +333,7 @@ public class SpendingOrder {
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+                Thread.sleep(1500);
                 Actions actions = new Actions(driver);
                  actions.moveToElement(search).click().build().perform();
              //   JavascriptExecutor executor = (JavascriptExecutor) driver;

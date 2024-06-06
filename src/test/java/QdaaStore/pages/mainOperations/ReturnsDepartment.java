@@ -366,11 +366,12 @@ public class ReturnsDepartment {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
-               // Actions actions = new Actions(driver);
-               // actions.moveToElement(search).click().build().perform();
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].scrollIntoView(true);", search);
-                search.click();
+                Thread.sleep(1500);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(search).click().build().perform();
+                //JavascriptExecutor executor = (JavascriptExecutor) driver;
+               // executor.executeScript("arguments[0].scrollIntoView(true);", search);
+               // search.click();
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
@@ -410,7 +411,8 @@ public class ReturnsDepartment {
         int maxRetry = 5;
         for (int retry = 0; retry < maxRetry; retry++){
             try {
-                WebElement parent = waitForVisibilityElement(editBtnParent);
+                WebElement parent = waitForPresenceElement(editBtnParent);
+                Thread.sleep(1500);
 
                 List<WebElement> child = parent.findElements(editBtnChild);
                 WebElement elemnt =  wait.until(ExpectedConditions.elementToBeClickable(child.get(0)));

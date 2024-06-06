@@ -6,7 +6,7 @@ public class ConfigUtils {
     private final Properties properties;
     private static ConfigUtils configUtils;
     private ConfigUtils(){
-        String environment = System.getProperty("environment","local");
+        String environment = System.getProperty("environment","ip");
         switch (environment) {
             case "local" ->
                     properties = new PropertiesUtils().propertiesLoad("src\\test\\java\\QdaaStore\\config\\azka.properties");
