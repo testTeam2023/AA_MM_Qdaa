@@ -333,11 +333,11 @@ public class SpendingOrder {
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
-                // Actions actions = new Actions(driver);
-                // actions.moveToElement(search).click().build().perform();
-                JavascriptExecutor executor = (JavascriptExecutor) driver;
-                executor.executeScript("arguments[0].scrollIntoView(true);", search);
-                search.click();
+                Actions actions = new Actions(driver);
+                 actions.moveToElement(search).click().build().perform();
+             //   JavascriptExecutor executor = (JavascriptExecutor) driver;
+               // executor.executeScript("arguments[0].scrollIntoView(true);", search);
+              //  search.click();
                 Thread.sleep(3500);
                 return this;
             } catch (Exception e) {
