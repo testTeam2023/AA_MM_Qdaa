@@ -39,7 +39,7 @@ public class SpendingOrder {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getSpendingOrderPage());
-                Thread.sleep(2500);
+                Thread.sleep(4000);
                 if(isElementDisplay(pageAssert)) {
                     return this;
                 }
@@ -302,7 +302,7 @@ public class SpendingOrder {
     }
     // Search Function
     private final By  searchTab = By.xpath("//a[@id=\"AnchorfirstTab\"]");
-    private final By  searchBtn = By.xpath("//input[@class=\" btn-info btn-3d btn \" and contains(@value,\"بـحـث\")]");
+    private final By  searchBtn = By.xpath("//input[@value=\"بـحـث\"]");
     private final By  searchData = By.xpath("//table[@id=\"tblDataTableClient\"]/tbody");
 
     public SpendingOrder clickOnSearchTab()throws InterruptedException{
@@ -329,7 +329,7 @@ public class SpendingOrder {
 
     }
     public SpendingOrder clickOnSearchBtn() throws InterruptedException {
-        int maxAttempts = 5;
+        int maxAttempts = 10;
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -341,8 +341,8 @@ public class SpendingOrder {
                 search.click();
                 Thread.sleep(3500);
                 return this;
-            } catch (Exception e) {
-                System.out.println("Element not found or stale. Retrying click on search button...");
+            } catch (Exception e ) {
+                System.out.println("Element not found or stale. Retrying click on search button..."+ e.getMessage());
                 navigateToSpendingOrderPage();
                 clickOnSearchTab();
                 scrollDownForSearch();            }

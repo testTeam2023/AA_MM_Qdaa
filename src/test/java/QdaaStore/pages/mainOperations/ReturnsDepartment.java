@@ -40,7 +40,7 @@ public class ReturnsDepartment {
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 driver.get(ConfigUtils.getInstance().getReturnsDepartmentPage());
-                Thread.sleep(2500);
+                Thread.sleep(4000);
                 if(isElementDisplay(pageAssert)) {
                     return this;
                 }
@@ -335,7 +335,7 @@ public class ReturnsDepartment {
     }
 
     private final By  searchTab = By.xpath("//a[@id=\"AnchorfirstTab\"]");
-    private final By  searchBtn = By.xpath("//input[@class=\" btn-info btn-3d btn \" and contains(@value,\"بـحـث\")]");
+    private final By  searchBtn = By.xpath("//input[@value=\"بـحـث\"]");
     private final By  searchData = By.xpath("//table[@id=\"tblDataTableClient\"]/tbody");
 
     public ReturnsDepartment clickOnSearchTab()throws InterruptedException{
