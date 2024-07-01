@@ -115,17 +115,20 @@ public class PurOrder {
                     try {
                         WebElement itemNumm = waitForClickableElement(itemNumber);
                         itemNumm.sendKeys(itemNum, Keys.ENTER);
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
 
                         Select select = new Select(waitForClickableElement(selectUnit));
                         select.selectByValue("2");
+                        Thread.sleep(1000);
 
                         WebElement qty = waitForClickableElement(itemQty);
                         qty.clear();
                         qty.sendKeys(itemQTYs);
+                        Thread.sleep(1500);
 
                         WebElement btnAdd = waitForClickableElement(addBtn);
                         btnAdd.click();
+                        Thread.sleep(1500);
                         JavascriptExecutor js = (JavascriptExecutor) driver;
                         js.executeScript("window.scrollBy(0,350);");
                         Thread.sleep(2000);
@@ -148,15 +151,19 @@ public class PurOrder {
                         WebElement itemNames = waitForClickableElement(itemName);
                         itemNames.clear();
                         itemNames.sendKeys("صنف جديد");
+                        Thread.sleep(1500);
 
                         Select select1 = new Select(waitForClickableElement(unit));
                         select1.selectByValue("2");
+                        Thread.sleep(1000);
 
                         WebElement qty = waitForClickableElement(itemQty);
                         qty.clear();
                         qty.sendKeys(itemQTYs);
+                        Thread.sleep(1500);
                         WebElement btnAdd = waitForClickableElement(addBtn);
                         btnAdd.click();
+                        Thread.sleep(1500);
                         JavascriptExecutor js = (JavascriptExecutor) driver;
                         js.executeScript("window.scrollBy(0,350);");
                         Thread.sleep(2000);

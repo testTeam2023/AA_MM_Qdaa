@@ -335,7 +335,7 @@ public class ReturnsDepartment {
     }
 
     private final By  searchTab = By.xpath("//a[@id=\"AnchorfirstTab\"]");
-    private final By  searchBtn = By.xpath("//input[@value=\"بـحـث\"]");
+    private final By  searchBtn = By.xpath("//*[@id=\"FormSearch\"]/div[1]/div[6]/input");
     private final By  searchData = By.xpath("//table[@id=\"tblDataTableClient\"]/tbody");
 
     public ReturnsDepartment clickOnSearchTab()throws InterruptedException{

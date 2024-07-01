@@ -173,8 +173,10 @@ public class ItemsTransfeer {
         WebElement qty = waitForClickableElement(transferQty);
         qty.clear();
         qty.sendKeys(transQty);
+        Thread.sleep(1500);
         WebElement itemsAdd= waitForClickableElement(addBtn);
         itemsAdd.click();
+        Thread.sleep(1500);
         JavascriptExecutor js = (JavascriptExecutor) driver ;
         js.executeScript("window.scrollBy(0,350);") ;
         Thread.sleep(2500);
