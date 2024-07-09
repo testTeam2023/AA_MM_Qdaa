@@ -156,7 +156,7 @@ public class BalanceAdjustment {
                 try {
                     Select select = new Select(waitForClickableElement(adjustmentType));
                     select.selectByValue(adjstmntType);
-                    Thread.sleep(2000);
+                    Thread.sleep(2500);
                     return this;
                 }
                 catch (Exception e) {
@@ -166,12 +166,12 @@ public class BalanceAdjustment {
             throw new RuntimeException("failed to enter adjustmentType ");
      }
     public BalanceAdjustment clickOnAddBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
-                Thread.sleep(2500);
+                Thread.sleep(3500);
 
                 // Check if the necessary elements are displayed and interact if they are
                 if (isElementPresent(adjustmntItemWanted) || isElementPresent(adjustmntItemQtyWanted) || isElementPresent(adjustmnttypeWanted)) {
