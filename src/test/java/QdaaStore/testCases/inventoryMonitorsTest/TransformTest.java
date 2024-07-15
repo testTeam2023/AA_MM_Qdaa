@@ -12,7 +12,7 @@ public class TransformTest extends TestBase {
     @DataProvider
     public Object[][] data(){
         return new Object[][]{
-                {"رئيس المجلس/الإدارة العامة للخدمات المشتركة","المجلس الأعلى ","1055636300","1109037836"}
+                {"إدارة_         1","إدارة_         2","1098810755","158"}
         };
     }
     @Test(dataProvider = "data")

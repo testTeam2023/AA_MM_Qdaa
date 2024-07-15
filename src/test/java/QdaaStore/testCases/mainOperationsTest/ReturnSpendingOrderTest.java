@@ -14,7 +14,7 @@ public class ReturnSpendingOrderTest extends TestBase {
     @DataProvider
     public Object[][] data (){
         return new Object[][]{
-                {"كريم محمد شاكر فتحى","رئيس المجلس/الإدارة العامة للخدمات المشتركة","1055636300","199","1","1"}
+                {"كريم محمد شاكر فتحى","إدارة_         1","1055636300","199","1","1"}
         };
     }
     @Test(dataProvider = "data", priority = 1)

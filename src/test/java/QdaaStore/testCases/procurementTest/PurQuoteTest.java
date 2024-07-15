@@ -17,7 +17,7 @@ public class PurQuoteTest extends TestBase {
     public  Object[][] dataForPurOrder(){
         return new Object[][]{
 
-                {"رئيس المجلس/الإدارة العامة للخدمات المشتركة","دليل الاصناف","199","1"}
+                {"إدارة_         1","دليل الاصناف","199","1"}
         };
 
     }

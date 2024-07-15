@@ -15,7 +15,7 @@ public class PurQuoteRequestTest extends TestBase {
     public  Object[][] data(){
         return new Object[][]{
 
-                {"رئيس المجلس/الإدارة العامة للخدمات المشتركة","دليل الاصناف","199","1"}
+                {"إدارة_         1","دليل الاصناف","199","1"}
         };
 
     }
@@ -36,6 +36,7 @@ public class PurQuoteRequestTest extends TestBase {
                 .navigateToPurQuoteRequestPage()
                 .selectPurQuoteNumber()
                 .clickOnSupplier()
+                .scrollDownc()
                 .clickOnSaveBtn();
 
         // Search

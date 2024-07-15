@@ -76,7 +76,7 @@ public class PurQuoteRequest {
     private final By suppliersSearchResultChild = By.tagName("a");
     private final By chooseBtn = By.xpath("/html/body/div[6]/div/div[3]/div/div/div[2]/form/div[2]/div/table/tbody/tr[1]/td[5]/a");
 
-    private final By saveBtn = By.xpath("//*[@id=\"btnSave\" and contains(@value,\"حفظ\")]");
+    private final By saveBtn = By.xpath("//*[@id=\"btnSave\"]");
     private final By okBtn = By.xpath("//button[@id=\"btn-ok-modal\"]");
     private final By successMessage = By.xpath("//div[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحفظ بنجاح\")]");
 
@@ -115,6 +115,11 @@ public class PurQuoteRequest {
     public PurQuoteRequest scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,300);");
+        return this ;
+    }
+    public PurQuoteRequest scrollDownc(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,200);");
         return this ;
     }
 
