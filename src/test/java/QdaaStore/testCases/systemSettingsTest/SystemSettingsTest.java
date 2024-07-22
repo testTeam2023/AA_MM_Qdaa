@@ -29,7 +29,7 @@ public class SystemSettingsTest extends TestBase {
 
        systemSettings.mainPageLoad()
                .clickOnSystemSettingsButton()
-               .navigateToUnitPage()
+               . navigateToUnitPage()
                .enterUnitName(Randoms.randomArData())
                .clickOnSaveButton()
                .clickOnSuccessMessageButton();
