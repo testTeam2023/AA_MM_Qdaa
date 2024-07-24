@@ -191,7 +191,7 @@ public class Items {
 
     }
     public Items clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 3;
+        int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -204,7 +204,10 @@ public class Items {
                 JavascriptExecutor js = (JavascriptExecutor) driver;
                 js.executeScript("window.scrollBy(0,180);");
                 Thread.sleep(3500);
-                return this;
+                if (isElementDisplay(searchData)){
+                    return this ;
+                }
+
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");

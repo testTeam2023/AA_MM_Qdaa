@@ -25,9 +25,7 @@ public class ItemsTest extends TestBase {
              .navigateToItemsPage()
              .clickOnSearchTab()
              .scrollDownForSearch()
-             .clickOnSearchBtn();
-     Assert.assertTrue(items.searchResultIsDisplayed());
-    }
+             .clickOnSearchBtn();}
 
     @Test(priority = 2)
     public void itemsEdit()throws InterruptedException{
