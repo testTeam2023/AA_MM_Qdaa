@@ -116,7 +116,7 @@ public class ReceiptNotify  {
         List<WebElement> child=parent.findElements(selectReceiverChild);
         child.get(3).click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,200);");
+        js.executeScript("window.scrollBy(0,600);");
         return this ;
     }
     // Add an Items
@@ -146,7 +146,7 @@ public class ReceiptNotify  {
                 wait.until(ExpectedConditions.elementToBeClickable(addBtn)).click();
                 Thread.sleep(1200);
                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 400);");
+                js.executeScript("window.scrollBy(0, 200);");
                 return this;
             } catch (Exception e) {
                 System.out.println("retrying add items");
@@ -159,18 +159,21 @@ public class ReceiptNotify  {
         int maxAttempt = 5;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
+
                 WebElement saveButton = waitForClickableElement(saveBtn);
+
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", saveButton);
                 Actions actions = new Actions(driver);
                 actions.moveToElement(saveButton).click().build().perform();
                 Thread.sleep(1500);
                 WebElement okButton = waitForClickableElement(okBtn);
-                Actions actions1 = new Actions(driver);
-                actions1.moveToElement(okButton).click().build().perform();
+                actions.moveToElement(okButton).click().build().perform();
                 Thread.sleep(1500);
                 return this;
             }
             catch (Exception e){
-                System.out.println("Retrying click on save btn ");
+                System.out.println("Retrying click on save btn "+ e.getMessage());
                 handleUnexpectedAlert();
             }
         }
