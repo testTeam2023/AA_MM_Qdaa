@@ -51,6 +51,7 @@ public class ReceiptNotifyTest extends TestBase {
                 .navigateToReceiptNotifyPage()
                 .clickOnSearchTab()
                 .clickOnSearchBtn()
+                .scrollDown()
                 .clickOnEditBtn()
                 .scrollDown()
                 .clickOnEditSaveBtn();

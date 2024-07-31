@@ -211,7 +211,8 @@ public class ReceiptNotify  {
                 executor.executeScript("arguments[0].scrollIntoView(true);", element);
                 element.click();
                 Thread.sleep(1200);
-                return this;
+                    return this;
+
             } catch (Exception e) {
                 System.out.println("Exception occured " + e.getMessage());
                 driver.navigate().refresh();
@@ -230,11 +231,10 @@ public class ReceiptNotify  {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
                 Actions actions = new Actions(driver);
                 actions.moveToElement(search).click().build().perform();
-
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 200);");
                 Thread.sleep(2500);
-                return this;
+                if (isElementDisplay(searchData)){
+                    return this;
+                }
             } catch (Exception e) {
                 // Refresh the page
                 System.out.println("Page refreshed. Retrying click on search btn...");
