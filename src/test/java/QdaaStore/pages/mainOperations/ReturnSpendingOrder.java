@@ -145,7 +145,7 @@ public class ReturnSpendingOrder {
     }
     public ReturnSpendingOrder scrollDown(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,500);");
+        js.executeScript("window.scrollBy(0,850);");
         return this ;
     }
 
@@ -172,27 +172,30 @@ public class ReturnSpendingOrder {
 
                 WebElement itemNumber = waitForClickableElement(itemNum);
                 itemNumber.sendKeys(itemNumbers, Keys.ENTER);
-                Thread.sleep(1000);
+                Thread.sleep(1500);
 
                 WebElement qty = waitForClickableElement(spentQty);
                 qty.clear();
                 qty.sendKeys(spntQty);
+                Thread.sleep(1500);
 
                 Select select = new Select(waitForClickableElement(committeeRecommendation));
                 select.selectByValue("1");
-
+                Thread.sleep(1500);
                 WebElement add = waitForClickableElement(addBtn);
                 add.click();
                 Thread.sleep(2000);
 
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,400);");
+               // JavascriptExecutor js = (JavascriptExecutor) driver;
+              //  js.executeScript("window.scrollBy(0,400);");
 
                 WebElement qtys = waitForClickableElement(recommendationQty);
                 qtys.clear();
                 qtys.sendKeys(recQty);
-
                 Thread.sleep(1500);
+
+                 JavascriptExecutor js = (JavascriptExecutor) driver;
+                js.executeScript("window.scrollBy(0,100);");
                 return this;
             }
             catch (Exception e){

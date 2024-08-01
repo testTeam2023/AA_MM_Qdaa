@@ -317,15 +317,17 @@ public class Contract {
                 Actions actions = new Actions(driver);
                 actions.moveToElement(search).click().build().perform();
 
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,250);");
+                //JavascriptExecutor js = (JavascriptExecutor) driver;
+              //  js.executeScript("window.scrollBy(0,250);");
                 Thread.sleep(2500);
-                return this;
+
+                if(isElementDisplay(searchData)){
+                    return this;
+                }
             } catch (Exception e) {
                 // Refresh the page
-                System.out.println("Page refreshed. Retrying click on search btn...");
-                driver.navigate().refresh();
-                Thread.sleep(2500);
+                System.out.println("Page refreshed. Retrying click on search btn..." +e.getMessage());
+                navigateToContractPage();
                 clickOnSearchTab();
             }
         }
