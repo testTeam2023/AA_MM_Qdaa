@@ -390,6 +390,7 @@ public class Contract {
         WebElement ok = waitForClickableElement(okBtn);
         Actions actions1 =new Actions(driver);
         actions.moveToElement(ok).click().build().perform();
+        Thread.sleep(2000);
         return this;    }
 
     public Contract clickOnDeleteBtn() throws InterruptedException {
@@ -432,7 +433,7 @@ public class Contract {
 
     public Contract scrollToTheEnd(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,900);");
+        js.executeScript("window.scrollBy(0,700);");
         return this ;
     }
     public Contract scrollDown(){
