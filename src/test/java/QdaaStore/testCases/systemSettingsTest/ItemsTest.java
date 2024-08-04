@@ -36,7 +36,7 @@ public class ItemsTest extends TestBase {
                 .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .clickOnEditBtn()
-                .editMaxQty()
+                .scrollDown()
                 .clickOnEditSaveBtn();
     }
     @Test(priority = 3)

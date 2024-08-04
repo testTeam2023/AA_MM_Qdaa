@@ -286,8 +286,8 @@ public class Items {
         return this;
     }
     public Items scrollDown(){
-        Actions actions = new Actions(driver);
-       actions.scrollToElement(driver.findElement(editBtn));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,900);");
        return this ;
     }
     public Items clickOnEditSaveBtn() throws InterruptedException{
