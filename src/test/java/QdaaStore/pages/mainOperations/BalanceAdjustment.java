@@ -377,7 +377,7 @@ public class BalanceAdjustment {
             }
 
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxRetry + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxRetry + " attempts");
 
     }
 

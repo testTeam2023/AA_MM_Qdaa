@@ -305,7 +305,7 @@ public class Contract {
 
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
 
     }
     public Contract clickOnSearchBtn() throws InterruptedException{

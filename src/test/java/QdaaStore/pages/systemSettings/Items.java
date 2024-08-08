@@ -57,7 +57,7 @@ public class Items {
                 System.out.println("Page refreshed. Retrying navigate to Items page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
     private boolean isElementDisplay(By locator){
         try {

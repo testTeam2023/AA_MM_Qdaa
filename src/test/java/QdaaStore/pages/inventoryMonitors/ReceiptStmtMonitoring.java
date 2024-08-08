@@ -36,7 +36,7 @@ public class ReceiptStmtMonitoring {
                 System.out.println("Page refreshed. Retrying navigate to ReceiptStmtMonitoring page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
 
     private final By receiptStmtMonitoring = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;

@@ -46,7 +46,7 @@ public class CompetitionReq {
                 System.out.println("Page refreshed. Retrying navigate to CompetitionReq page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
 
         private final By competitionReq = By.xpath("//*[@id=\"content\"]/div[1]/div/div/h6") ;

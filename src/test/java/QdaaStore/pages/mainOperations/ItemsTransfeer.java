@@ -53,7 +53,7 @@ public class ItemsTransfeer {
                 System.out.println("Page refreshed. Retrying navigate to Items transfer page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out after" + maxAttempt);
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues" + maxAttempt);
     }
     private boolean isElementDisplay(By locator){
         try {
@@ -330,7 +330,7 @@ public class ItemsTransfeer {
             }
 
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxRetry + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxRetry + " attempts");
     }
 // Edit and Delete Function
 

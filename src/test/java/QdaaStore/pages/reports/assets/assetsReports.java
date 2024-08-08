@@ -38,7 +38,7 @@ public class assetsReports {
                 System.out.println("Page refreshed. Retrying navigate to Report101 page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
     public assetsReports navigateToReport102Page() {
         int maxAttempt = 3;
@@ -52,7 +52,7 @@ public class assetsReports {
                 System.out.println("Page refreshed. Retrying navigate to Report102 page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
     public assetsReports navigateToReport103Page() {
         int maxAttempt = 3;
@@ -66,7 +66,7 @@ public class assetsReports {
                 System.out.println("Page refreshed. Retrying navigate to Report103 page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
     public assetsReports navigateToReport104Page() {
         int maxAttempt = 3;
@@ -80,7 +80,7 @@ public class assetsReports {
                 System.out.println("Page refreshed. Retrying navigate to Report104 page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out or Publish Issues after " + maxAttempt + " attempts");
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + " attempts");
     }
 
 
