@@ -96,7 +96,7 @@ public class Contract {
     private final By contractWithoutPurOrderBtn= By.xpath("//*[@id=\"FormAddOrEdit\"]/div[1]/div[1]/div/label[3]");
     private final By selectPurQuoteNumber = By.xpath("//*[@id=\"btnPurQuoteComparisonID\"]");
     private final By purQuoteSearchBtn = By.xpath("/html/body/div[6]/div/div[2]/div/div[2]/div[7]/div/div/div[2]/form/div[5]/input");
-    private final By selectParent = By.xpath("/html/body/div[6]/div/div[2]/div/div[2]/div[7]/div/div/div[2]/form/div[6]/table/tbody/tr/td[5]/a");
+    private final By selectParent = By.xpath("//*[@id=\"tblDataTableClient\"]/tbody/tr[1]//a[@class=\"btn btn-success btn-sm\"]");
     private final By selectChild = By.tagName("a");
     private final By selectSuppliers1 = By.xpath("//div[@id=\"WithPurOrderdiv\"]//span[@id]");
     private final By selectSuppliers2 = By.xpath("//div[@id=\"WithoutPurOrderdiv\"]//span[@id]");
@@ -131,9 +131,8 @@ public class Contract {
                 Thread.sleep(2000);
                 return this;
             } catch (Exception e) {
-                System.out.println("Retrying  selecting PurQuoteNumber");
-                driver.navigate().refresh();
-                Thread.sleep(2000);
+                System.out.println("Retrying  selecting PurQuoteNumber" +e.getMessage());
+                navigateToContractPage();
             }
         }
         throw new RuntimeException("failed selecting PurQuoteNumber after " + maxAttempt + "Attempt");
@@ -155,7 +154,7 @@ public class Contract {
                 childs.get(1).click();
                 return this;
             } catch (Exception e) {
-                System.out.println("Retrying  selecting supplier 1");
+                System.out.println("Retrying  selecting supplier 1" + e.getMessage());
             }
         }
         throw new RuntimeException("failed selecting supplier 1 after " +maxAttempt);
