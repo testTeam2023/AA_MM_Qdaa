@@ -222,11 +222,12 @@ public class ItemsTransfeer {
     public ItemsTransfeer clickOnFixedBtn()throws InterruptedException {
 
         WebElement fixedButton = waitForClickableElement(fixed);
-        fixedButton.click();
+        Actions actions = new Actions(driver);
+        actions.moveToElement(fixedButton).click().build().perform();
         Thread.sleep(1500);
 
         WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
+        actions.moveToElement(okButton).click().build().perform();
 
         return this ;
     }
@@ -239,7 +240,6 @@ public class ItemsTransfeer {
             Thread.sleep(1500);
 
             WebElement okButton = waitForClickableElement(okBtn);
-            Actions actions1 = new Actions(driver);
             actions.moveToElement(okButton).click().build().perform();
 
         }

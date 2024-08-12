@@ -89,7 +89,7 @@ public class ContractTest extends TestBase {
                     .clickOnSearchBtn()
                     .clickOnEditBtn()
                     .scrollToTheEnd()
-                        .clickOnEditSaveBtn();
+                    .clickOnEditSaveBtn();
 
 
             contract

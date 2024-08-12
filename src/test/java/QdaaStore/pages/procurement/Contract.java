@@ -107,7 +107,7 @@ public class Contract {
     private final By selectSuppliersChild = By.tagName("li");
     private final By contractSubject = By.xpath("//*[@id=\"Subject\"]");
     private final By saveBtn = By.xpath("//*[@id=\"btnSave\" and contains(@value,\"حفظ\")]");
-    private final By okBtn = By.xpath("//button[@id=\"btn-ok-modal\"]");
+    private final By  okBtn = By.xpath("//button[@id=\"btn-ok-modal\"]");
     private final By successMessage = By.xpath("//div[@id=\"div-success-modal\"]//div[contains(text(),\"تم الحفظ بنجاح\")]");
     private final By itemNumber= By.xpath("//*[@id=\"Dtl_ItemID\"]");
     private final By selectUnit = By.xpath("//*[@id=\"UnitID_ForItem\"]");
@@ -389,10 +389,10 @@ public class Contract {
         Thread.sleep(1500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        Actions actions1 =new Actions(driver);
         actions.moveToElement(ok).click().build().perform();
         Thread.sleep(2000);
-        return this;    }
+        return this;
+    }
 
     public Contract clickOnDeleteBtn() throws InterruptedException {
         int maxRetry = 3;
