@@ -381,18 +381,28 @@ public class Contract {
     }
 
 
-    public Contract clickOnEditSaveBtn() throws InterruptedException{
-        WebElement edit = waitForClickableElement(editBtn);
-        Actions actions =new Actions(driver);
-        actions.moveToElement(edit).click().build().perform();
+    public Contract clickOnEditSaveBtn() throws InterruptedException {
 
-        Thread.sleep(1500);
 
-        WebElement ok = waitForClickableElement(okBtn);
-        actions.moveToElement(ok).click().build().perform();
-        Thread.sleep(2000);
-        return this;
-    }
+                WebElement edit = waitForClickableElement(editBtn);
+                Actions actions = new Actions(driver);
+                actions.moveToElement(edit).click().build().perform();
+                Thread.sleep(2500);
+               int maxRetry = 3;
+               for (int retry = 0; retry < maxRetry; retry++) {
+                try {
+                    WebElement ok = waitForClickableElement(okBtn);
+                    actions.moveToElement(ok).click().build().perform();
+                    Thread.sleep(2000);
+                    return this;
+                }
+                 catch (Exception e) {
+                System.out.println("Re trying to click on ok save btn" + e.getMessage());
+            }
+        }
+            throw new RuntimeException("failed to click on ok save btn after " + maxRetry + "attempt");
+        }
+
 
     public Contract clickOnDeleteBtn() throws InterruptedException {
         int maxRetry = 3;

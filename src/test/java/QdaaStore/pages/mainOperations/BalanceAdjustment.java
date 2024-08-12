@@ -53,7 +53,7 @@ public class BalanceAdjustment {
                 System.out.println("Page refreshed. Retrying navigate to BalanceAdjustment page url ...");
             }
         }
-        throw new RuntimeException("page load Times Out after" + maxAttempt);
+        throw new RuntimeException("page load Times Out (Server Stopped ) or Publish Issues after " + maxAttempt + "attempts");
     }
     private boolean isElementDisplay(By locator) {
         try {
