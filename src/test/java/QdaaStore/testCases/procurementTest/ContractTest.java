@@ -108,6 +108,7 @@ public class ContractTest extends TestBase {
                     .enterContractSubject()
                     .scrollDownForAddItem()
                     .addItem(itemNum, itemQTYs, prices)
+                    .scrollDown()
                     .clickOnSaveBtn();
             contract
                     .navigateToContractPage()

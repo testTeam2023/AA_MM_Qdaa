@@ -196,13 +196,12 @@ public class Contract {
                 actions.moveToElement(saveButton).click().build().perform();
                 Thread.sleep(1500);
                 WebElement okButton = waitForClickableElement(okBtn);
-                Actions actions1 = new Actions(driver);
-                actions1.moveToElement(okButton).click().build().perform();
+                actions.moveToElement(okButton).click().build().perform();
                 Thread.sleep(1500);
                 return this;
             }
             catch (Exception e){
-                System.out.println("Retrying click on save btn ");
+                System.out.println("Retrying click on save btn "+e.getMessage());
                 handleUnexpectedAlert();
             }
         }
@@ -251,29 +250,27 @@ public class Contract {
 
                 WebElement itemNumm = waitForClickableElement(itemNumber);
                 itemNumm.sendKeys(itemNum, Keys.ENTER);
-                Thread.sleep(1000);
+                Thread.sleep(1500);
 
                 Select select = new Select(waitForClickableElement(selectUnit));
                 select.selectByValue("2");
-
+                Thread.sleep(1500);
                 WebElement qty = waitForClickableElement(itemQty);
                 qty.clear();
                 qty.sendKeys(itemQTYs);
-
+                Thread.sleep(1500);
                 WebElement price = waitForClickableElement(itemPrice);
                 price.clear();
                 price.sendKeys(prices);
-
+                Thread.sleep(1500);
                 WebElement btnAdd = waitForClickableElement(addBtn);
                 btnAdd.click();
                 Thread.sleep(1500);
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0, 400);");
 
                 return this;
             }
             catch (Exception e){
-                System.out.println("try add item and click on btn ");
+                System.out.println("try add item and click on btn " +e.getMessage());
             }}
         throw new RuntimeException("failed to add item and btn chech the test data");
     }
@@ -454,7 +451,7 @@ public class Contract {
     }
     public Contract scrollDownForAddItem(){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400);");
+        js.executeScript("window.scrollBy(0,600);");
         return this ;
     }
 
