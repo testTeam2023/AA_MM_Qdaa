@@ -37,13 +37,13 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDownForSearch()
+                //.scrollDownForSearch()
                 .clickOnSearchBtn();
         // Edit
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDownForSearch()
+             //   .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .scrollAfterSearchBtn()
                 .clickOnEditBtn()
@@ -54,7 +54,7 @@ public class ReturnsDepartmentTest extends TestBase {
         returnsDepartment
                 .navigateToReturnsDepartmentPage()
                 .clickOnSearchTab()
-                .scrollDownForSearch()
+             //  .scrollDownForSearch()
                 .clickOnSearchBtn()
                 .scrollAfterSearchBtn()
                 .clickOnDeleteBtn();

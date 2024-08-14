@@ -302,7 +302,7 @@ public class SpendingOrder {
     }
     // Search Function
     private final By  searchTab = By.xpath("//a[@id=\"AnchorfirstTab\"]");
-    private final By  searchBtn = By.xpath("//input[@value=\"بـحـث\"]");
+    private final By  searchBtn = By.xpath("//*[@id=\"FormSearch\"]/div[1]/div[10]/input");
     private final By  searchData = By.xpath("//table[@id=\"tblDataTableClient\"]/tbody");
 
     public SpendingOrder clickOnSearchTab()throws InterruptedException{
