@@ -152,6 +152,11 @@ public class ItemsTransfeer {
         js.executeScript("window.scrollBy(0,300);");
         return this ;
     }
+    public ItemsTransfeer scrollDownc(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,500);");
+        return this ;
+    }
 
     // Add an Item
 
@@ -166,21 +171,26 @@ public class ItemsTransfeer {
     private final By notFixed = By.xpath("//input[@id=\"btnCancelFixed\"]");
 
     public ItemsTransfeer addItem(String itemNumbers ,String transQty) throws InterruptedException{
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement itemNum = waitForClickableElement(itemNumber);
+                itemNum.sendKeys(itemNumbers, Keys.ENTER);
+                Thread.sleep(1000);
+                WebElement qty = waitForClickableElement(transferQty);
+                qty.clear();
+                qty.sendKeys(transQty);
+                Thread.sleep(1500);
+                WebElement itemsAdd = waitForClickableElement(addBtn);
+                itemsAdd.click();
+                Thread.sleep(1500);
+                return this;
+            }
+            catch (Exception e ){
+                System.out.println("Retrying add item " +e.getMessage());
+            }}
+        throw new RuntimeException("failed to add btn after attempts");
 
-        WebElement itemNum= waitForClickableElement(itemNumber);
-        itemNum.sendKeys(itemNumbers,Keys.ENTER);
-        Thread.sleep(1000);
-        WebElement qty = waitForClickableElement(transferQty);
-        qty.clear();
-        qty.sendKeys(transQty);
-        Thread.sleep(1500);
-        WebElement itemsAdd= waitForClickableElement(addBtn);
-        itemsAdd.click();
-        Thread.sleep(1500);
-        JavascriptExecutor js = (JavascriptExecutor) driver ;
-        js.executeScript("window.scrollBy(0,350);") ;
-        Thread.sleep(2500);
-        return this ;
     }
 
     public ItemsTransfeer clickOnSaveBtn() throws InterruptedException{
@@ -226,11 +236,18 @@ public class ItemsTransfeer {
         actions.moveToElement(fixedButton).click().build().perform();
         Thread.sleep(1500);
 
-        WebElement okButton = waitForClickableElement(okBtn);
-        actions.moveToElement(okButton).click().build().perform();
-
-        return this ;
-    }
+        int maxAttempt = 5;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
+            try {
+                WebElement okButton = waitForClickableElement(okBtn);
+                actions.moveToElement(okButton).click().build().perform();
+                return this;
+            } catch (Exception e) {
+                System.out.println("Retrying clik on ok btn after fix btn");
+            }
+        }
+            throw new RuntimeException("Failed to click on ok btn after all attempts ");
+        }
     public ItemsTransfeer clickOnNotFixedBtn() {
         try {
 

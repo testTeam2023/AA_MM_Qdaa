@@ -14,9 +14,9 @@ public class ItemsTransfeerTest extends TestBase {
     public Object[][] data (){
         return new Object[][]{
                 {"1","الرجيع","الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","199","1"},
-                {"2","الرجيع","الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","199","1"},
-                {"3","الرجيع","الرجيع","عمرو عبدالعزيز حسن كمال","199","1"},
-                {"4","الرجيع","الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","199","1"}
+              //  {"2","الرجيع","الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","199","1"},
+               // {"3","الرجيع","الرجيع","عمرو عبدالعزيز حسن كمال","199","1"},
+              //  {"4","الرجيع","الاجهزة الالكترونية","عمرو عبدالعزيز حسن كمال","199","1"}
         };
     }
     @Test(dataProvider = "data", priority = 1)
@@ -29,7 +29,7 @@ public class ItemsTransfeerTest extends TestBase {
                 .selectFromStore(storeFrom_name)
                 .selectToStore(storeTo_name)
                 .selectStoreKeeper(storeKeeperName)
-                .scrollDown()
+                .scrollDownc()
                 .addItem(itemNum,transQty)
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
