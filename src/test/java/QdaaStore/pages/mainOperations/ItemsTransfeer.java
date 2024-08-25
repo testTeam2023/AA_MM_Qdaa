@@ -232,21 +232,14 @@ public class ItemsTransfeer {
     public ItemsTransfeer clickOnFixedBtn()throws InterruptedException {
 
         WebElement fixedButton = waitForClickableElement(fixed);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(fixedButton).click().build().perform();
-        Thread.sleep(1500);
+        fixedButton.click();
 
-        int maxAttempt = 5;
-        for (int attempt = 0; attempt < maxAttempt; attempt++) {
-            try {
-                WebElement okButton = waitForClickableElement(okBtn);
-                actions.moveToElement(okButton).click().build().perform();
-                return this;
-            } catch (Exception e) {
-                System.out.println("Retrying clik on ok btn after fix btn");
-            }
-        }
-            throw new RuntimeException("Failed to click on ok btn after all attempts ");
+        Thread.sleep(2500);
+
+        WebElement okButton = waitForClickableElement(okBtn);
+        okButton.click();
+        Thread.sleep(1500);
+           return this;
         }
     public ItemsTransfeer clickOnNotFixedBtn() {
         try {
