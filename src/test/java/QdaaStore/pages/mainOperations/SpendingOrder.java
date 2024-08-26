@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.reporters.TestHTMLReporter;
 
 import java.time.Duration;
@@ -301,12 +303,13 @@ public class SpendingOrder {
     }
     // Search Function
     private final By  searchTab = By.xpath("//a[@id=\"AnchorfirstTab\"]");
-    private final By  searchBtn = By.xpath("//*[@id=\"FormSearch\"]/div[1]/div[10]/input");
+    private final By  searchBtn = By.xpath("//input[@class=\" btn-info btn-3d btn \"]");
     private final By  searchData = By.xpath("//table[@id=\"tblDataTableClient\"]/tbody");
+    private static final Logger logger = LoggerFactory.getLogger(SpendingOrder.class);
 
-    public SpendingOrder clickOnSearchTab()throws InterruptedException{
-        int maxAttempt = 3 ;
-        for (int attempt=0; attempt<maxAttempt; attempt++) {
+    public SpendingOrder clickOnSearchTab()throws InterruptedException {
+        int maxAttempt = 3;
+        for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 //wait.until(ExpectedConditions.elementToBeClickable(searchTab)).click();
                 //   JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -325,10 +328,11 @@ public class SpendingOrder {
             }
         }
         throw new RuntimeException("Failed to click on search tab after " + maxAttempt + " attempts");
-
     }
+
+
     public SpendingOrder clickOnSearchBtn() throws InterruptedException {
-        int maxAttempts = 10;
+       /* int maxAttempts = 10;
         for (int attempt = 0; attempt < maxAttempts; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -349,6 +353,41 @@ public class SpendingOrder {
                 scrollDownForSearch();            }
         }
         throw new RuntimeException("Failed to click on search btn after all attempts");
+    }
+
+        */
+        int maxAttempts = 10;
+        int attempt = 0;
+
+        while (attempt < maxAttempts) {
+            try {
+                WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBtn));
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", search);
+                search.click();
+                Thread.sleep(2000);
+                // Wait for search results to display
+                wait.until(ExpectedConditions.visibilityOfElementLocated(searchData));
+
+                return this; // Successful click
+
+            } catch (NoSuchElementException | StaleElementReferenceException e) {
+                logger.error("Element issue: ", e);
+                handleNavigationAndRetry();
+            } catch (Exception e) {
+                logger.error("Unexpected error: ", e);
+                handleNavigationAndRetry();
+            }
+            attempt++;
+        }
+
+        throw new RuntimeException("Failed to click on search button after " + maxAttempts + " attempts.");
+
+    }
+    private void handleNavigationAndRetry() throws InterruptedException{
+        navigateToSpendingOrderPage();
+        clickOnSearchTab();
+        scrollDownForSearch();
     }
     private void retryClickOnSearchBtn() throws InterruptedException {
         // Refresh the page
