@@ -271,13 +271,12 @@ public class SpendingOrder {
         try {
 
             WebElement notFixedButton = waitForClickableElement(notFixed);
-            Actions actions = new Actions(driver);
-            actions.moveToElement(notFixedButton).click().build().perform();
+            wait.until(ExpectedConditions.elementToBeClickable(notFixedButton)).click();
+
             Thread.sleep(1500);
 
             WebElement okButton = waitForClickableElement(okBtn);
-            Actions actions1 = new Actions(driver);
-            actions.moveToElement(okButton).click().build().perform();
+            wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
 
         }
         catch (Exception e){
