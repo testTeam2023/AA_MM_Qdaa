@@ -194,14 +194,19 @@ public class ReturnSpendingOrder {
                 qtys.sendKeys(recQty);
                 Thread.sleep(1500);
 
-                 JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("window.scrollBy(0,100);");
+
                 return this;
             }
             catch (Exception e){
                 System.out.println("try add item and click on btn ");
             }}
             throw new RuntimeException("failed to add item and btn chech the test data");
+    }
+
+    public ReturnSpendingOrder scroll(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,150);");
+        return this ;
     }
 
     public ReturnSpendingOrder clickOnSaveBtn() throws InterruptedException{

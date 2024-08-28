@@ -29,6 +29,7 @@ public class ReturnSpendingOrderTest extends TestBase {
                 .selectReceiverName(receiverNumber)
                 .scrollDown()
                 .addItem(itemNum,spntQty,RecommendationQty)
+                .scroll()
                 .clickOnSaveBtn()
                 .clickOnFixedBtn();
         softAssert.assertTrue(returnSpendingOrder.fixedBtnDisable());
