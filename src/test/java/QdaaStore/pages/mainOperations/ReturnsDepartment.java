@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import java.time.Duration;
@@ -361,8 +363,9 @@ public class ReturnsDepartment {
         throw new RuntimeException("Failed to click on search tab after " + maxAttempt + " attempts");
 
     }
-    public ReturnsDepartment clickOnSearchBtn() throws InterruptedException{
-        int maxAttempt = 10;
+    private static final Logger logger = LoggerFactory.getLogger(ReturnsDepartment.class);
+       public ReturnsDepartment clickOnSearchBtn() throws InterruptedException{
+     /*   int maxAttempt = 10;
         for (int attempt = 0; attempt < maxAttempt; attempt++) {
             try {
                 WebElement search= wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -382,6 +385,40 @@ public class ReturnsDepartment {
             }
         }
         throw new RuntimeException("Failed to click on search button after " + maxAttempt + " attempts");
+    }
+
+      */
+        int maxAttempts = 10;
+        int attempt = 0;
+
+        while (attempt < maxAttempts) {
+            try {
+                WebElement search = wait.until(ExpectedConditions.visibilityOfElementLocated(searchBtn));
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                executor.executeScript("arguments[0].scrollIntoView(true);", search);
+                search.click();
+                Thread.sleep(2000);
+                // Wait for search results to display
+                wait.until(ExpectedConditions.visibilityOfElementLocated(searchData));
+
+                return this; // Successful click
+
+            } catch (NoSuchElementException | StaleElementReferenceException e) {
+                logger.error("Element issue: ", e);
+                handleNavigationAndRetry();
+            } catch (Exception e) {
+                logger.error("Unexpected error: ", e);
+                handleNavigationAndRetry();
+            }
+            attempt++;
+        }
+
+        throw new RuntimeException("Failed to click on search button after " + maxAttempts + " attempts.");
+
+    }
+    private void handleNavigationAndRetry() throws InterruptedException{
+        navigateToReturnsDepartmentPage();
+        clickOnSearchTab();
     }
     public boolean searchResultIsDisplayed() throws InterruptedException{
         int maxRetry = 5;
