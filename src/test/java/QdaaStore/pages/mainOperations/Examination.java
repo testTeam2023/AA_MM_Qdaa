@@ -269,11 +269,10 @@ private final By  editBtnParent = By.xpath("//table[@id=\"tblDataTableClient\"]/
         Actions actions =new Actions(driver);
         actions.moveToElement(edit).click().build().perform();
 
-        Thread.sleep(1500);
+        Thread.sleep(2500);
 
         WebElement ok = waitForClickableElement(okBtn);
-        Actions actions1 =new Actions(driver);
-        actions.moveToElement(ok).click().build().perform();
+        ok.click();
         return this;
 
     }

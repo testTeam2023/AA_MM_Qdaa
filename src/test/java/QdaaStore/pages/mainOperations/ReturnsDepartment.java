@@ -297,15 +297,44 @@ public class ReturnsDepartment {
 
     public ReturnsDepartment clickOnFixedBtn() throws InterruptedException{
 
-        WebElement fixedButton = waitForClickableElement(fixed);
-        fixedButton.click();
-        Thread.sleep(1500);
+        int retry = 0 ;  int maxRetry = 3;
+        while (retry<maxRetry) {
+            try {
 
-        WebElement okButton = waitForClickableElement(okBtn);
-        okButton.click();
+                WebElement fixedButton = waitForClickableElement(fixed);
+                wait.until(ExpectedConditions.elementToBeClickable(fixedButton)).click();
+                Thread.sleep(2000);
+                WebElement okButton = waitForClickableElement(okBtn);
+                wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
+                break;
+            } catch (ElementClickInterceptedException e) {
+                // Handle case when the element click is intercepted
+                System.out.println("Element click intercepted, handling modal or overlay.");
+                closeModalOrHandleOverlay();
+                retry++; // Retry after handling overlay
+            } catch (Exception e) {
+                // General exception handling
+                System.out.println("An error occurred while clicking on buttons: " + e.getMessage());
+                retry++;
+            }
+        }
 
-        return this ;
+        return this;
     }
+    private void closeModalOrHandleOverlay() {
+        try {
+            // Check if a modal or overlay is present and close it
+            WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("div-success-modal")));
+            if (modal.isDisplayed()) {
+                WebElement closeModalButton = waitForClickableElement(okBtn); // Update selector as necessary
+                closeModalButton.click();
+                wait.until(ExpectedConditions.invisibilityOf(modal));
+            }
+        } catch (Exception e) {
+            System.out.println("No modal or overlay to close: " + e.getMessage());
+        }
+    }
+
     public ReturnsDepartment clickOnNotFixedBtn() {
         try {
 

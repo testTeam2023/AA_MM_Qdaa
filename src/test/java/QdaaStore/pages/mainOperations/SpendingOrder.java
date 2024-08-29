@@ -464,7 +464,8 @@ public class SpendingOrder {
 
         WebElement ok = waitForClickableElement(okBtn);
         Actions actions1 =new Actions(driver);
-        actions.moveToElement(ok).click().build().perform();
+        actions1.moveToElement(ok).click().build().perform();
+
         return this;
 
     }
